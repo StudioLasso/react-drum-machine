@@ -2,7 +2,7 @@
   "bpm":120,
   "time":120,
   "bitnumber":0,
-  "instruments" :[
+  "instruments" :[ 
     {"id": 1, "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": []},
     {"id": 2, "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": []},
     {"id": 3, "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},

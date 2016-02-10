@@ -3,12 +3,31 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-
+var proxy = require('proxy-middleware');
+var url = require('url');
 var DRUMKIT_FILE = path.join(__dirname, 'drumkit.json');
+var webpack = require('webpack');
+var WebpackDevServer = require('webpack-dev-server');
+var config = require('./webpack.config.js');
+const PORT = process.env.PORT || 8080;
 
-app.set('port', (process.env.PORT || 31000));
+new WebpackDevServer(webpack(config), { // Start a server
+  publicPath: config.output.publicPath,
+  hot: true, // With hot reloading
+  inline: false,
+  historyApiFallback: false,
+  quiet: false,
+  proxy: {
+    '/api*' : 'http://localhost:8081'
+  }
+}).listen(PORT, function (err, result) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Server started');
+  }
+});
 
-app.use('/', express.static(path.join(__dirname, 'dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -50,7 +69,4 @@ app.post('/api/setdrumkit', function(req, res) {
   });
 });
 
-
-app.listen(app.get('port'), function() {
-  console.log('Server started: http://localhost:' + app.get('port') + '/');
-});
+app.listen(PORT+1);

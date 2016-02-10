@@ -13,23 +13,33 @@ const config = {
       'react',
       'react-dom'
 		],
-    app: './src/js/main.js'
+    app: [
+      './src/assets/img/hihat.png',
+      './src/assets/img/kick.png',
+      './src/assets/img/snare.png',
+      './src/assets/img/tome1.png',
+      './src/assets/sounds/hihat.mp3',
+      './src/assets/sounds/kick.mp3',
+      './src/assets/sounds/snare.mp3',
+      './src/assets/sounds/tom1.mp3',
+      './src/js/main.js'
+    ]
   },
 
   output: {
-    path: 'dist',
+    path: path.resolve('./dist'),
     filename: 'bundle.js',
     publicPath: process.env.PUBLIC_PATH || '/'
   },
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
-      { test: /\.png$/, loader: 'file?name=[name].[ext]' },
-      { test: /\.mp3$/, loader: 'file?name=[name].[ext]' },
-      { test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url?limit=100000&mimetype=application/font-woff' },
-			{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=100000&mimetype=application/octet-stream' },
-			{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: 'file' },
-			{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=100000&mimetype=image/svg+xml' }
+      { test: /\.png$/, loader: 'file?name=img/[name].[ext]' },
+      { test: /\.mp3$/, loader: 'file?name=sounds/[name].[ext]' },
+      { test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url?limit=100000&mimetype=application/font-woff&name=fonts/[name].[ext]' },
+			{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=100000&mimetype=application/octet-stream&name=fonts/[name].[ext]' },
+			{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: 'file?name=fonts/[name].[ext]' },
+			{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=100000&mimetype=image/svg+xml&name=fonts/[name].[ext]' }
     ]
   },
   plugins: [
@@ -54,6 +64,7 @@ if (process.env.NODE_ENV !== 'production') {
       'css?sourceMap'
     ]}
   ]);
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
 } else {
 	config.plugins = config.plugins.concat([
 		new webpack.optimize.OccurenceOrderPlugin(),

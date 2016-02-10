@@ -2,15 +2,19 @@
   "name": "flux",
   "version": "0.0.1",
   "description": "Drumkit",
-  "author": "Gilles Larroze",
+  "author": "Gilles Larroze <glarroze@gmail.com>",
+  "contributors": [
+    { "name": "Paul Musso", "email": "cpopul@gmail.com"}
+  ],
   "repository": "",
   "readme": "",
   "license": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --host 0.0.0.0",
+    "start": "node server.dev.js",
     "build": "cross-env NODE_ENV=production webpack --progress --colors -p",
-    "serve": "cross-env NODE_ENV=production webpack-dev-server --host 0.0.0.0"
+    "serve": "cross-env NODE_ENV=production webpack-dev-server --host 0.0.0.0",
+    "semantic-release": "semantic-release pre && semantic-release post"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
@@ -19,30 +23,43 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-1": "^6.5.0",
+    "body-parser": "^1.4.3",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
-    "es6-promise": "^1.0.0",
+    "cz-conventional-changelog": "^1.1.5",
+    "express": "^4.4.5",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "flux": "^2.0.1",
-    "gulp": "^3.8.11",
-    "gulp-browserify": "^0.5.0",
-    "gulp-concat": "^2.2.0",
+    "ghooks": "^1.0.3",
     "html-webpack-plugin": "^2.8.1",
     "object-assign": "^1.0.0",
-    "reactify": "^0.13.1",
+    "proxy-middleware": "^0.15.0",
     "script-loader": "^0.6.1",
+    "semantic-release": "^4.3.5",
     "style-loader": "^0.13.0",
+    "url": "^0.11.0",
     "url-loader": "^0.5.7",
+    "validate-commit-msg": "^2.0.0",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "body-parser": "^1.4.3",
     "bootstrap": "^3.3.6",
-    "express": "^4.4.5",
     "jquery": "2.2.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "commit-msg": "validate-commit-msg"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StudioLasso/Drumkit.git"
   }
 }
