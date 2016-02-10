@@ -49,7 +49,7 @@ const config = {
 		}),
 		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
     new webpack.DefinePlugin({
-      API_GET_DRUMKIT: process.env.API_GET_DRUMKIT || JSON.stringify('/api/getdrumkit')
+      API_GET_DRUMKIT: JSON.stringify(process.env.API_GET_DRUMKIT || '/api/getdrumkit')
     })
 	],
 	progress: true,
