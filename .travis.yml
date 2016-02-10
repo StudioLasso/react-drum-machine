@@ -9,7 +9,7 @@ node_js:
   - "5"
 before_script:
   - npm prune
-script: PUBLIC_PATH=/Drumkit npm run build
+script: PUBLIC_PATH=/Drumkit API_GET_DRUMKIT=https://raw.githubusercontent.com/StudioLasso/Drumkit/master/drumkit.json npm run build
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
   - python travis_after_all.py

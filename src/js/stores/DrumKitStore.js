@@ -176,7 +176,7 @@ function playBit(instrumentindex, bitindex, bitvalue){
 
 function loadInstrumentsFromServer() {
   $.ajax({
-    url: "/api/getdrumkit",
+    url: API_GET_DRUMKIT,
     dataType: 'json',
     cache: false,
     success: function(data) {

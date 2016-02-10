@@ -47,7 +47,10 @@ const config = {
 			template: './src/index.html',
 			inject: 'body'
 		}),
-		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+    new webpack.DefinePlugin({
+      API_GET_DRUMKIT: process.env.API_GET_DRUMKIT || JSON.stringify('/api/getdrumkit')
+    })
 	],
 	progress: true,
   devtool: 'source-map'
