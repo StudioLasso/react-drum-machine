@@ -25,19 +25,19 @@ var DrumKitConsole = React.createClass({
           <div className="row">
           <form className="form" role="form">
           <div className="col-xs-1">
-            <label for="ex1">time:</label>
+            <label htmlFor="ex1">time:</label>
             <input type="number" className="form-control" step="1" min="0" id="time" value={this.props.time} onChange={this.timeChange} aria-describedby="basic-addon3"/>
           </div>
           <div className="col-xs-1">
-            <label for="ex1">bpm:</label>
+            <label htmlFor="ex1">bpm:</label>
             <input type="number" className="form-control" step="1" min="0" id="bpm" value={this.props.bpm} onChange={this.bpmChange} aria-describedby="basic-addon3"/>
           </div>
           <div className="col-xs-1">
-            <label for="ex1">bitnumber:</label>
+            <label htmlFor="ex1">bitnumber:</label>
             <input type="number" className="form-control" readOnly={true} step="1" min="0" id="bitnumber" value={this.props.bitnumber} aria-describedby="basic-addon3"/>
           </div>
           <div className="col-xs-1">
-            <label for="ex1">ElapsedTime:</label>
+            <label htmlFor="ex1">ElapsedTime:</label>
             <input type="number" className="form-control" min="0" step="any" value={this.props.elapsedtime} onChange={this.pausedTimeChange} id="elapsedtime" aria-describedby="basic-addon3"/>
           </div>
          </form>
