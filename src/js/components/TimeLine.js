@@ -6,7 +6,13 @@ function getSecondsWidth(timeWidth, songTime) {
 }
 
 function getElapsedTimeWidth(timeWidth, songTime, elapsedTime){
-  return timeWidth / songTime * elapsedTime;
+  if(timeWidth / songTime * elapsedTime){
+    return timeWidth / songTime * elapsedTime;
+  }
+  else {
+    return 0;
+  }
+
 }
 
 var TimeLine = React.createClass({
