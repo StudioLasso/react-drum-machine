@@ -16,6 +16,13 @@ var DrumKitActions = {
     })
   },
 
+  dpbChange: function(item){
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.CHANGE_DPB,
+      item: item
+    })
+  },
+
   bitPushed: function(bitpushed){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.BIT_PUSHED,

@@ -18,14 +18,14 @@ var CurrentBitDisplayer = React.createClass({
     var thisStyle = {
       'position':'absolute',
       'height': '100%',
-      'backgroundColor': 'beige',
+      'backgroundColor': '#555',
       'width': this.props.timewidth,
       'zIndex': '-1'
     }
     var currentBitShower = {
       'height': '100%',
       'width': this.props.bitswidth,
-      'backgroundColor': 'blueviolet',
+      'backgroundColor': '#eee',
       'left': getElapsedTimeWidth(this.props.bitswidth, this.props.currentbit),
       'position': 'absolute'
     }

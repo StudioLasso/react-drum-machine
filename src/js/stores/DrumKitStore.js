@@ -14,6 +14,8 @@ var _data = {
   time:0,
   bitnumber:0,
   elapsedtime:0,
+  divisionperbeat:1,
+  beatpermeasure:1,
   instruments:[]
 }
 
@@ -72,7 +74,8 @@ function loadSound(url) {
 }
 
 function setBitNumber(){
-  _data.bitnumber =parseInt(_data.bpm)*parseInt(_data.time)/60*2;
+  console.log('_data.divisionperbeat: ' + _data.divisionperbeat);
+  _data.bitnumber =parseInt(_data.bpm)*parseInt(_data.time) / 60 * _data.divisionperbeat;
 
   //Pour chaque instrument
     for (var i = 0; i < _data.instruments.length; i++){
@@ -139,7 +142,7 @@ function advanceNote() {
       stopDrum();
     }
     //0.25 because each square is a 16th note
-    noteTime += secondsPerBeat / 2;
+    noteTime += secondsPerBeat / _data.divisionperbeat;
 }
 
 
@@ -182,6 +185,8 @@ function loadInstrumentsFromServer() {
     success: function(data) {
       _data.bpm= data.bpm,
       _data.time=data.time,
+      _data.beatpermeasure = data.beatpermeasure,
+      _data.divisionperbeat = data.divisionperbeat,
       _data.instruments=  data.instruments,
       setBitNumber(),
       DrumKitStore.emitChange();
@@ -270,9 +275,14 @@ DrumKitDispatcher.register(function(payload){
       setBitNumber();
       DrumKitStore.emitChange();
       break;
-
     case DrumKitConstants.CHANGE_BPM:
         _data.bpm = action.item;
+        setBitNumber();
+        DrumKitStore.emitChange();
+        break;
+    case DrumKitConstants.CHANGE_DPB:
+    console.log('CHANGE_DPB: ' + action.item)
+        _data.divisionperbeat = action.item;
         setBitNumber();
         DrumKitStore.emitChange();
         break;

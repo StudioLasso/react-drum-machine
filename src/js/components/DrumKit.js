@@ -16,6 +16,8 @@ function getdrumkitData() {
     time: dkinfo.time,
     bitnumber:dkinfo.bitnumber,
     instruments: dkinfo.instruments,
+    beatpermeasure:dkinfo.beatpermeasure,
+    divisionperbeat:dkinfo.divisionperbeat,
     elapsedtime: dkinfo.elapsedtime
   };
 }
@@ -111,7 +113,7 @@ var DrumKit = React.createClass({
             </div>
             <div style={{'clear':'both'}}></div>
             <div>
-              <DrumKitConsole elapsedtime={this.state.elapsedtime} bitnumber={this.state.bitnumber} bpm={this.state.bpm} time={this.state.time}/>
+              <DrumKitConsole elapsedtime={this.state.elapsedtime} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} bitnumber={this.state.bitnumber} bpm={this.state.bpm} time={this.state.time}/>
             </div>
         </div>
       )

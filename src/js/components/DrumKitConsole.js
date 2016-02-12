@@ -2,10 +2,7 @@ var React = require('react');
 var DrumKitActions = require('../actions/DrumKitActions');
 
 
-function sbbClicked(event){
-   console.log($(event.target).text());
-   $(event.target).parents('.btn-group').find('.dropdown-toggle').html($(event.target).text()+' <span class="caret"></span>');
-}
+
 
 var DrumKitConsole = React.createClass({
   timeChange: function(event) {
@@ -15,8 +12,14 @@ var DrumKitConsole = React.createClass({
     DrumKitActions.bpmChange(event.target.value);
   },
 
-  bitperbarChange: function(event) {
+  beatpermeasureChange: function(event) {
     console.log(event.target.value);
+  },
+
+  dpbClicked: function(event){
+    console.log(event.target.getAttribute('value'));
+    //  $(event.target).parents('.btn-group').find('.dropdown-toggle').html($(event.target).text()+' <span class="caret"></span>');
+     DrumKitActions.dpbChange(event.target.getAttribute('value'));
   },
 
   handlePlay:function(){
@@ -49,21 +52,21 @@ var DrumKitConsole = React.createClass({
             <input type="number" className="form-control" step="1" min="0" id="bpm" value={this.props.bpm} onChange={this.bpmChange} aria-describedby="basic-addon3"/>
           </div>
           <div className="col-xs-1">
-            <label htmlFor="ex1">SBB:</label>
+            <label htmlFor="ex1">Division/Beat:</label>
             <div className="btn-group">
                 <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Action <span className="caret"></span>
+                  {this.props.divisionperbeat} <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu">
-                  <li><a href="#" onClick={sbbClicked}>1</a></li>
-                  <li><a href="#" onClick={sbbClicked}>2</a></li>
-                  <li><a href="#" onClick={sbbClicked}>4</a></li>
+                  <li><a href="#" value="1" onClick={this.dpbClicked}>1</a></li>
+                  <li><a href="#" value="2" onClick={this.dpbClicked}>2</a></li>
+                  <li><a href="#" value="4" onClick={this.dpbClicked}>4</a></li>
                 </ul>
             </div>
           </div>
           <div className="col-xs-1">
-            <label htmlFor="ex1">BeatPerbar:</label>
-            <input type="number" className="form-control" step="1" min="0" id="bitnumber" value={this.props.bitperbar} onChange={this.bitperbarChange} aria-describedby="basic-addon3"/>
+            <label htmlFor="ex1">Beat/Measure:</label>
+            <input type="number" className="form-control" step="1" min="0" id="bitnumber" value={this.props.beatpermeasure} onChange={this.beatpermeasureChange} aria-describedby="basic-addon3"/>
           </div>
           <div className="col-xs-1">
             <label htmlFor="ex1">bitnumber:</label>

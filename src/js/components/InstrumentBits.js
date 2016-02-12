@@ -4,22 +4,17 @@ var DrumKitStore = require('../stores/DrumKitStore');
 
 var bitOnStyle = {
   'border': '1px solid silver',
-  'borderRadius':'5px',
-  'width':'40%',
+  'width':'80%',
   'height':'80%',
   'margin':'auto',
   'background':'silver'
 }
 
 var bitOffStyle = {
-  'border': '1px solid silver',
-  'borderRadius':'5px',
-  'width':'40%',
+  'width':'50%',
   'height':'80%',
   'margin':'auto'
 }
-
-
 
 function getBitStyle(bitValue) {
   if(bitValue==1){return bitOnStyle}
@@ -83,7 +78,7 @@ var InstrumentBits = React.createClass({
       },
       bitContentStyle: {
         'float': 'left',
-        'borderRight': '1px solid silver',
+        'borderRight': '1px solid #777',
         'width':this.props.bitsWidth,
         'height':'100%',
       },
