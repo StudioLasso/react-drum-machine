@@ -18,7 +18,7 @@ function getElapsedTimeWidth(timeWidth, songTime, elapsedTime){
 var TimeLine = React.createClass({
   render:function(){
     var second = {
-      'outline':'1px solid gray',
+      'borderLeft': '1px solid',
       'width':getSecondsWidth(this.props.timeWidth, this.props.songTime),
       'height':'8',
       'float':'left',
@@ -39,6 +39,7 @@ var TimeLine = React.createClass({
         <div className="timeLine" style={this.props.style}>
           <div className="progressBar" style={elapsedtime}></div>
           {rows}
+          <span className="glyphicon glyphicon-triangle-bottom"></span>
         </div>
       );
     }

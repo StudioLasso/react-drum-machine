@@ -57,16 +57,19 @@ var DrumKit = React.createClass({
 
   },
 
-  handleKeyPress:function(){
-    switch(event.keyCode.toString()) {
-            case "104":
+  handleKeyDown:function(event){
+    console.log(event);
+    console.log(event.keyCode);
+    console.log(String.fromCharCode(event.keyCode));
+    switch(event.keyCode) {
+            case 72:
                 DrumKitActions.changeBit(0, this.state.currentbit, 1);
                 break;
-            case "107":
-                DrumKitActions.changeBit(2, this.state.currentbit, 1);
-                break;
-            case "115":
+            case 83:
                 DrumKitActions.changeBit(1, this.state.currentbit, 1);
+                break;
+            case 75:
+                DrumKitActions.changeBit(3, this.state.currentbit, 1);
                 break;
             default:
             //do nothing
@@ -90,14 +93,14 @@ var DrumKit = React.createClass({
       };
       return (
 
-        <div className="drumKit" onKeyPress={this.handleKeyPress}>
+        <div className="drumKit" onKeyDown={this.handleKeyDown}>
           <h3 onClick={this.handleClick}>Load Audio Context</h3>
             <div className="instrumentInfosContent" style={{'float':'left'}}>
               <div className="emptyTab" style={s.tlcontent}>
               </div>
               <InstrumentInfos instruments={this.state.instruments}/>
             </div>
-            <div className="notesContent" style={{'float':'left','maxWidth':'1000px','overflowX':'auto','position':'relative'}}>
+            <div className="notesContent" style={{'float':'left','maxWidth':'1000px','overflowX':'auto','overflowY':'hidden','position':'relative'}}>
               <div className="timeLineContainer" style={s.timeStyle}>
                 <TimeLine songTime={this.state.time} elapsedtime={this.state.elapsedtime} timeWidth={timeWidth} style={s.tlcontent} />
               </div>

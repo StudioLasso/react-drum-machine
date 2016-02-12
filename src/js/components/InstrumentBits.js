@@ -41,14 +41,7 @@ var InstrumentBits = React.createClass({
   },
 
    shouldComponentUpdate: function(nextProps, nextState) {
-     console.log("shouldComponentUpdate_bitPushed: " + this.props.bitPushed);
-     console.log("shouldComponentUpdate_bitPushed_(nextState): " + nextProps.bitPushed);
      console.log(this.state[nextProps.bitPushed] != nextState[nextProps.bitPushed])
-    //  console.log("bitClicked: " + bitClicked)
-    //  console.log(this.state[bitClicked]);
-    //  console.log(nextState[bitClicked]);
-    //  console.log(this.state[bitClicked] != nextState[bitClicked]);
-    //  console.log(arraysEqual(this.state, nextState))
      return this.state[nextProps.bitPushed] != nextState[nextProps.bitPushed] ||
      this.props.bitsWidth != nextProps.bitsWidth;
   },
@@ -81,7 +74,6 @@ var InstrumentBits = React.createClass({
     var s = {
       instrumentBits: {
         'height':'24px',
-        'outline':'1px solid',
         'display': 'table',
         'width': this.props.timeWidth
       },
@@ -91,9 +83,9 @@ var InstrumentBits = React.createClass({
       },
       bitContentStyle: {
         'float': 'left',
-        'outline':'1px solid silver',
+        'borderRight': '1px solid silver',
         'width':this.props.bitsWidth,
-        'height':'10',
+        'height':'100%',
       },
       bitIsPlayedStyle: {
         'float': 'left',

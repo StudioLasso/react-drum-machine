@@ -72,7 +72,7 @@ function loadSound(url) {
 }
 
 function setBitNumber(){
-  _data.bitnumber =parseInt(_data.bpm)*parseInt(_data.time)/60;
+  _data.bitnumber =parseInt(_data.bpm)*parseInt(_data.time)/60*2;
 
   //Pour chaque instrument
     for (var i = 0; i < _data.instruments.length; i++){
@@ -139,7 +139,7 @@ function advanceNote() {
       stopDrum();
     }
     //0.25 because each square is a 16th note
-    noteTime += secondsPerBeat;
+    noteTime += secondsPerBeat / 2;
 }
 
 
