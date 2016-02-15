@@ -177,7 +177,7 @@ function playBit(instrumentindex, bitindex, bitvalue){
 }
 
 
-function loadInstrumentsFromServer() {
+function loadDrumKit() {
   $.ajax({
     url: API_GET_DRUMKIT,
     dataType: 'json',
@@ -189,6 +189,8 @@ function loadInstrumentsFromServer() {
       _data.divisionperbeat = data.divisionperbeat,
       _data.instruments=  data.instruments,
       setBitNumber(),
+      loadAudioContext(),
+      loadSounds(),
       DrumKitStore.emitChange();
     }.bind(this),
     error: function(xhr, status, err) {
@@ -296,7 +298,7 @@ DrumKitDispatcher.register(function(payload){
         DrumKitStore.emitPausedTime();
         break;
     case DrumKitConstants.LOAD_DRUMKIT:
-        loadInstrumentsFromServer();
+        loadDrumKit();
         DrumKitStore.emitChange();
         break;
 
@@ -312,8 +314,6 @@ DrumKitDispatcher.register(function(payload){
         break;
 
     case DrumKitConstants.PLAY_DRUMKIT:
-        // startTime =  audioCtx.currentTime;
-        // playDrum();
         launchDrumKit();
         break;
     case DrumKitConstants.STOP_DRUMKIT:
@@ -321,9 +321,7 @@ DrumKitDispatcher.register(function(payload){
         break;
 
     case DrumKitConstants.ADD_ITEM:
-      loadAudioContext();
-      loadSounds();
-      DrumKitStore.emitChange();
+        console.log(action);
       break;
   }
 
