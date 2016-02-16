@@ -5,6 +5,7 @@ var InstrumentBitsList = require('./InstrumentBitsList');
 var InstrumentInfos = require('./InstrumentInfos');
 var DrumKitConsole = require('./DrumKitConsole');
 var TimeLine = require('./TimeLine');
+var Metronome = require('./Metronome');
 var CurrentBitDisplayer = require('./CurrentBitDisplayer');
 
 var timeWidth = 6200;
@@ -99,6 +100,7 @@ var DrumKit = React.createClass({
           <h3 onClick={this.handleClick}>Load Audio Context</h3>
             <div className="instrumentInfosContent" style={{'float':'left'}}>
               <div className="emptyTab" style={s.tlcontent}>
+                <Metronome bpm={this.state.bpm} currentbit={this.state.currentbit}/>
               </div>
               <InstrumentInfos instruments={this.state.instruments}/>
             </div>
