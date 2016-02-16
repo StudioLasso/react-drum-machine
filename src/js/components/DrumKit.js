@@ -15,7 +15,7 @@ function getdrumkitData() {
   return {
     bpm: dkinfo.bpm,
     time: dkinfo.time,
-    bitnumber:dkinfo.bitnumber,
+    divisionnumber:dkinfo.divisionnumber,
     instruments: dkinfo.instruments,
     beatpermeasure:dkinfo.beatpermeasure,
     divisionperbeat:dkinfo.divisionperbeat,
@@ -23,9 +23,15 @@ function getdrumkitData() {
   };
 }
 
-function getCurrentBit(){
+function getCurrentDivision(){
   return{
-    currentbit: DrumKitStore.getCurrentBit()
+    currentdivision: DrumKitStore.getCurrentDivision()
+  };
+}
+
+function GetCurrentBeat(){
+  return{
+    currentbeat: DrumKitStore.getCurrentBeat()
   };
 }
 
@@ -36,8 +42,8 @@ function getGetBitPushed(){
   };
 }
 
-function getBitsWidth(bitnumber) {
-  return timeWidth / bitnumber;
+function getBitsWidth(divisionnumber) {
+  return timeWidth / divisionnumber;
 }
 
 function GetCurrentTime(){
@@ -53,7 +59,8 @@ var DrumKit = React.createClass({
 
   componentDidMount: function() {
     DrumKitStore.addChangedListener(this._onChange);
-    DrumKitStore.addBitListener(this._onBitChange);
+    DrumKitStore.addCurrentBeatListener(this._onBeatChange)
+    DrumKitStore.addDivisionListener(this._onDivisionChange);
     DrumKitStore.addPausedsedTimeListener(this._OnTimeChanged);
     DrumKitStore.addBitPushedListener(this._OnBitPushed);
     DrumKitActions.loadDrumKit();
@@ -66,18 +73,18 @@ var DrumKit = React.createClass({
     console.log(String.fromCharCode(event.keyCode));
     switch(event.keyCode) {
             case 72:
-                DrumKitActions.changeBit(0, this.state.currentbit, 1);
+                DrumKitActions.changeBit(0, this.state.currentdivision, 1);
                 break;
             case 83:
-                DrumKitActions.changeBit(1, this.state.currentbit, 1);
+                DrumKitActions.changeBit(1, this.state.currentdivision, 1);
                 break;
             case 75:
-                DrumKitActions.changeBit(3, this.state.currentbit, 1);
+                DrumKitActions.changeBit(3, this.state.currentdivision, 1);
                 break;
             default:
             //do nothing
         }
-        DrumKitActions.bitPushed(this.state.currentbit);
+        DrumKitActions.bitPushed(this.state.currentdivision);
   },
     handleClick:function(){
       DrumKitActions.addItem('this is the item');
@@ -100,7 +107,7 @@ var DrumKit = React.createClass({
           <h3 onClick={this.handleClick}>Load Audio Context</h3>
             <div className="instrumentInfosContent" style={{'float':'left'}}>
               <div className="emptyTab" style={s.tlcontent}>
-                <Metronome bpm={this.state.bpm} currentbit={this.state.currentbit}/>
+                <Metronome bpm={this.state.bpm} currentbeat={this.state.currentbeat}/>
               </div>
               <InstrumentInfos instruments={this.state.instruments}/>
             </div>
@@ -109,13 +116,13 @@ var DrumKit = React.createClass({
                 <TimeLine songTime={this.state.time} elapsedtime={this.state.elapsedtime} timeWidth={timeWidth} style={s.tlcontent} />
               </div>
               <div className="InstrumentBitsListContainer" style={s.timeStyle}>
-                <CurrentBitDisplayer timewidth={timeWidth} bitswidth={getBitsWidth(this.state.bitnumber)} currentbit={this.state.currentbit} />
-                <InstrumentBitsList timeWidth={timeWidth} bitPushed={this.state.bitPushed} bitsWidth={getBitsWidth(this.state.bitnumber)} instruments={this.state.instruments}/>
+                <CurrentBitDisplayer timewidth={timeWidth} bitswidth={getBitsWidth(this.state.divisionnumber)} currentdivision={this.state.currentdivision} />
+                <InstrumentBitsList timeWidth={timeWidth} bitPushed={this.state.bitPushed} bitsWidth={getBitsWidth(this.state.divisionnumber)} instruments={this.state.instruments}/>
               </div>
             </div>
             <div style={{'clear':'both'}}></div>
             <div>
-              <DrumKitConsole elapsedtime={this.state.elapsedtime} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} bitnumber={this.state.bitnumber} bpm={this.state.bpm} time={this.state.time}/>
+              <DrumKitConsole elapsedtime={this.state.elapsedtime} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} divisionnumber={this.state.divisionnumber} bpm={this.state.bpm} time={this.state.time}/>
             </div>
         </div>
       )
@@ -123,12 +130,15 @@ var DrumKit = React.createClass({
   _onChange: function() {
     this.setState(getdrumkitData());
   },
-  _onBitChange: function() {
-    this.setState(getCurrentBit());
+  _onDivisionChange: function() {
+    this.setState(getCurrentDivision());
   },
 
   _OnBitPushed: function() {
     this.setState(getGetBitPushed());
+  },
+  _onBeatChange: function() {
+    this.setState(GetCurrentBeat());
   },
 
   _OnTimeChanged: function() {

@@ -8,13 +8,13 @@ var metronomePointStyle = {
   'left': '0px'
 }
 
-function moveMetronome(currentbit){
-  if (currentbit % 2 == 0)
+function moveMetronome(currentbeat){
+  if (currentbeat % 2 == 0)
   {
-    $(".metronomePoint").animate({'left': '0px'},100);
+    $(".metronomePoint").animate({'left': '0px'},10);
   }
   else {
-    $(".metronomePoint").animate({'left': '15px'},100);
+    $(".metronomePoint").animate({'left': '15px'},10);
   }
 
 }
@@ -23,7 +23,7 @@ function moveMetronome(currentbit){
 var Metronome = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
-    moveMetronome(nextProps.currentbit);
+    moveMetronome(nextProps.currentbeat);
 },
 
   handleMove: function()

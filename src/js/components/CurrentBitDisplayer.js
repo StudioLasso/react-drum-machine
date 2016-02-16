@@ -1,16 +1,15 @@
 var React = require('react');
 
-function getElapsedTimeWidth(bitwidth, currentbit)
+function getElapsedTimeWidth(bitwidth, currentdivision)
 {
-  if(bitwidth * currentbit)
+  if(bitwidth * currentdivision)
   {
-    return bitwidth * currentbit
+    return bitwidth * currentdivision
   }
   else {
     return 0;
   }
 }
-
 
 var CurrentBitDisplayer = React.createClass({
 
@@ -26,7 +25,7 @@ var CurrentBitDisplayer = React.createClass({
       'height': '100%',
       'width': this.props.bitswidth,
       'backgroundColor': '#eee',
-      'left': getElapsedTimeWidth(this.props.bitswidth, this.props.currentbit),
+      'left': getElapsedTimeWidth(this.props.bitswidth, this.props.currentdivision),
       'position': 'absolute'
     }
     return (
