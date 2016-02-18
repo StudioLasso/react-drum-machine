@@ -1,9 +1,9 @@
 {
-  "bpm":120,
-  "time":120,
+  "bpm":80,
+  "time":240,
   "bitnumber":0,
   "beatpermeasure":4,
-  "divisionperbeat":1,
+  "divisionperbeat":2,
   "instruments" :[
     {"id": 1, "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
     {"id": 2, "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1]},

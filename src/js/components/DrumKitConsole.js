@@ -5,6 +5,9 @@ var DrumKitActions = require('../actions/DrumKitActions');
 
 
 var DrumKitConsole = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return this.props != nextProps;
+ },
   timeChange: function(event) {
     DrumKitActions.timeChange(event.target.value);
   },
@@ -13,7 +16,7 @@ var DrumKitConsole = React.createClass({
   },
 
   beatpermeasureChange: function(event) {
-    console.log(event.target.value);
+      DrumKitActions.beatpermeasureChange(event.target.value);
   },
 
   dpbClicked: function(event){
@@ -33,6 +36,7 @@ var DrumKitConsole = React.createClass({
   },
 
   render:function(){
+    console.log('DrumKitConsole: Render-------------------------------------')
       return (
         <div className="drumKitConsole">
         <div className="row">

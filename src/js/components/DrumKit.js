@@ -5,6 +5,7 @@ var InstrumentBitsList = require('./InstrumentBitsList');
 var InstrumentInfos = require('./InstrumentInfos');
 var DrumKitConsole = require('./DrumKitConsole');
 var TimeLine = require('./TimeLine');
+var PlayGround = require('./PlayGround');
 var Metronome = require('./Metronome');
 var CurrentBitDisplayer = require('./CurrentBitDisplayer');
 
@@ -42,8 +43,12 @@ function getGetBitPushed(){
   };
 }
 
-function getBitsWidth(divisionnumber) {
+function getDivisionWidth(divisionnumber) {
   return timeWidth / divisionnumber;
+}
+
+function getBeatsWidth(divisionnumber, divisionperbeat) {
+  return timeWidth / divisionnumber * divisionperbeat;
 }
 
 function GetCurrentTime(){
@@ -90,7 +95,7 @@ var DrumKit = React.createClass({
       DrumKitActions.addItem('this is the item');
     },
     render:function(){
-      console.log("DrumKitRender")
+      console.log('DrumKit: Render-------------------------------------')
       var s = {
         timeStyle: {
           'width':timeWidth
@@ -116,8 +121,8 @@ var DrumKit = React.createClass({
                 <TimeLine songTime={this.state.time} elapsedtime={this.state.elapsedtime} timeWidth={timeWidth} style={s.tlcontent} />
               </div>
               <div className="InstrumentBitsListContainer" style={s.timeStyle}>
-                <CurrentBitDisplayer timewidth={timeWidth} bitswidth={getBitsWidth(this.state.divisionnumber)} currentdivision={this.state.currentdivision} />
-                <InstrumentBitsList timeWidth={timeWidth} bitPushed={this.state.bitPushed} bitsWidth={getBitsWidth(this.state.divisionnumber)} instruments={this.state.instruments}/>
+                <CurrentBitDisplayer  timewidth={timeWidth} beatwidth={getBeatsWidth(this.state.divisionnumber, this.state.divisionperbeat)} currentbeat={this.state.currentbeat} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} />
+                <InstrumentBitsList timeWidth={timeWidth} bitPushed={this.state.bitPushed} divisionsWidth={getDivisionWidth(this.state.divisionnumber)} instruments={this.state.instruments}/>
               </div>
             </div>
             <div style={{'clear':'both'}}></div>
@@ -130,6 +135,7 @@ var DrumKit = React.createClass({
   _onChange: function() {
     this.setState(getdrumkitData());
   },
+
   _onDivisionChange: function() {
     this.setState(getCurrentDivision());
   },

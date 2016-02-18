@@ -103,6 +103,7 @@ function stopDrum(){
   pausedTime=0;
   DrumKitStore.emitPausedTime();
   DrumKitStore.emitCurrentDivision();
+  DrumKitStore.emitCurrentBeat();
   clearTimeout(timerId);
 }
 
@@ -114,11 +115,13 @@ function launchDrumKit(){
 }
 
 function schedule() {
+  console.log('pitouti--------------------------------------------------------------');
   var currentTime = audioCtx.currentTime;
   // The sequence starts at startTime, so normalize currentTime so that it's 0 at the start of the sequence.
   currentTime -= startTime;
 
   while (noteTime < currentTime + 0.200) {
+    DrumKitStore.emitPausedTime();
     var contextPlayTime = noteTime + startTime;
 
     //Insert playing notes here
@@ -128,7 +131,7 @@ function schedule() {
     }
     DrumKitStore.emitCurrentDivision();
     _data.elapsedtime = currentTime + pausedTime;
-    DrumKitStore.emitPausedTime();
+
 
     for (var i = 0; i < _data.instruments.length; i++){
       if(_data.instruments[i].bits[currentDivision] == 1){
@@ -309,9 +312,12 @@ DrumKitDispatcher.register(function(payload){
         DrumKitStore.emitChange();
         break;
     case DrumKitConstants.CHANGE_DPB:
-    console.log('CHANGE_DPB: ' + action.item)
         _data.divisionperbeat = action.item;
         setDivisions();
+        DrumKitStore.emitChange();
+        break;
+    case DrumKitConstants.CHANGE_BEATPEARMEASURE:
+        _data.beatpermeasure = action.item;
         DrumKitStore.emitChange();
         break;
     case DrumKitConstants.CHANGE_BIT:

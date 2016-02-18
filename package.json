@@ -4,9 +4,15 @@
   "description": "Drumkit",
   "author": "Gilles Larroze <glarroze@gmail.com>",
   "contributors": [
-    { "name": "Paul Musso", "email": "cpopul@gmail.com"}
+    {
+      "name": "Paul Musso",
+      "email": "cpopul@gmail.com"
+    }
   ],
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StudioLasso/Drumkit.git"
+  },
   "readme": "",
   "license": "",
   "scripts": {
@@ -47,6 +53,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "jquery": "2.2.0",
+    "jquery-ui": "^1.10.5",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   },
@@ -57,9 +64,5 @@
     "ghooks": {
       "commit-msg": "validate-commit-msg"
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/StudioLasso/Drumkit.git"
   }
 }

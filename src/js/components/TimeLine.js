@@ -16,7 +16,11 @@ function getElapsedTimeWidth(timeWidth, songTime, elapsedTime){
 }
 
 var TimeLine = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return this.props != nextProps;
+ },
   render:function(){
+    console.log('TimeLine: Render-------------------------------------')
     var second = {
       'borderLeft': '1px solid',
       'width':getSecondsWidth(this.props.timeWidth, this.props.songTime),

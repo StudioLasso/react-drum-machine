@@ -3,7 +3,7 @@ var DrumKitActions = require('../actions/DrumKitActions');
 var DrumKitStore = require('../stores/DrumKitStore');
 
 var bitOnStyle = {
-  'border': '1px solid silver',
+  'border': '1px solid #CCC',
   'width':'80%',
   'height':'80%',
   'margin':'auto',
@@ -38,7 +38,7 @@ var InstrumentBits = React.createClass({
    shouldComponentUpdate: function(nextProps, nextState) {
      console.log(this.state[nextProps.bitPushed] != nextState[nextProps.bitPushed])
      return this.state[nextProps.bitPushed] != nextState[nextProps.bitPushed] ||
-     this.props.bitsWidth != nextProps.bitsWidth;
+     this.props.divisionsWidth != nextProps.divisionsWidth;
   },
 
   bitClicked:function(event){
@@ -65,7 +65,7 @@ var InstrumentBits = React.createClass({
   },
 
   render: function() {
-    console.log("InstrumentBits Render----------------------------------------")
+    console.log('InstrumentBits: Render-------------------------------------')
     var s = {
       instrumentBits: {
         'height':'24px',
@@ -78,14 +78,14 @@ var InstrumentBits = React.createClass({
       },
       bitContentStyle: {
         'float': 'left',
-        'borderRight': '1px solid #777',
-        'width':this.props.bitsWidth,
+        'borderRight': '1px solid #CCC',
+        'width':this.props.divisionsWidth,
         'height':'100%',
       },
       bitIsPlayedStyle: {
         'float': 'left',
         'outline':'1px solid silver',
-        'width':this.props.bitsWidth,
+        'width':this.props.divisionsWidth,
         'height':'10',
         'background':'black'
       }

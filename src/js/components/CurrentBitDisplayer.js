@@ -1,10 +1,21 @@
 var React = require('react');
 
-function getElapsedTimeWidth(bitwidth, currentdivision)
+function getElapsedTimeWidth(beatwidth, currentbeat)
 {
-  if(bitwidth * currentdivision)
+  if(beatwidth * currentbeat)
   {
-    return bitwidth * currentdivision
+    return beatwidth * currentbeat
+  }
+  else {
+    return 0;
+  }
+}
+
+function getMeasureWidth(beatwidth, beatpermeasure, divisionperbeat)
+{
+  if(beatwidth * beatpermeasure * divisionperbeat * 2)
+  {
+    return beatwidth * beatpermeasure * divisionperbeat * 2;
   }
   else {
     return 0;
@@ -12,21 +23,28 @@ function getElapsedTimeWidth(bitwidth, currentdivision)
 }
 
 var CurrentBitDisplayer = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return this.props != nextProps;
+ },
 
   render:function(){
+    console.log('CurrentBitDisplayer: Render-------------------------------------')
     var thisStyle = {
       'position':'absolute',
       'height': '100%',
-      'backgroundColor': '#555',
+      'backgroundColor':'#555',
+      'background': 'linear-gradient(to right, #555 50%, silver 50%)',
+      'backgroundSize': getMeasureWidth(this.props.beatwidth, this.props.beatpermeasure, this.props.divisionperbeat),
       'width': this.props.timewidth,
-      'zIndex': '-1'
+      'zIndex': '-1',
+      'opacity':'0.5'
     }
     var currentBitShower = {
       'height': '100%',
-      'width': this.props.bitswidth,
-      'backgroundColor': '#eee',
-      'left': getElapsedTimeWidth(this.props.bitswidth, this.props.currentdivision),
-      'position': 'absolute'
+      'width': this.props.beatwidth,
+      'backgroundColor': 'black',
+      'left': getElapsedTimeWidth(this.props.beatwidth, this.props.currentbeat),
+      'position': 'absolute',
     }
     return (
       <div className="currentBitDisplayer" style={thisStyle}>

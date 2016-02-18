@@ -23,6 +23,13 @@ var DrumKitActions = {
     })
   },
 
+  beatpermeasureChange: function(item){
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.CHANGE_BEATPEARMEASURE,
+      item: item
+    })
+  },
+
   bitPushed: function(bitpushed){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.BIT_PUSHED,

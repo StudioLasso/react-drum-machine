@@ -21,7 +21,9 @@ function moveMetronome(currentbeat){
 
 
 var Metronome = React.createClass({
-
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return this.props != nextProps;
+  },
   componentWillReceiveProps: function(nextProps) {
     moveMetronome(nextProps.currentbeat);
 },
@@ -32,6 +34,7 @@ var Metronome = React.createClass({
   },
 
   render:function(){
+    console.log('Metronome: Render-------------------------------------')
     return (
       <div className="metronome" style={{'position':'relative', 'background':'#222', 'height':'100%','width':'100%'}}>
         <div className="metronomePoint" style={metronomePointStyle} onClick={this.handleMove}>
