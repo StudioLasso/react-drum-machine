@@ -11,11 +11,11 @@ function getElapsedTimeWidth(beatwidth, currentbeat)
   }
 }
 
-function getMeasureWidth(beatwidth, beatpermeasure, divisionperbeat)
+function getMeasureWidth(beatwidth, beatpermeasure)
 {
-  if(beatwidth * beatpermeasure * divisionperbeat * 2)
+  if(beatwidth * beatpermeasure)
   {
-    return beatwidth * beatpermeasure * divisionperbeat * 2;
+    return beatwidth * beatpermeasure * 2;
   }
   else {
     return 0;
@@ -34,7 +34,7 @@ var CurrentBitDisplayer = React.createClass({
       'height': '100%',
       'backgroundColor':'#555',
       'background': 'linear-gradient(to right, #555 50%, silver 50%)',
-      'backgroundSize': getMeasureWidth(this.props.beatwidth, this.props.beatpermeasure, this.props.divisionperbeat),
+      'backgroundSize': getMeasureWidth(this.props.beatwidth, this.props.beatpermeasure),
       'width': this.props.timewidth,
       'zIndex': '-1',
       'opacity':'0.5'

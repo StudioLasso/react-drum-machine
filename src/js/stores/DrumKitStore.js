@@ -17,8 +17,11 @@ var _data = {
   elapsedtime:0,
   divisionperbeat:1,
   beatpermeasure:1,
+  measurecopied:[],
   instruments:[]
 }
+
+var ispasting = false;
 
 var currentDivision=0;
 var currentBeat=0;
@@ -49,7 +52,6 @@ function playSound(buffer, playtime) {
   source.connect(audioCtx.destination);       // connect the source to the context's destination (the speakers)
   source.start(playtime);                       // play the source now                                           // note: on older systems, may have to use deprecated noteOn(time);
 }
-
 
 function loadSounds()
 {
@@ -191,28 +193,84 @@ function playBit(instrumentindex, bitindex, bitvalue){
     }
 }
 
+var _instruments = [
+  {key:"13", name: "hihat", imgurl: "img/hihat.png", soundurl: "sounds/hihat.mp3", bits: []},
+  {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": []},
+  {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
+  {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": []}
+];
 
 function loadDrumKit() {
-  $.ajax({
-    url: API_GET_DRUMKIT,
-    dataType: 'json',
-    cache: false,
-    success: function(data) {
-      _data.bpm= data.bpm,
-      _data.time=data.time,
-      _data.beatpermeasure = data.beatpermeasure,
-      _data.divisionperbeat = data.divisionperbeat,
-      _data.instruments=  data.instruments,
-      setDivisions(),
-      loadAudioContext(),
-      loadSounds(),
-      DrumKitStore.emitChange();
-    }.bind(this),
-    error: function(xhr, status, err) {
-      console.error(this.props.url, status, err.toString());
-    }.bind(this)
-  });
+  _data.bpm= 80,
+  _data.time=60,
+  _data.beatpermeasure = 4,
+  _data.divisionperbeat = 2,
+  _data.instruments=  _instruments,
+  setDivisions(),
+  loadAudioContext(),
+  loadSounds(),
+  DrumKitStore.emitChange();
 }
+
+function copyMeasure(measureIndex){
+  console.log("copy item: " + measureIndex);
+  var begin = measureIndex * _data.beatpermeasure * _data.divisionperbeat;
+  console.log("begin: " + begin);
+  var end = begin + _data.beatpermeasure * _data.divisionperbeat;
+  console.log("end: " + end);
+  _data.measurecopied = [];
+
+  for (var i = 0; i < _data.instruments.length; i++) {
+    var beatsToCopy = [];
+    for (var j = begin; j < end; j++) {
+      beatsToCopy.push(_data.instruments[i].bits[j]);
+    }
+    _data.measurecopied.push(beatsToCopy);
+  }
+  console.log(_data.measurecopied);
+}
+
+function pastMeasure(targetMeasure){
+  var begin = targetMeasure * _data.beatpermeasure * _data.divisionperbeat;
+  // console.log("begin: " + begin);
+  var end = begin + _data.beatpermeasure * _data.divisionperbeat;
+  // console.log("end: " + end);
+
+  for (var i = 0; i < _data.instruments.length; i++) {
+    var k = 0;
+    for (var j = begin; j < end; j++) {
+      // console.log('instrument : ' + _data.instruments[i].name);
+      // console.log('targetbit: ' + j);
+      // console.log('value to copy: ' + _data.measurecopied[i][k]);
+      _data.instruments[i].bits[j] = _data.measurecopied[i][k];
+      k++;
+    }
+
+  }
+  DrumKitStore.emitBitUpdated();
+}
+
+// function loadDrumKit() {
+//   $.ajax({
+//     url: API_GET_DRUMKIT,
+//     dataType: 'json',
+//     cache: false,
+//     success: function(data) {
+//       _data.bpm= data.bpm,
+//       _data.time=data.time,
+//       _data.beatpermeasure = data.beatpermeasure,
+//       _data.divisionperbeat = data.divisionperbeat,
+//       _data.instruments=  data.instruments,
+//       setDivisions(),
+//       loadAudioContext(),
+//       loadSounds(),
+//       DrumKitStore.emitChange();
+//     }.bind(this),
+//     error: function(xhr, status, err) {
+//       console.error(this.props.url, status, err.toString());
+//     }.bind(this)
+//   });
+// }
 
 var DrumKitStore = assign({}, EventEmitter.prototype, {
 
@@ -222,6 +280,10 @@ var DrumKitStore = assign({}, EventEmitter.prototype, {
 
   getCurrentDivision: function() {
     return currentDivision;
+  },
+
+  isPasting:function(){
+    return ispasting;
   },
 
   getCurrentBeat: function() {
@@ -344,16 +406,24 @@ DrumKitDispatcher.register(function(payload){
         DrumKitStore.emitBitPushed();
         console.log(action)
         break;
-
     case DrumKitConstants.PLAY_DRUMKIT:
         launchDrumKit();
         break;
     case DrumKitConstants.STOP_DRUMKIT:
         stopDrum();
         break;
-
     case DrumKitConstants.ADD_ITEM:
         console.log(action);
+      break;
+    case DrumKitConstants.COPY_MEASURE:
+        copyMeasure(action.item);
+      break;
+    case DrumKitConstants.PAST_MEASURE:
+        pastMeasure(action.item);
+      break;
+    case DrumKitConstants.IS_PASTING:
+        ispasting = action.ispasting;
+        console.log("DrumkitStore: " + ispasting)
       break;
   }
 

@@ -9,6 +9,28 @@ var DrumKitActions = {
     })
   },
 
+  copyMeasure: function(item){
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.COPY_MEASURE,
+      item: item
+    })
+  },
+
+  pastMeasure: function(item){
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.PAST_MEASURE,
+      item: item
+    })
+  },
+
+  isPasting: function(item){
+    console.log("DrumkitAction: " + item)
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.IS_PASTING,
+      ispasting: item
+    })
+  },
+
   bpmChange: function(item){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.CHANGE_BPM,

@@ -1,16 +1,16 @@
 var React = require('react');
 var InstrumentBits= require('./InstrumentBits');
+var DivisionCopier = require('./DivisionCopier');
 var DrumKitActions = require('../actions/DrumKitActions');
 
 
 var InstrumentsList = React.createClass({
 
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return this.props != nextProps;
- },
-
   handleTimeMove:function(e){
     DrumKitActions.setCurrentTime(e.target.value);
+  },
+  componentDidUpdate : function(){
+    DrumKitActions.isPasting(false);
   },
 
   render: function() {
@@ -30,6 +30,7 @@ var InstrumentsList = React.createClass({
     return (
       <div className="instrumentBitsList">
         {instrumentBitNodes}
+        <DivisionCopier measurenumber={this.props.measurenumber} beatpermeasure={this.props.beatpermeasure} beatwidth={this.props.beatwidth} />
       </div>
     );
   },

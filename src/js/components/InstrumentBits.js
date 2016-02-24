@@ -36,8 +36,9 @@ var InstrumentBits = React.createClass({
   },
 
    shouldComponentUpdate: function(nextProps, nextState) {
-     console.log(this.state[nextProps.bitPushed] != nextState[nextProps.bitPushed])
+     console.log("shouldComponentUpdate: " + DrumKitStore.isPasting())
      return this.state[nextProps.bitPushed] != nextState[nextProps.bitPushed] ||
+     DrumKitStore.isPasting() ||
      this.props.divisionsWidth != nextProps.divisionsWidth;
   },
 

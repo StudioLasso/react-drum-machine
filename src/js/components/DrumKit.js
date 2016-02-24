@@ -24,6 +24,16 @@ function getdrumkitData() {
   };
 }
 
+function getMeasureNumber(divisionnumber, divisionperbeat, beatpermeasure)
+{
+  if(divisionnumber / divisionperbeat / beatpermeasure){
+    return (divisionnumber / divisionperbeat) / beatpermeasure;
+  }
+  else {
+    return 0;
+  }
+}
+
 function getCurrentDivision(){
   return{
     currentdivision: DrumKitStore.getCurrentDivision()
@@ -110,6 +120,9 @@ var DrumKit = React.createClass({
 
         <div className="drumKit" onKeyDown={this.handleKeyDown}>
           <h3 onClick={this.handleClick}>Load Audio Context</h3>
+            <div>
+              <DrumKitConsole elapsedtime={this.state.elapsedtime} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} divisionnumber={this.state.divisionnumber} bpm={this.state.bpm} time={this.state.time}/>
+            </div>
             <div className="instrumentInfosContent" style={{'float':'left'}}>
               <div className="emptyTab" style={s.tlcontent}>
                 <Metronome bpm={this.state.bpm} currentbeat={this.state.currentbeat}/>
@@ -121,14 +134,11 @@ var DrumKit = React.createClass({
                 <TimeLine songTime={this.state.time} elapsedtime={this.state.elapsedtime} timeWidth={timeWidth} style={s.tlcontent} />
               </div>
               <div className="InstrumentBitsListContainer" style={s.timeStyle}>
-                <CurrentBitDisplayer  timewidth={timeWidth} beatwidth={getBeatsWidth(this.state.divisionnumber, this.state.divisionperbeat)} currentbeat={this.state.currentbeat} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} />
-                <InstrumentBitsList timeWidth={timeWidth} bitPushed={this.state.bitPushed} divisionsWidth={getDivisionWidth(this.state.divisionnumber)} instruments={this.state.instruments}/>
+                <CurrentBitDisplayer  timewidth={timeWidth} beatwidth={getBeatsWidth(this.state.divisionnumber, this.state.divisionperbeat)} currentbeat={this.state.currentbeat} beatpermeasure={this.state.beatpermeasure} />
+                <InstrumentBitsList measurenumber={getMeasureNumber(this.state.divisionnumber, this.state.divisionperbeat, this.state.beatpermeasure)} timeWidth={timeWidth} bitPushed={this.state.bitPushed} divisionsWidth={getDivisionWidth(this.state.divisionnumber)} beatwidth={getBeatsWidth(this.state.divisionnumber, this.state.divisionperbeat)} beatpermeasure={this.state.beatpermeasure} instruments={this.state.instruments}/>
               </div>
             </div>
             <div style={{'clear':'both'}}></div>
-            <div>
-              <DrumKitConsole elapsedtime={this.state.elapsedtime} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} divisionnumber={this.state.divisionnumber} bpm={this.state.bpm} time={this.state.time}/>
-            </div>
         </div>
       )
     },
