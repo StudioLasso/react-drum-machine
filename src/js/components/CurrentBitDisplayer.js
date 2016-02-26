@@ -23,12 +23,8 @@ function getMeasureWidth(beatwidth, beatpermeasure)
 }
 
 var CurrentBitDisplayer = React.createClass({
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return this.props != nextProps;
- },
 
   render:function(){
-    console.log('CurrentBitDisplayer: Render-------------------------------------')
     var thisStyle = {
       'position':'absolute',
       'height': '100%',

@@ -18,8 +18,6 @@ var DivisionCopier = React.createClass({
   },
 
   handlePast:function(e){
-    DrumKitActions.isPasting(true);
-    console.log("DrumKitActions.isPasting(true)");
     DrumKitActions.pastMeasure($(e.target).attr('value'));
 
   },
@@ -34,7 +32,7 @@ var DivisionCopier = React.createClass({
     var rows = [];
     for (var i = 0; i < this.props.measurenumber; i++) {
         rows.push(
-          <div style={divisioncopierStyle}>
+          <div key={i} style={divisioncopierStyle}>
             <div style={{'float':'left'}}>
               <span className="glyphicon glyphicon-copy" onClick={this.handleCopy} value={i} />
             </div>

@@ -9,18 +9,14 @@ var InstrumentsList = React.createClass({
   handleTimeMove:function(e){
     DrumKitActions.setCurrentTime(e.target.value);
   },
-  componentDidUpdate : function(){
-    DrumKitActions.isPasting(false);
-  },
 
   render: function() {
-    console.log('InstrumentsList: Render-------------------------------------')
     var instrumentBitNodes = this.props.instruments.map((function(instrument,i) {
       return (
         <InstrumentBits
-          bitPushed={this.props.bitPushed}
           timeWidth={this.props.timeWidth}
           divisionsWidth={this.props.divisionsWidth}
+          beatslist={instrument.bits}
           key={i}
           instindex={i}>
         </InstrumentBits>

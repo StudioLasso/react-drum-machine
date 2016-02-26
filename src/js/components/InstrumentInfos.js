@@ -2,11 +2,8 @@ var React = require('react');
 
 
 var InstrumentInfos = React.createClass({
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return this.props != nextProps;
- },
+
   render: function() {
-    console.log('InstrumentInfos: Render-------------------------------------')
     var instrumentInfosNodes = this.props.instruments.map(function(instrument,i) {
       return (
         <div className="instrumentName" key={i} style={{width:'64',height:'24','outline':'1px solid'}}>

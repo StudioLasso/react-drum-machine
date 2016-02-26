@@ -1,6 +1,6 @@
 var React = require('react');
 var DrumKitActions = require('../actions/DrumKitActions');
-var DrumKitStore = require('../stores/DrumKitStore');
+
 
 var bitOnStyle = {
   'border': '1px solid #CCC',
@@ -21,25 +21,10 @@ function getBitStyle(bitValue) {
   else {return bitOffStyle}
 }
 
-function getbits(thisinstrument) {
-var thisbits = DrumKitStore.getBitsInstrument(thisinstrument);
-  return {
-    bits: thisbits
-  };
-}
-
 var InstrumentBits = React.createClass({
-  getInitialState: function() {
-    return{
-      bits: DrumKitStore.getBitsInstrument(this.props.instindex)
-    };
-  },
 
    shouldComponentUpdate: function(nextProps, nextState) {
-     console.log("shouldComponentUpdate: " + DrumKitStore.isPasting())
-     return this.state[nextProps.bitPushed] != nextState[nextProps.bitPushed] ||
-     DrumKitStore.isPasting() ||
-     this.props.divisionsWidth != nextProps.divisionsWidth;
+     return this.props.beatslist != nextProps.beatslist;
   },
 
   bitClicked:function(event){
@@ -48,25 +33,16 @@ var InstrumentBits = React.createClass({
     //var bitValue = $(event.target).text();
     var currentInstrument = $(event.target).closest('.instrumentBits').data('index');
 
-    DrumKitActions.bitPushed(bitIndex);
-
     if(parseInt(bitValue) == 1)
     {
       DrumKitActions.changeBit(currentInstrument, bitIndex, 0);
-
     }
     else {
       DrumKitActions.changeBit(currentInstrument, bitIndex, 1);
     }
   },
 
-  componentDidMount: function() {
-    DrumKitStore.addBitUpdatedListener(this._onChange);
-    getbits(this.props.instindex);
-  },
-
   render: function() {
-    console.log('InstrumentBits: Render-------------------------------------')
     var s = {
       instrumentBits: {
         'height':'24px',
@@ -92,7 +68,7 @@ var InstrumentBits = React.createClass({
       }
     };
 
-    var instrumentBits = this.state.bits.map((function(bit,i) {
+    var instrumentBits = this.props.beatslist.map((function(bit,i) {
       return (
         <div style={s.bitContentStyle} data-bitvalue={bit} key={i} data-index={i} onClick={this.bitClicked} className="instrumentBit">
           <div style={getBitStyle(bit)}></div>
@@ -107,9 +83,6 @@ var InstrumentBits = React.createClass({
         </div>
       </div>
     );
-  },
-  _onChange: function() {
-    this.setState(DrumKitStore.getBitsInstrument(this.props.instindex));
   },
 });
 

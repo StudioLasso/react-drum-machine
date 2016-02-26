@@ -11,33 +11,29 @@ var metronomePointStyle = {
 function moveMetronome(currentbeat){
   if (currentbeat % 2 == 0)
   {
-    $(".metronomePoint").animate({'left': '0px'},10);
+    $(".metronomePoint").animate({'left': '0px'},20);
   }
   else {
-    $(".metronomePoint").animate({'left': '15px'},10);
+    $(".metronomePoint").animate({'left': '15px'},20);
   }
 
 }
 
 
 var Metronome = React.createClass({
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return this.props != nextProps;
-  },
+
   componentWillReceiveProps: function(nextProps) {
-    moveMetronome(nextProps.currentbeat);
+    if(nextProps.currentbeat != this.props.currentbeat)
+    {
+        moveMetronome(nextProps.currentbeat);
+    }
 },
 
-  handleMove: function()
-  {
-    moveMetronome0();
-  },
 
   render:function(){
-    console.log('Metronome: Render-------------------------------------')
     return (
       <div className="metronome" style={{'position':'relative', 'background':'#222', 'height':'100%','width':'100%'}}>
-        <div className="metronomePoint" style={metronomePointStyle} onClick={this.handleMove}>
+        <div className="metronomePoint" style={metronomePointStyle}>
         </div>
       </div>
     );

@@ -2,13 +2,6 @@ var DrumKitDispatcher = require('../dispatcher/DrumKitDispatcher');
 var DrumKitConstants = require('../constants/DrumKitConstants');
 
 var DrumKitActions = {
-  addItem: function(item){
-    DrumKitDispatcher.handleViewAction({
-      actionType:DrumKitConstants.ADD_ITEM,
-      item: item
-    })
-  },
-
   copyMeasure: function(item){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.COPY_MEASURE,
@@ -20,14 +13,6 @@ var DrumKitActions = {
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.PAST_MEASURE,
       item: item
-    })
-  },
-
-  isPasting: function(item){
-    console.log("DrumkitAction: " + item)
-    DrumKitDispatcher.handleViewAction({
-      actionType:DrumKitConstants.IS_PASTING,
-      ispasting: item
     })
   },
 
@@ -52,13 +37,6 @@ var DrumKitActions = {
     })
   },
 
-  bitPushed: function(bitpushed){
-    DrumKitDispatcher.handleViewAction({
-      actionType:DrumKitConstants.BIT_PUSHED,
-      bitpushed: bitpushed
-    })
-  },
-
   setCurrentTime: function(item){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.SET_CURRENTTIME,
@@ -67,9 +45,9 @@ var DrumKitActions = {
   },
 
 
-  pausedtimeChange: function(item){
+elapsedtimeChange: function(item){
     DrumKitDispatcher.handleViewAction({
-      actionType:DrumKitConstants.CHANGE_PAUSEDTIME,
+      actionType:DrumKitConstants.CHANGE_ELAPSEDTIME,
       item: item
     })
   },
@@ -77,6 +55,12 @@ var DrumKitActions = {
   playDrumKit: function(){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.PLAY_DRUMKIT
+    })
+  },
+
+  pauseDrumKit: function(){
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.PAUSE_DRUMKIT
     })
   },
 

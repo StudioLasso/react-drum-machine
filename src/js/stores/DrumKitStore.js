@@ -6,8 +6,6 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 var CURRENT_DIVISION = 'currentdivision';
 var TIME_CHANGED = 'timechanged';
-var BIT_UPDATED = 'bitupdated';
-var BIT_PUSHED = 'bitpushed';
 var CURRENT_BEAT = 'currentbeat';
 
 var _data = {
@@ -21,18 +19,16 @@ var _data = {
   instruments:[]
 }
 
-var ispasting = false;
 
 var currentDivision=0;
 var currentBeat=0;
-var bitPushed=0;
 
 var audioCtx;
 var soundkit = [];
 
 var timerId;
 var startTime = 0;
-var pausedTime=0;
+var elapsedTime=0;
 var noteTime;
 
 function loadAudioContext(){
@@ -57,7 +53,6 @@ function loadSounds()
 {
   for (var i = 0; i < _data.instruments.length; i++){
     loadSound(_data.instruments[i].soundurl);
-    console.log(_data.instruments[i].name + " chargé")
   }
 }
 
@@ -78,32 +73,34 @@ function loadSound(url) {
 }
 
 function setDivisions(){
-  console.log('_data.divisionperbeat: ' + _data.divisionperbeat);
   _data.divisionnumber =parseInt(_data.bpm)*parseInt(_data.time) / 60 * _data.divisionperbeat;
-
   //Pour chaque instrument
     for (var i = 0; i < _data.instruments.length; i++){
-      //On met à jour tous les bits
-      console.log("Nombre de bits: " + _data.divisionnumber)
+      let newbitsarray = [];
       for (var j = 0; j < _data.divisionnumber; j++){
-        if(typeof _data.instruments[i].bits[j] == 'undefined'){
-          _data.instruments[i].bits.push(0);
+        if(_data.instruments[i].bits[j]){
+            newbitsarray.push(_data.instruments[i].bits[j]);
         }
-        if(_data.divisionnumber < _data.instruments[i].bits.length)
-        {
-          _data.instruments[i].bits.splice(_data.divisionnumber, 1)
+        else {
+          newbitsarray.push(0);
         }
       }
+      _data.instruments[i].bits = newbitsarray;
     }
   }
 
+function pauseDrum(){
+  elapsedTime = audioCtx.currentTime - startTime + elapsedTime;
+  DrumKitStore.emitelapsedTime();
+  clearTimeout(timerId);
+}
+
 function stopDrum(){
-  pausedTime = audioCtx.currentTime - startTime + pausedTime;
   currentDivision=0;
   currentBeat=0;
+  elapsedTime=0;
   _data.elapsedtime=0;
-  pausedTime=0;
-  DrumKitStore.emitPausedTime();
+  DrumKitStore.emitelapsedTime();
   DrumKitStore.emitCurrentDivision();
   DrumKitStore.emitCurrentBeat();
   clearTimeout(timerId);
@@ -117,22 +114,20 @@ function launchDrumKit(){
 }
 
 function schedule() {
-  console.log('pitouti--------------------------------------------------------------');
   var currentTime = audioCtx.currentTime;
   // The sequence starts at startTime, so normalize currentTime so that it's 0 at the start of the sequence.
   currentTime -= startTime;
-
+  _data.elapsedtime = currentTime + elapsedTime;
+  DrumKitStore.emitelapsedTime();
   while (noteTime < currentTime + 0.200) {
-    DrumKitStore.emitPausedTime();
-    var contextPlayTime = noteTime + startTime;
 
+    var contextPlayTime = noteTime + startTime;
     //Insert playing notes here
     if(currentDivision % _data.divisionperbeat == 0)
     {
       DrumKitStore.emitCurrentBeat();
     }
     DrumKitStore.emitCurrentDivision();
-    _data.elapsedtime = currentTime + pausedTime;
 
 
     for (var i = 0; i < _data.instruments.length; i++){
@@ -152,9 +147,7 @@ function advanceNote() {
       currentBeat++;
     }
     currentDivision++;
-    //boucle après 50 loops
-    console.log("currentDivision: " + currentDivision);
-    console.log("divisionnumber: " + _data.divisionnumber);
+    //stop at the end
     if (currentDivision == _data.divisionnumber) {
       stopDrum();
     }
@@ -162,31 +155,7 @@ function advanceNote() {
     noteTime += secondsPerBeat / _data.divisionperbeat;
 }
 
-
-// function playDrum(){
-//     var currentTime = audioCtx.currentTime;
-//     elapsedtime = (audioCtx.currentTime - startTime) + pausedTime;
-//
-//     DrumKitStore.emitPausedTime();
-//     DrumKitStore.emitCurrentDivision();
-//
-//
-//     //play sounds
-//     for (var i = 0; i < _data.instruments.length; i++){
-//       if(_data.instruments[i].bits[currentDivision] == 1){
-//         playSound(soundkit[i], 0);
-//       }
-//     }
-//     currentDivision++;
-//
-//     timerId = setTimeout(function() {
-//         playDrum();
-//     }, 60000 / _data.bpm)
-// }
-
 function playBit(instrumentindex, bitindex, bitvalue){
-    // console.log("oldbit: " + _data.instruments[instrumentindex].bits[bitindex]);
-    // console.log("newbit: " + bitvalue);
     if(bitvalue==1)
     {
       playSound(soundkit[instrumentindex], 0)
@@ -194,7 +163,7 @@ function playBit(instrumentindex, bitindex, bitvalue){
 }
 
 var _instruments = [
-  {key:"13", name: "hihat", imgurl: "img/hihat.png", soundurl: "sounds/hihat.mp3", bits: []},
+  {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": []},
   {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": []},
   {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
   {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": []}
@@ -213,11 +182,8 @@ function loadDrumKit() {
 }
 
 function copyMeasure(measureIndex){
-  console.log("copy item: " + measureIndex);
   var begin = measureIndex * _data.beatpermeasure * _data.divisionperbeat;
-  console.log("begin: " + begin);
   var end = begin + _data.beatpermeasure * _data.divisionperbeat;
-  console.log("end: " + end);
   _data.measurecopied = [];
 
   for (var i = 0; i < _data.instruments.length; i++) {
@@ -232,45 +198,21 @@ function copyMeasure(measureIndex){
 
 function pastMeasure(targetMeasure){
   var begin = targetMeasure * _data.beatpermeasure * _data.divisionperbeat;
-  // console.log("begin: " + begin);
   var end = begin + _data.beatpermeasure * _data.divisionperbeat;
-  // console.log("end: " + end);
 
   for (var i = 0; i < _data.instruments.length; i++) {
     var k = 0;
+    let newarray = [..._data.instruments[i].bits];
+    console.log(newarray);
     for (var j = begin; j < end; j++) {
-      // console.log('instrument : ' + _data.instruments[i].name);
-      // console.log('targetbit: ' + j);
-      // console.log('value to copy: ' + _data.measurecopied[i][k]);
-      _data.instruments[i].bits[j] = _data.measurecopied[i][k];
+      newarray[j] = _data.measurecopied[i][k];
       k++;
     }
-
+    _data.instruments[i].bits = newarray;
   }
-  DrumKitStore.emitBitUpdated();
+  DrumKitStore.emitChange();
 }
 
-// function loadDrumKit() {
-//   $.ajax({
-//     url: API_GET_DRUMKIT,
-//     dataType: 'json',
-//     cache: false,
-//     success: function(data) {
-//       _data.bpm= data.bpm,
-//       _data.time=data.time,
-//       _data.beatpermeasure = data.beatpermeasure,
-//       _data.divisionperbeat = data.divisionperbeat,
-//       _data.instruments=  data.instruments,
-//       setDivisions(),
-//       loadAudioContext(),
-//       loadSounds(),
-//       DrumKitStore.emitChange();
-//     }.bind(this),
-//     error: function(xhr, status, err) {
-//       console.error(this.props.url, status, err.toString());
-//     }.bind(this)
-//   });
-// }
 
 var DrumKitStore = assign({}, EventEmitter.prototype, {
 
@@ -282,20 +224,8 @@ var DrumKitStore = assign({}, EventEmitter.prototype, {
     return currentDivision;
   },
 
-  isPasting:function(){
-    return ispasting;
-  },
-
   getCurrentBeat: function() {
     return currentBeat;
-  },
-
-  getBitPushed: function(instrument) {
-    return bitPushed;
-  },
-
-  getBitsInstrument: function(instrument) {
-    return _data.instruments[instrument].bits;
   },
 
   emitCurrentBeat: function() {
@@ -318,27 +248,11 @@ var DrumKitStore = assign({}, EventEmitter.prototype, {
     this.on(CURRENT_DIVISION, callback);
   },
 
-  emitBitUpdated: function() {
-    this.emit(BIT_UPDATED);
-  },
-
-  addBitPushedListener: function(callback) {
-    this.on(BIT_PUSHED, callback);
-  },
-
-  emitBitPushed: function() {
-    this.emit(BIT_PUSHED);
-  },
-
-  addBitUpdatedListener: function(callback) {
-    this.on(BIT_UPDATED, callback);
-  },
-
   getCurrentTime: function() {
     return _data.elapsedtime;
   },
 
-  emitPausedTime: function() {
+  emitelapsedTime: function() {
     this.emit(TIME_CHANGED);
   },
 
@@ -363,7 +277,6 @@ DrumKitDispatcher.register(function(payload){
 
   switch(action.actionType) {
     case DrumKitConstants.CHANGE_TIME:
-      console.log(action.item);
       _data.time= action.item;
       setDivisions();
       DrumKitStore.emitChange();
@@ -384,46 +297,36 @@ DrumKitDispatcher.register(function(payload){
         break;
     case DrumKitConstants.CHANGE_BIT:
         _data.instruments[action.instrument].bits[action.bitindex] = action.bit;
+        setDivisions();
         playBit(action.instrument, action.bitindex, action.bit);
-        DrumKitStore.emitBitUpdated();
+        DrumKitStore.emitChange();
         break;
-    case DrumKitConstants.CHANGE_PAUSEDTIME:
-        pausedTime = action.item;
-        DrumKitStore.emitPausedTime();
+    case DrumKitConstants.CHANGE_ELAPSEDTIME:
+        _data.elapsedtime = payload.action.item;
+        DrumKitStore.emitelapsedTime();
         break;
     case DrumKitConstants.LOAD_DRUMKIT:
         loadDrumKit();
         DrumKitStore.emitChange();
         break;
-
     case DrumKitConstants.SET_CURRENTTIME:
-        DrumKitStore.emitPausedTime();
         _data.elapsedtime = payload.action.item;
-        break;
-
-    case DrumKitConstants.BIT_PUSHED:
-        bitPushed = action.bitpushed;
-        DrumKitStore.emitBitPushed();
-        console.log(action)
+        DrumKitStore.emitelapsedTime();
         break;
     case DrumKitConstants.PLAY_DRUMKIT:
         launchDrumKit();
         break;
+    case DrumKitConstants.PAUSE_DRUMKIT:
+        pauseDrum();
+        break;
     case DrumKitConstants.STOP_DRUMKIT:
         stopDrum();
         break;
-    case DrumKitConstants.ADD_ITEM:
-        console.log(action);
-      break;
     case DrumKitConstants.COPY_MEASURE:
         copyMeasure(action.item);
       break;
     case DrumKitConstants.PAST_MEASURE:
         pastMeasure(action.item);
-      break;
-    case DrumKitConstants.IS_PASTING:
-        ispasting = action.ispasting;
-        console.log("DrumkitStore: " + ispasting)
       break;
   }
 
