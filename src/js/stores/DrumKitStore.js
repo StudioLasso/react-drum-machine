@@ -19,7 +19,6 @@ var _data = {
   instruments:[]
 }
 
-
 var currentDivision=0;
 var currentBeat=0;
 
@@ -33,9 +32,13 @@ var noteTime;
 
 function loadAudioContext(){
   try {
-    // Fix up for prefixing
-    window.AudioContext = window.AudioContext||window.webkitAudioContext;
-    audioCtx = new AudioContext();
+    if(!audioCtx)
+    {
+      // Fix up for prefixing
+      window.AudioContext = window.AudioContext||window.webkitAudioContext;
+      audioCtx = new AudioContext();
+    }
+
   }
   catch(e) {
     alert('Web Audio API is not supported in this browser');
@@ -59,12 +62,14 @@ function loadSounds()
 function loadSound(url) {
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
+  request.setRequestHeader('Access-Control-Allow-Origin', '*');
   request.responseType = 'arraybuffer';
 
   // Decode asynchronously
   request.onload = function() {
     audioCtx.decodeAudioData(request.response, function(buffer) {
       soundkit.push(buffer);
+      console.log(url + " Sound loaded");
     }, function(error) {
         console.error("decodeAudioData error", error);
     });
@@ -162,24 +167,82 @@ function playBit(instrumentindex, bitindex, bitvalue){
     }
 }
 
-var _instruments = [
-  {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": []},
-  {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": []},
-  {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
-  {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": []}
+var _musics = [{
+  title: "Muscle Museum",
+  bpm:79,
+  time:120,
+  divisionperbeat:4,
+  beatpermeasure:4,
+  instruments:[
+    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": 3, "key":"15", "name": "bass", "imgurl": "img/tome1.png", "soundurl": "sounds/bass-musclemuseum.mp3", "bits": [1]},
+    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+  ]
+},
+{
+  title: "Bliss",
+  bpm:130,
+  time:60,
+  divisionperbeat:4,
+  beatpermeasure:4,
+  instruments:[
+    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
+    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+  ]
+},
+{
+  title: "Muscle Museum",
+  bpm:60,
+  time:240,
+  divisionperbeat:2,
+  beatpermeasure:4,
+  instruments: [
+    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": []},
+    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [1,1,1,1,1,1,1,1,1,1,1,1]},
+    {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
+    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": []}
+  ]
+}
 ];
-
-function loadDrumKit() {
-  _data.bpm= 80,
-  _data.time=60,
-  _data.beatpermeasure = 4,
-  _data.divisionperbeat = 2,
-  _data.instruments=  _instruments,
+function loadDrumKit(id) {
+  var music = _musics[id];
+  console.log(id);
+  _data.bpm = music.bpm,
+  _data.time = music.time,
+  _data.beatpermeasure = music.beatpermeasure,
+  _data.divisionperbeat = music.divisionperbeat,
+  _data.instruments=  music.instruments,
+console.log(music.instruments);
   setDivisions(),
   loadAudioContext(),
   loadSounds(),
   DrumKitStore.emitChange();
 }
+
+// function loadDrumKit() {
+//     $.ajax({
+//       url: "/api/getdrumkit",
+//       dataType: 'json',
+//      cache: false,
+//      success: function(data) {
+//        _data.bpm= data.bpm,
+//        _data.time=data.time,
+//        _data.beatpermeasure = data.beatpermeasure,
+//         _data.divisionperbeat = data.divisionperbeat,
+//         _data.instruments=  data.instruments,
+//         setDivisions(),
+//  +      loadAudioContext(),
+//  +      loadSounds(),
+//         DrumKitStore.emitChange();
+//       }.bind(this),
+//       error: function(xhr, status, err) {
+//        console.error(this.props.url, status, err.toString());
+//      }.bind(this)
+//    });
+//  }
 
 function copyMeasure(measureIndex){
   var begin = measureIndex * _data.beatpermeasure * _data.divisionperbeat;
@@ -206,6 +269,22 @@ function pastMeasure(targetMeasure){
     console.log(newarray);
     for (var j = begin; j < end; j++) {
       newarray[j] = _data.measurecopied[i][k];
+      k++;
+    }
+    _data.instruments[i].bits = newarray;
+  }
+  DrumKitStore.emitChange();
+}
+
+function clearMeasure(targetMeasure){
+  var begin = targetMeasure * _data.beatpermeasure * _data.divisionperbeat;
+  var end = begin + _data.beatpermeasure * _data.divisionperbeat;
+
+  for (var i = 0; i < _data.instruments.length; i++) {
+    var k = 0;
+    let newarray = [..._data.instruments[i].bits];
+    for (var j = begin; j < end; j++) {
+      newarray[j] = 0;
       k++;
     }
     _data.instruments[i].bits = newarray;
@@ -306,7 +385,7 @@ DrumKitDispatcher.register(function(payload){
         DrumKitStore.emitelapsedTime();
         break;
     case DrumKitConstants.LOAD_DRUMKIT:
-        loadDrumKit();
+        loadDrumKit(action.id);
         DrumKitStore.emitChange();
         break;
     case DrumKitConstants.SET_CURRENTTIME:
@@ -327,6 +406,9 @@ DrumKitDispatcher.register(function(payload){
       break;
     case DrumKitConstants.PAST_MEASURE:
         pastMeasure(action.item);
+      break;
+    case DrumKitConstants.CLEAR_MEASURE:
+        clearMeasure(action.item);
       break;
   }
 

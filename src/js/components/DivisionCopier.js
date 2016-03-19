@@ -22,6 +22,10 @@ var DivisionCopier = React.createClass({
 
   },
 
+  handleClear:function(e){
+    DrumKitActions.clearMeasure($(e.target).attr('value'));
+  },
+
   render:function(){
     var divisioncopierStyle = {
       'height':'24px',
@@ -34,10 +38,13 @@ var DivisionCopier = React.createClass({
         rows.push(
           <div key={i} style={divisioncopierStyle}>
             <div style={{'float':'left'}}>
-              <span className="glyphicon glyphicon-copy" onClick={this.handleCopy} value={i} />
+              <span onClick={this.handleCopy} value={i}>Copy</span>
             </div>
             <div style={{'float':'left'}}>
-              <span className="glyphicon glyphicon-paste" onClick={this.handlePast} value={i} />
+              <span onClick={this.handlePast} value={i}>Paste</span>
+            </div>
+            <div style={{'float':'left'}}>
+              <span onClick={this.handleClear} value={i}>Clear</span>
             </div>
             <div style={{'float':'left'}}>
               <span>{i}</span>

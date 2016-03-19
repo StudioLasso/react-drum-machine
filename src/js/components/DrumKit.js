@@ -7,6 +7,7 @@ var DrumKitConsole = require('./DrumKitConsole');
 var TimeLine = require('./TimeLine');
 var PlayGround = require('./PlayGround');
 var Metronome = require('./Metronome');
+var MusicChoice = require('./MusicChoice');
 var CurrentBitDisplayer = require('./CurrentBitDisplayer');
 
 var timeWidth = 6200;
@@ -71,7 +72,7 @@ var DrumKit = React.createClass({
     DrumKitStore.addCurrentBeatListener(this._onBeatChange)
     DrumKitStore.addDivisionListener(this._onDivisionChange);
     DrumKitStore.addPausedsedTimeListener(this._OnTimeChanged);
-    DrumKitActions.loadDrumKit();
+    DrumKitActions.loadDrumKit(2);
 
   },
 
@@ -108,7 +109,7 @@ var DrumKit = React.createClass({
               <DrumKitConsole currentbeat={this.state.currentbeat} elapsedtime={this.state.elapsedtime} divisionperbeat={this.state.divisionperbeat} beatpermeasure={this.state.beatpermeasure} divisionnumber={this.state.divisionnumber} bpm={this.state.bpm} time={this.state.time}/>
             </div>
             <div className="instrumentInfosContent" style={{'float':'left'}}>
-              <div className="emptyTab" style={s.tlcontent}>
+              <div className="metronome" style={{'height':"12px",'marginTop':'5px','marginBottom':'20px', 'width':'80%'}}>
                 <Metronome bpm={this.state.bpm} currentbeat={this.state.currentbeat}/>
               </div>
               <InstrumentInfos instruments={this.state.instruments}/>
@@ -123,6 +124,9 @@ var DrumKit = React.createClass({
               </div>
             </div>
             <div style={{'clear':'both'}}></div>
+              <div>
+                <MusicChoice />
+              </div>
         </div>
       )
     },

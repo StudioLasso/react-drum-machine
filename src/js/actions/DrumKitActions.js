@@ -16,6 +16,13 @@ var DrumKitActions = {
     })
   },
 
+  clearMeasure: function(item){
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.CLEAR_MEASURE,
+      item: item
+    })
+  },
+
   bpmChange: function(item){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.CHANGE_BPM,
@@ -79,9 +86,10 @@ elapsedtimeChange: function(item){
     })
   },
 
-  loadDrumKit: function(){
+  loadDrumKit: function(id){
     DrumKitDispatcher.handleViewAction({
-      actionType:DrumKitConstants.LOAD_DRUMKIT
+      actionType:DrumKitConstants.LOAD_DRUMKIT,
+      id: id
     })
   },
 

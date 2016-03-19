@@ -21,6 +21,7 @@ const config = {
       './src/assets/sounds/hihat.mp3',
       './src/assets/sounds/kick.mp3',
       './src/assets/sounds/snare.mp3',
+      './src/assets/sounds/bass-musclemuseum.mp3',
       './src/assets/sounds/tom1.mp3',
       './src/js/main.js'
     ]
