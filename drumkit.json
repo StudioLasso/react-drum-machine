@@ -1,131 +1,41 @@
 {
 	"songs": [{
 		"title": "MuscleMuseum",
-		"bpm": 60,
-		"time": 30,
-		"bitnumber": 0,
+		"bpm": 79,
+		"time": 60,
 		"beatpermeasure": 4,
-		"divisionperbeat": 2,
-		"instruments": [{
-			"id": 1,
-			"name": "hihat",
-			"imgurl": "img/hihat.png",
-			"soundurl": "sounds/hihat.mp3",
-			"bits": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-		}, {
-			"id": 2,
-			"name": "snare",
-			"imgurl": "img/snare.png",
-			"soundurl": "sounds/snare.mp3",
-			"bits": [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
-		}, {
-			"id": 3,
-			"name": "tome1",
-			"imgurl": "img/tome1.png",
-			"soundurl": "sounds/tom1.mp3",
-			"bits": []
-		}, {
-			"id": 4,
-			"name": "kick",
-			"imgurl": "img/kick.png",
-			"soundurl": "sounds/kick.mp3",
-			"bits": [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
-		}]
+		"divisionperbeat": 4,
+		"instruments":[
+			{"id": 3, "key":"15", "name": "bass", "imgurl": "img/bass.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/bass-musclemuseum.mp3", "bits": [1]},
+			{"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/hihat.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+	    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/snare.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+			{"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/kick.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+
+	  ]
 	}, {
-		"title": "MuscleMuseum",
-		"bpm": 60,
-		"time": 30,
-		"bitnumber": 0,
+		"title": "Bliss",
+		"bpm": 130,
+		"time": 60,
 		"beatpermeasure": 4,
-		"divisionperbeat": 2,
-		"instruments": [{
-			"id": 1,
-			"name": "hihat",
-			"imgurl": "img/hihat.png",
-			"soundurl": "sounds/hihat.mp3",
-			"bits": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-		}, {
-			"id": 2,
-			"name": "snare",
-			"imgurl": "img/snare.png",
-			"soundurl": "sounds/snare.mp3",
-			"bits": [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
-		}, {
-			"id": 3,
-			"name": "tome1",
-			"imgurl": "img/tome1.png",
-			"soundurl": "sounds/tom1.mp3",
-			"bits": []
-		}, {
-			"id": 4,
-			"name": "kick",
-			"imgurl": "img/kick.png",
-			"soundurl": "sounds/kick.mp3",
-			"bits": [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
-		}]
+		"divisionperbeat": 4,
+		"instruments":[
+	    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/hihat.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+	    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/snare.mp3", "bits": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+	    {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/tom1.mp3", "bits": [0,0,0,1]},
+	    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/kick.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+	  ]
 	}, {
-		"title": "MuscleMuseum",
+		"title": "Empty",
 		"bpm": 60,
 		"time": 30,
 		"bitnumber": 0,
 		"beatpermeasure": 4,
 		"divisionperbeat": 2,
-		"instruments": [{
-			"id": 1,
-			"name": "hihat",
-			"imgurl": "img/hihat.png",
-			"soundurl": "sounds/hihat.mp3",
-			"bits": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-		}, {
-			"id": 2,
-			"name": "snare",
-			"imgurl": "img/snare.png",
-			"soundurl": "sounds/snare.mp3",
-			"bits": [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
-		}, {
-			"id": 3,
-			"name": "tome1",
-			"imgurl": "img/tome1.png",
-			"soundurl": "sounds/tom1.mp3",
-			"bits": []
-		}, {
-			"id": 4,
-			"name": "kick",
-			"imgurl": "img/kick.png",
-			"soundurl": "sounds/kick.mp3",
-			"bits": [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
-		}]
-	}, {
-		"title": "MuscleMuseum",
-		"bpm": 60,
-		"time": 30,
-		"bitnumber": 0,
-		"beatpermeasure": 4,
-		"divisionperbeat": 2,
-		"instruments": [{
-			"id": 1,
-			"name": "hihat",
-			"imgurl": "img/hihat.png",
-			"soundurl": "sounds/hihat.mp3",
-			"bits": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-		}, {
-			"id": 2,
-			"name": "snare",
-			"imgurl": "img/snare.png",
-			"soundurl": "sounds/snare.mp3",
-			"bits": [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
-		}, {
-			"id": 3,
-			"name": "tome1",
-			"imgurl": "img/tome1.png",
-			"soundurl": "sounds/tom1.mp3",
-			"bits": []
-		}, {
-			"id": 4,
-			"name": "kick",
-			"imgurl": "img/kick.png",
-			"soundurl": "sounds/kick.mp3",
-			"bits": [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
-		}]
+		"instruments": [
+	    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/hihat.mp3", "bits": [0,0,0,1]},
+	    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/snare.mp3", "bits": [0,0,0,1]},
+	    {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/tom1.mp3", "bits": [0,0,0,1]},
+	    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "https://content.dropboxapi.com/1/files/auto/kick.mp3", "bits": [0,0,0,1]}
+	  ]
 	}]
 }

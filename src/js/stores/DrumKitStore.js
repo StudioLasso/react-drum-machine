@@ -2,6 +2,7 @@ var DrumKitDispatcher = require('../dispatcher/DrumKitDispatcher');
 var DrumKitConstants = require('../constants/DrumKitConstants');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var Firebase =  require('firebase');
 
 var CHANGE_EVENT = 'change';
 var CURRENT_DIVISION = 'currentdivision';
@@ -54,21 +55,30 @@ function playSound(buffer, playtime) {
 
 function loadSounds()
 {
+  soundkit = [];
   for (var i = 0; i < _data.instruments.length; i++){
-    loadSound(_data.instruments[i].soundurl);
+    soundkit.push("");
+  }
+  for (var i = 0; i < _data.instruments.length; i++){
+    loadSound(_data.instruments[i].soundurl, i);
   }
 }
 
-function loadSound(url) {
+function loadSound(url, index) {
+  var result;
+  var accesstoken = 'JfnDpAnZcQ8AAAAAAAABYbt6Zvq6-U10DeFgzcZEbz7XYZrTv9ugPuuRl0ai9BFR';
+
   var request = new XMLHttpRequest();
   request.open('GET', url, true);
-  request.setRequestHeader('Access-Control-Allow-Origin', '*');
   request.responseType = 'arraybuffer';
+  request.setRequestHeader("Authorization", "Bearer " + accesstoken);
+
 
   // Decode asynchronously
   request.onload = function() {
     audioCtx.decodeAudioData(request.response, function(buffer) {
-      soundkit.push(buffer);
+      soundkit[index] = buffer;
+      console.log(soundkit);
       console.log(url + " Sound loaded");
     }, function(error) {
         console.error("decodeAudioData error", error);
@@ -167,82 +177,46 @@ function playBit(instrumentindex, bitindex, bitvalue){
     }
 }
 
-var _musics = [{
-  title: "Muscle Museum",
-  bpm:79,
-  time:120,
-  divisionperbeat:4,
-  beatpermeasure:4,
-  instruments:[
-    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-    {"id": 3, "key":"15", "name": "bass", "imgurl": "img/tome1.png", "soundurl": "sounds/bass-musclemuseum.mp3", "bits": [1]},
-    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-  ]
-},
-{
-  title: "Bliss",
-  bpm:130,
-  time:60,
-  divisionperbeat:4,
-  beatpermeasure:4,
-  instruments:[
-    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-    {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
-    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-  ]
-},
-{
-  title: "Muscle Museum",
-  bpm:60,
-  time:240,
-  divisionperbeat:2,
-  beatpermeasure:4,
-  instruments: [
-    {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": []},
-    {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [1,1,1,1,1,1,1,1,1,1,1,1]},
-    {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
-    {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": []}
-  ]
-}
-];
+
 function loadDrumKit(id) {
-  var music = _musics[id];
-  console.log(id);
-  _data.bpm = music.bpm,
-  _data.time = music.time,
-  _data.beatpermeasure = music.beatpermeasure,
-  _data.divisionperbeat = music.divisionperbeat,
-  _data.instruments=  music.instruments,
-console.log(music.instruments);
+  var myDataRef = new Firebase('https://shining-heat-7214.firebaseio.com/songs');
+  myDataRef.on("value", function(snapshot) {
+  var songs = snapshot.val();
+  var song = songs[id];
+  _data.bpm= song.bpm,
+  _data.time= song.time,
+  _data.beatpermeasure = song.beatpermeasure,
+  _data.divisionperbeat = song.divisionperbeat,
+  _data.instruments=  song.instruments,
   setDivisions(),
   loadAudioContext(),
   loadSounds(),
   DrumKitStore.emitChange();
-}
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+})
 
-// function loadDrumKit() {
-//     $.ajax({
-//       url: "/api/getdrumkit",
-//       dataType: 'json',
-//      cache: false,
-//      success: function(data) {
-//        _data.bpm= data.bpm,
-//        _data.time=data.time,
-//        _data.beatpermeasure = data.beatpermeasure,
-//         _data.divisionperbeat = data.divisionperbeat,
-//         _data.instruments=  data.instruments,
-//         setDivisions(),
-//  +      loadAudioContext(),
-//  +      loadSounds(),
-//         DrumKitStore.emitChange();
-//       }.bind(this),
-//       error: function(xhr, status, err) {
-//        console.error(this.props.url, status, err.toString());
-//      }.bind(this)
-//    });
-//  }
+  //  $.ajax({
+  //    url: '/api/getdrumkit',
+  //    dataType: 'json',
+  //    cache: false,
+  //    success: function(data) {
+  //      var song = data.songs[id];
+  //      _data.bpm= song.bpm,
+  //      _data.time= song.time,
+  //      _data.beatpermeasure = song.beatpermeasure,
+  //      _data.divisionperbeat = song.divisionperbeat,
+  //      _data.instruments=  song.instruments,
+  //      setDivisions(),
+  //      loadAudioContext(),
+  //      loadSounds(),
+  //      DrumKitStore.emitChange();
+  //    }.bind(this),
+  //    error: function(xhr, status, err) {
+  //      console.error(this.props.url, status, err.toString());
+  //    }.bind(this)
+  //  });
+ }
 
 function copyMeasure(measureIndex){
   var begin = measureIndex * _data.beatpermeasure * _data.divisionperbeat;
@@ -415,5 +389,59 @@ DrumKitDispatcher.register(function(payload){
       return true; // No errors. Needed by promise in Dispatcher.
 
 });
+// var _musics = [{
+//   title: "Muscle Museum",
+//   bpm:79,
+//   time:120,
+//   divisionperbeat:4,
+//   beatpermeasure:4,
+//   instruments:[
+//     {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+//     {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+//     {"id": 3, "key":"15", "name": "bass", "imgurl": "img/tome1.png", "soundurl": "sounds/bass-musclemuseum.mp3", "bits": [1]},
+//     {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+//   ]
+// },
+// {
+//   title: "Bliss",
+//   bpm:130,
+//   time:60,
+//   divisionperbeat:4,
+//   beatpermeasure:4,
+//   instruments:[
+//     {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+//     {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+//     {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
+//     {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+//   ]
+// },
+// {
+//   title: "Muscle Museum",
+//   bpm:80,
+//   time:120,
+//   divisionperbeat:2,
+//   beatpermeasure:4,
+//   instruments: [
+//     {"id": 1, "key":"13", "name": "hihat", "imgurl": "img/hihat.png", "soundurl": "sounds/hihat.mp3", "bits": []},
+//     {"id": 2, "key":"14", "name": "snare", "imgurl": "img/snare.png", "soundurl": "sounds/snare.mp3", "bits": []},
+//     {"id": 3, "key":"15", "name": "tome1", "imgurl": "img/tome1.png", "soundurl": "sounds/tom1.mp3", "bits": []},
+//     {"id": 4, "key":"16", "name": "kick", "imgurl": "img/kick.png", "soundurl": "sounds/kick.mp3", "bits": []}
+//   ]
+// }
+// ];
+// function loadDrumKit(id) {
+//   var music = _musics[id];
+//   console.log(id);
+//   _data.bpm = music.bpm,
+//   _data.time = music.time,
+//   _data.beatpermeasure = music.beatpermeasure,
+//   _data.divisionperbeat = music.divisionperbeat,
+//   _data.instruments=  music.instruments,
+// console.log(music.instruments);
+//   setDivisions(),
+//   loadAudioContext(),
+//   loadSounds(),
+//   DrumKitStore.emitChange();
+// }
 
 module.exports = DrumKitStore;

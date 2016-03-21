@@ -72,7 +72,7 @@ var DrumKit = React.createClass({
     DrumKitStore.addCurrentBeatListener(this._onBeatChange)
     DrumKitStore.addDivisionListener(this._onDivisionChange);
     DrumKitStore.addPausedsedTimeListener(this._OnTimeChanged);
-    DrumKitActions.loadDrumKit(2);
+    DrumKitActions.loadDrumKit(0);
 
   },
 

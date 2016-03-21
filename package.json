@@ -52,10 +52,12 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "firebase": "^2.4.1",
     "jquery": "2.2.0",
     "jquery-ui": "^1.10.5",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "reactfire": "^0.6.0"
   },
   "config": {
     "commitizen": {

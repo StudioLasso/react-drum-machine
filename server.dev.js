@@ -28,8 +28,11 @@ new WebpackDevServer(webpack(config), { // Start a server
   }
 });
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.get('/api/getdrumkit', function(req, res) {
   fs.readFile(DRUMKIT_FILE, function(err, data) {

@@ -18,6 +18,7 @@ const config = {
       './src/assets/img/kick.png',
       './src/assets/img/snare.png',
       './src/assets/img/tome1.png',
+      './src/assets/img/bass.png',
       './src/assets/sounds/hihat.mp3',
       './src/assets/sounds/kick.mp3',
       './src/assets/sounds/snare.mp3',
