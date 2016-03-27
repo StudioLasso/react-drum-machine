@@ -2,6 +2,12 @@ var DrumKitDispatcher = require('../dispatcher/DrumKitDispatcher');
 var DrumKitConstants = require('../constants/DrumKitConstants');
 
 var DrumKitActions = {
+  addInstrument: function(instrument){
+    DrumKitDispatcher.handleViewAction({
+      actionType:DrumKitConstants.ADD_INSTRUMENT,
+      instrument: instrument
+    })
+  },
   copyMeasure: function(item){
     DrumKitDispatcher.handleViewAction({
       actionType:DrumKitConstants.COPY_MEASURE,

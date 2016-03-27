@@ -23,6 +23,7 @@ var _data = {
 var currentDivision=0;
 var currentBeat=0;
 
+
 var audioCtx;
 var soundkit = [];
 
@@ -266,6 +267,13 @@ function clearMeasure(targetMeasure){
   DrumKitStore.emitChange();
 }
 
+function addInstrument(instrument){
+  _data.instruments.push(instrument);
+  setDivisions();
+  loadSounds();
+  DrumKitStore.emitChange();
+}
+
 
 var DrumKitStore = assign({}, EventEmitter.prototype, {
 
@@ -384,6 +392,9 @@ DrumKitDispatcher.register(function(payload){
     case DrumKitConstants.CLEAR_MEASURE:
         clearMeasure(action.item);
       break;
+      case DrumKitConstants.ADD_INSTRUMENT:
+          addInstrument(action.instrument);
+        break;
   }
 
       return true; // No errors. Needed by promise in Dispatcher.
