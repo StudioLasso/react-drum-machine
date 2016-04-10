@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-var DrumKit = require('./components/DrumKit.js');
+import DrumKit from 'app.js';
 
 ReactDom.render(
-  <DrumKit url="/api/getdrumkit" />,
+  <DrumKit />,
   document.getElementById('main')
 );

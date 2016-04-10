@@ -1,0 +1,1 @@
+export const getSong = state => state.song;

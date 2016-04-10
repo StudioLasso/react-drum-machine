@@ -10,6 +10,7 @@ const config = {
       'script!jquery',
       'script!bootstrap/dist/js/bootstrap.js',
       'bootstrap/dist/css/bootstrap.css',
+      'babel-polyfill',
       'react',
       'react-dom'
 		],
@@ -24,7 +25,7 @@ const config = {
       './src/assets/sounds/snare.mp3',
       './src/assets/sounds/bass-musclemuseum.mp3',
       './src/assets/sounds/tom1.mp3',
-      './src/js/main.js'
+      './src/index'
     ]
   },
 
@@ -32,6 +33,12 @@ const config = {
     path: path.resolve('./dist'),
     filename: 'bundle.js',
     publicPath: process.env.PUBLIC_PATH || '/'
+  },
+  resolve: {
+    modulesDirectories: [
+      'node_modules',
+      'src/js'
+    ]
   },
   module: {
     loaders: [
@@ -52,6 +59,9 @@ const config = {
 		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
     new webpack.DefinePlugin({
       API_GET_DRUMKIT: JSON.stringify(process.env.API_GET_DRUMKIT || '/api/getdrumkit')
+    }),
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     })
 	],
 	progress: true,
