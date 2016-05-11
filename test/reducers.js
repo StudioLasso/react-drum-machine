@@ -1,8 +1,11 @@
-import { assert, expect } from 'chai';
+import chai, { assert, expect } from 'chai';
+import shallowDeepEqual from 'chai-shallow-deep-equal';
 import deepFreeze from 'deep-freeze';
 
 import song from '../src/js/reducers/song';
 import * as actions from '../src/js/actions';
+
+chai.use(shallowDeepEqual);
 
 const song1 = {
 	beatpermeasure: 4,
@@ -66,17 +69,12 @@ describe('song reducer', () => {
 			bpm: song1.bpm,
 			time: song1.time,
 			beatpermeasure: song1.beatpermeasure,
-			divisionperbeat: song1.divisionperbeat,
-			instruments: song1.instruments
+			divisionperbeat: song1.divisionperbeat
 		}
 
 		e.divisionnumber = e.bpm * e.time / 60 * e.divisionperbeat;
-
-		expect(r.bpm).to.equal(e.bpm);
-		expect(r.time).to.equal(e.time);
-		expect(r.beatpermeasure).to.equal(e.beatpermeasure);
-		expect(r.divisionperbeat).to.equal(e.divisionperbeat);
-		expect(r.divisionnumber).to.equal(e.divisionnumber);
+		
+		expect(r).to.shallowDeepEqual(e);
 	});
 	it('should init bits for all instruments', () => {
 		const action = actions.initSong({ song: song2});
