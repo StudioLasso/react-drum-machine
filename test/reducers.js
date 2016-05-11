@@ -98,7 +98,4 @@ describe('song reducer', () => {
 		
 		expect(r.instruments).to.eql(e.instruments);
 	});
-	it('should fail', () => {
-		expect(true).to.equal(false);
-	});
 });
