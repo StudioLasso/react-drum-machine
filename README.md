@@ -1,6 +1,6 @@
 # DrumKit for social music studio
 
-[![Build Status](https://travis-ci.org/StudioLasso/Drumkit.svg?branch=master)](https://travis-ci.org/StudioLasso/Drumkit)
+[![Build Status](https://travis-ci.org/StudioLasso/Drumkit.svg?branch=redux)](https://travis-ci.org/StudioLasso/Drumkit)
 [![Dependency Status](https://david-dm.org/studiolasso/Drumkit.svg)](https://david-dm.org/studiolasso/Drumkit)
 [![devDependency Status](https://david-dm.org/studiolasso/social-music-studio/dev-status.svg)](https://david-dm.org/studiolasso/Drumkit#info=devDependencies)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
