@@ -3,7 +3,6 @@ import { fetchSongs, loadAudioContext, fetchSound } from 'services';
 import * as actions from 'actions';
 import { getSong } from './selectors';
 
-
 export function* watchTest() {
 	while(true) {
 		const { data } = yield take('TEST');

@@ -6,14 +6,18 @@ import sagas from 'sagas';
 import reducers from 'reducers';
 
 const logger = createLogger();
-
-export default createStore(
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
 	reducers,
 	compose(
 		applyMiddleware(
 			logger,
-			createSagaMiddleware(sagas)
+			sagaMiddleware
 		),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 );
+
+sagaMiddleware.run(sagas);
+
+export default store;
