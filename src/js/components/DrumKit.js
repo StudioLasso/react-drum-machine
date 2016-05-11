@@ -25,18 +25,6 @@ function getMeasureNumber(divisionnumber, divisionperbeat, beatpermeasure) {
   }
 }
 
-function getCurrentDivision(){
-  return{
-	currentdivision: DrumKitStore.getCurrentDivision()
-  };
-}
-
-function GetCurrentBeat(){
-  return{
-	currentbeat: DrumKitStore.getCurrentBeat()
-  };
-}
-
 function getDivisionWidth(divisionnumber) {
   return timeWidth / divisionnumber;
 }
@@ -45,19 +33,9 @@ function getBeatsWidth(divisionnumber, divisionperbeat) {
   return timeWidth / divisionnumber * divisionperbeat;
 }
 
-function GetCurrentTime(){
-  return{
-	elapsedtime: DrumKitStore.getCurrentTime()
-  };
-}
-
 class DrumKit extends React.Component {
 
 	componentDidMount() {
-		DrumKitStore.addChangedListener(this._onChange);
-		DrumKitStore.addCurrentBeatListener(this._onBeatChange)
-		DrumKitStore.addDivisionListener(this._onDivisionChange);
-		DrumKitStore.addPausedsedTimeListener(this._OnTimeChanged);
 		this.props.dispatch(actions.initDrumkit({id: 0}));
 	}
 
@@ -77,22 +55,6 @@ class DrumKit extends React.Component {
 		}
 	}
 
-	_onChange() {
-		this.setState(getdrumkitData());
-	}
-
-	_onDivisionChange() {
-		this.setState(getCurrentDivision());
-	}
-
-	_onBeatChange() {
-		this.setState(GetCurrentBeat());
-	}
-
-	_OnTimeChanged() {
-		this.setState(GetCurrentTime());
-	}
-
 	render() {
 	  var s = {
 		timeStyle: {
@@ -108,7 +70,7 @@ class DrumKit extends React.Component {
 		<div className="drumKit" onKeyDown={this.handleKeyDown}>
 			<div>
 			  <DrumKitConsole 
-			  	currentbeat={this.state.currentbeat} 
+			  	currentbeat={this.props.currentbeat} 
 			  	elapsedtime={this.props.elapsedtime} 
 			  	divisionperbeat={this.props.divisionperbeat} 
 			  	beatpermeasure={this.props.beatpermeasure} 
@@ -120,7 +82,7 @@ class DrumKit extends React.Component {
 			  <div className="metronome" style={{'height':"12px",'marginTop':'5px','marginBottom':'20px', 'width':'80%'}}>
 				<Metronome 
 					bpm={this.props.bpm} 
-					currentbeat={this.state.currentbeat}/>
+					currentbeat={this.props.currentbeat}/>
 			  </div>
 			  <InstrumentInfos instruments={this.props.instruments}/>
 			</div>
@@ -136,7 +98,7 @@ class DrumKit extends React.Component {
 				<CurrentBitDisplayer 
 					timewidth={timeWidth} 
 					beatwidth={getBeatsWidth(this.props.divisionnumber, this.props.divisionperbeat)} 
-					currentbeat={this.state.currentbeat} 
+					currentbeat={this.props.currentbeat} 
 					beatpermeasure={this.props.beatpermeasure} />
 				<InstrumentBitsList 
 					measurenumber={getMeasureNumber(this.props.divisionnumber, this.props.divisionperbeat, this.props.beatpermeasure)} 
@@ -163,5 +125,7 @@ export default connect(state => ({
 	beatpermeasure: state.song.beatpermeasure,
 	divisionperbeat: state.song.divisionperbeat,
 	time: state.player.time,
-	elapsedtime: state.player.elapsedtime
+	elapsedtime: state.player.elapsedtime,
+	currentbeat: state.player.currentbeat,
+	currentdivision: state.player.currentdivision
 }))(DrumKit);

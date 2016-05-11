@@ -9,11 +9,8 @@ node_js:
   - "5"
 before_script:
   - npm prune
-script: PUBLIC_PATH=/Drumkit API_GET_DRUMKIT=https://raw.githubusercontent.com/StudioLasso/Drumkit/master/drumkit.json npm run build
+script: npm test && PUBLIC_PATH=/Drumkit API_GET_DRUMKIT=https://raw.githubusercontent.com/StudioLasso/Drumkit/master/drumkit.json npm run build
 after_success:
-  - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
-  - python travis_after_all.py
-  - 'export $(cat .to_export_back) &> /dev/null'
   - npm run semantic-release
   - bash ./deploy-gh-pages.sh
 branches:

@@ -19,7 +19,10 @@ export default function song(state= initialState, {type, payload} = {}) {
 			} = payload,
 			divisionnumber = bpm * time / 60 * divisionperbeat;
 
-		instruments.forEach(i => {
+		// Deep copy array of instruments
+		const songInstruments = JSON.parse(JSON.stringify(instruments));
+
+		songInstruments.forEach(i => {
 			i.bits = [...Array(divisionnumber).keys()].map(d => i.bits[d] || 0);
 		});
 
@@ -28,7 +31,7 @@ export default function song(state= initialState, {type, payload} = {}) {
 			time,
 			beatpermeasure,
 			divisionperbeat,
-			instruments,
+			instruments: songInstruments,
 			divisionnumber
 		}
 	case 'SOUND_LOADED':
