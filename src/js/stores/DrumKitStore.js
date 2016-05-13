@@ -145,7 +145,6 @@ function schedule() {
     }
     DrumKitStore.emitCurrentDivision();
 
-
     for (var i = 0; i < _data.instruments.length; i++){
       if(_data.instruments[i].bits[currentDivision] == 1){
         playSound(soundkit[i], contextPlayTime);

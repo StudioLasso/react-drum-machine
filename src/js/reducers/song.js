@@ -1,9 +1,11 @@
 const initialState = {
 	instruments: [],
 	bpm: 0,
+	time: 0,
 	divisionnumber: 0,
 	divisionperbeat: 0,
-	beatpermeasure: 0
+	beatpermeasure: 0,
+	loaded: false
 };
 
 export default function song(state= initialState, {type, payload} = {}) {
@@ -48,6 +50,11 @@ export default function song(state= initialState, {type, payload} = {}) {
 				return i;
 			})
 		}
+	case 'SONG_LOADED':
+		return {
+			...state,
+			loaded: true
+		};
 	default:
 		return state;
 	}

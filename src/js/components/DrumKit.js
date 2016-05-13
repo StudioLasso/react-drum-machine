@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import * as actions from 'actions';
 
 import DrumKitActions from 'actions/DrumKitActions';
-import DrumKitStore from 'stores/DrumKitStore';
 import InstrumentBitsList from './InstrumentBitsList';
 import InstrumentInfos from './InstrumentInfos';
-import DrumKitConsole from './DrumKitConsole';
-import TimeLine from './TimeLine';
+import Console from './Console';
+import Timeline from './Timeline';
 import PlayGround from './PlayGround';
 import Metronome from './Metronome';
 import MusicChoice from './MusicChoice';
@@ -59,25 +58,11 @@ class DrumKit extends React.Component {
 	  var s = {
 		timeStyle: {
 		  'width':timeWidth
-		},
-		tlcontent: {
-		  'height':"12px",
-		  'marginTop':'5px',
-		  'marginBottom':'20px'
 		}
 	  };
 	  return (
 		<div className="drumKit" onKeyDown={this.handleKeyDown}>
-			<div>
-			  <DrumKitConsole 
-			  	currentbeat={this.props.currentbeat} 
-			  	elapsedtime={this.props.elapsedtime} 
-			  	divisionperbeat={this.props.divisionperbeat} 
-			  	beatpermeasure={this.props.beatpermeasure} 
-			  	divisionnumber={this.props.divisionnumber} 
-			  	bpm={this.props.bpm}
-			  	time={this.props.time}/>
-			</div>
+			<Console />
 			<div className="instrumentInfosContent" style={{'float':'left'}}>
 			  <div className="metronome" style={{'height':"12px",'marginTop':'5px','marginBottom':'20px', 'width':'80%'}}>
 				<Metronome 
@@ -88,11 +73,7 @@ class DrumKit extends React.Component {
 			</div>
 			<div className="notesContent" style={{'float':'left','maxWidth':'1000px','overflowX':'auto','overflowY':'hidden','position':'relative'}}>
 			  <div className="timeLineContainer" style={s.timeStyle}>
-				<TimeLine 
-					songTime={this.props.time} 
-					elapsedtime={this.props.elapsedtime} 
-					timeWidth={timeWidth} 
-					style={s.tlcontent} />
+				<Timeline />
 			  </div>
 			  <div className="InstrumentBitsListContainer" style={s.timeStyle}>
 				<CurrentBitDisplayer 

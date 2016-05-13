@@ -7,17 +7,33 @@ import reducers from 'reducers';
 
 const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-	reducers,
-	compose(
+
+let createStoreWithMiddleware;
+
+if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {
+	createStoreWithMiddleware = compose(
 		applyMiddleware(
 			logger,
-			sagaMiddleware
-		),
+			sagaMiddleware),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
-	)
-);
+	)(createStore);
+} else {
+	createStoreWithMiddleware = compose(
+		applyMiddleware(
+			sagaMiddleware),
+	)(createStore);
+}
+
+const store = createStoreWithMiddleware(reducers);
 
 sagaMiddleware.run(sagas);
+
+if (module.hot) {
+	// Enable Webpack hot module replacement for reducers
+	module.hot.accept('./reducers', () => {
+		const nextRootReducer = require('./reducers/index');
+		store.replaceReducer(nextRootReducer);
+	});
+}
 
 export default store;

@@ -79,7 +79,8 @@
     "redux-actions": "^0.9.1",
     "redux-logger": "^2.6.1",
     "redux-saga": "^0.10.2",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.0.0",
+    "worker-loader": "^0.7.0"
   },
   "config": {
     "commitizen": {

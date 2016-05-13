@@ -3,6 +3,7 @@ import shallowDeepEqual from 'chai-shallow-deep-equal';
 import deepFreeze from 'deep-freeze';
 
 import song from '../src/js/reducers/song';
+import player from '../src/js/reducers/player';
 import * as actions from '../src/js/actions';
 
 chai.use(shallowDeepEqual);
@@ -59,6 +60,56 @@ const song2 = {
 	title: "Test"
 }
 
+describe('player reducer', () => {
+	it('shoud set start time', () => {
+		const action = actions.setStartTime(20);
+		deepFreeze(action);
+		const r = player(undefined, action);
+
+		expect(r.startTime).to.equal(20)
+	});
+	it('shoud set status', () => {
+		const action = actions.setPlayerStatus('play');
+		deepFreeze(action);
+		const r = player(undefined, action);
+
+		expect(r.status).to.equal('play')
+	});
+	it('shoud set paused at time', () => {
+		const action = actions.setPausedTime(2);
+		deepFreeze(action);
+		const r = player(undefined, action);
+
+		expect(r.pausedTime).to.equal(2)
+	});
+	it('shoud reset pausedTime when status set to play', () => {
+		let action = actions.setStartTime(3);
+		deepFreeze(action);
+		let r = player(undefined, action);
+
+		expect(r.startTime).to.equal(3);
+
+		action = actions.setPlayerStatus('stop');
+		deepFreeze(action);
+		r = player(undefined, action);
+
+		expect(r.startTime).to.equal(undefined);
+	});
+	it('shoud reset pausedTime when status set to play', () => {
+		let action = actions.setPausedTime(3);
+		deepFreeze(action);
+		let r = player(undefined, action);
+
+		expect(r.pausedTime).to.equal(3);
+
+		action = actions.setPlayerStatus('play');
+		deepFreeze(action);
+		r = player(undefined, action);
+
+		expect(r.pausedTime).to.equal(undefined);
+	});
+});
+
 describe('song reducer', () => {
 	it('should init general properties of song', () => {
 		const action = actions.initSong({ song: song1});
@@ -73,7 +124,7 @@ describe('song reducer', () => {
 		}
 
 		e.divisionnumber = e.bpm * e.time / 60 * e.divisionperbeat;
-		
+
 		expect(r).to.shallowDeepEqual(e);
 	});
 	it('should init bits for all instruments', () => {
@@ -95,5 +146,12 @@ describe('song reducer', () => {
 		});
 		
 		expect(r.instruments).to.eql(e.instruments);
+	});
+	it('should flag loaded song', () => {
+		const action = actions.songLoaded();
+		deepFreeze(action);
+		const r = song(undefined, action);
+
+		expect(r.loaded).to.equal(true);
 	});
 });
