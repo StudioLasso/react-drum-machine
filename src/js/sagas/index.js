@@ -12,8 +12,9 @@ import {
 } from 'services';
 import * as actions from 'actions';
 import { getSong, getStartTime, getStatus, getPausedTime } from './selectors';
+import * as time from '../utils/time';
 
-let lastIndex=-1;
+let lastDiv=-1;
 
 export function* loadSound(instrument) {
 	const buffer = yield call(fetchSound, instrument.soundurl);
@@ -28,22 +29,22 @@ export function* loadSounds() {
 export function* getNotes(elapsedTime, aheadTime) {
 	const song = yield select(getSong);
 	const bitDuration = song.time / (song.bpm * song.time / 60 * song.divisionperbeat); 
-	const startIndex = Math.ceil(elapsedTime / 60 * song.bpm * song.divisionperbeat);
-	const endIndex = Math.ceil( (elapsedTime+aheadTime) / 60 * song.bpm * song.divisionperbeat);
+	const startDiv = time.timeToDivision(song, elapsedTime);
+	const endDiv = time.timeToDivision(song, elapsedTime+aheadTime);
 
 	// Do not replay already listened notes
-	if (startIndex <= lastIndex) {
+	if (startDiv <= lastDiv) {
 		return [];
 	}
-	lastIndex = endIndex;
+	lastDiv = endDiv;
 
 	return song.instruments.filter(i => !i.disabled).map(i => {
 		const n = {
 			bitDuration,
-			offset: (startIndex / song.divisionperbeat * (60/song.bpm)) - elapsedTime,
+			offset: time.divisionToTime(song, startDiv) - elapsedTime,
 			name: i.name,
 			buffer: i.buffer,
-			bits: i.bits.slice(startIndex, endIndex+1)
+			bits: i.bits.slice(startDiv, endDiv+1)
 		};
 
 		return n;
@@ -107,7 +108,7 @@ export function *pause() {
 		const startTime = yield select(getStartTime);
 		yield put(actions.setPlayerStatus('pause'));
 		yield call(stopTimer);
-		lastIndex = -1;
+		lastDiv = -1;
 		yield put(actions.setPausedTime(currentTime - startTime));
 	}
 }
@@ -117,7 +118,7 @@ export function *stop() {
 		yield take('STOP');
 		yield put(actions.setPlayerStatus('stop'));
 		yield call(stopTimer);
-		lastIndex = -1;
+		lastDiv = -1;
 		yield put(actions.setPausedTime(0));
 	}
 }
@@ -126,7 +127,7 @@ export function *seek() {
 	while (true) {
 		const { payload : time } = yield take('CHANGE_TIME');
 		const currentTime = yield call(getWebAudioTime);
-		lastIndex = -1;
+		lastDiv = -1;
 		const status = yield select(getStatus);
 		if (status === 'play') {
 			yield put(actions.setStartTime(currentTime - time));			

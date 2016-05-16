@@ -11,6 +11,7 @@ export const changeBpm = createAction('CHANGE_BPM');
 export const changeBeatPerMeasure = createAction('CHANGE_BEATPERMEASURE');
 export const changeElapsedTime = createAction('CHANGE_ELAPSEDTIME');
 export const changeDpb = createAction('CHANGE_DPB');
+export const currentBeatChange = createAction('CHANGE_CURRENTBEAT');
 export const play = createAction('PLAY');
 export const pause = createAction('PAUSE');
 export const stop = createAction('STOP');

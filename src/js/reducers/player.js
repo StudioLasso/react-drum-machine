@@ -33,6 +33,11 @@ export default function player(state= initialState, {type, payload} = {}) {
 			...state,
 			pausedTime: payload
 		}
+	case 'CHANGE_CURRENTBEAT':
+		return {
+			...state,
+			currentbeat: payload
+		}
 	default:
 		return state;
 	}

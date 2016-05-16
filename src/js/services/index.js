@@ -56,7 +56,7 @@ export function playSound(buffer, delay) {
 }
 
 export function getWebAudioTime() {
-	return Promise.resolve(audioCtx.currentTime); 
+	return audioCtx.currentTime;
 }
 
 export function waitTimer() {

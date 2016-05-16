@@ -108,6 +108,13 @@ describe('player reducer', () => {
 
 		expect(r.pausedTime).to.equal(undefined);
 	});
+	it('shoud change current beat', () => {
+		const action = actions.currentBeatChange(5)
+		deepFreeze(action)
+		const r = player(undefined, action)
+
+		expect(r.currentbeat).to.equal(5)	
+	});
 });
 
 describe('song reducer', () => {

@@ -11,7 +11,7 @@ import Timeline from './Timeline';
 import PlayGround from './PlayGround';
 import Metronome from './Metronome';
 import MusicChoice from './MusicChoice';
-import CurrentBitDisplayer from './CurrentBitDisplayer';
+import CurrentBeat from './CurrentBeat';
 
 var timeWidth = 6200;
 
@@ -73,14 +73,10 @@ class DrumKit extends React.Component {
 			</div>
 			<div className="notesContent" style={{'float':'left','maxWidth':'1000px','overflowX':'auto','overflowY':'hidden','position':'relative'}}>
 			  <div className="timeLineContainer" style={s.timeStyle}>
-				<Timeline />
+				<Timeline timeWidth={timeWidth} />
 			  </div>
 			  <div className="InstrumentBitsListContainer" style={s.timeStyle}>
-				<CurrentBitDisplayer 
-					timewidth={timeWidth} 
-					beatwidth={getBeatsWidth(this.props.divisionnumber, this.props.divisionperbeat)} 
-					currentbeat={this.props.currentbeat} 
-					beatpermeasure={this.props.beatpermeasure} />
+				<CurrentBeat timeWidth={timeWidth} />
 				<InstrumentBitsList 
 					measurenumber={getMeasureNumber(this.props.divisionnumber, this.props.divisionperbeat, this.props.beatpermeasure)} 
 					timeWidth={timeWidth} 
