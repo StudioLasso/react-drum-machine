@@ -1,0 +1,17 @@
+{
+  "gitbook": "2.x.x",
+  "title": "Drumkit",
+  "structure": {
+    "summary": "doc/README.md"
+  },
+  "plugins": ["edit-link","github"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/StudioLasso/Drumkit/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/StudioLasso/Drumkit/"
+    }
+  }
+}
