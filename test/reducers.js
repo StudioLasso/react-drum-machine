@@ -82,7 +82,7 @@ describe('player reducer', () => {
 
 		expect(r.pausedTime).to.equal(2)
 	});
-	it('shoud reset pausedTime when status set to play', () => {
+	it('shoud reset startTime when status set to play', () => {
 		let action = actions.setStartTime(3);
 		deepFreeze(action);
 		let r = player(undefined, action);
