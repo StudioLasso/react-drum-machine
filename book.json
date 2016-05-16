@@ -2,7 +2,7 @@
   "gitbook": "2.5.2",
   "title": "Drumkit",
   "structure": {
-    "summary": "doc/README.md"
+    "summary": "docs/README.md"
   },
   "plugins": ["edit-link","github"],
   "pluginsConfig": {
