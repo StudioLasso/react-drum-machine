@@ -1,0 +1,18 @@
+.metronome {
+	height: 12px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	width: 80%;
+}
+
+.instruments {
+	float: left;
+	max-width: 1000px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	position: relative;
+}
+
+.leftContent {
+	float: left;
+}

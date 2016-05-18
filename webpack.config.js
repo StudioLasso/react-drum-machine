@@ -78,11 +78,22 @@ if (process.env.NODE_ENV !== 'production') {
 		'webpack/hot/dev-server'
 		]);
 	config.module.loaders = config.module.loaders.concat([
-		{ test: /\.css/, loaders: [
-			'style',
-			'css?sourceMap'
-			]}
-			]);
+		{ 
+			test: /\.css/, 
+			loaders: [
+				'style',
+				'css?sourceMap'
+			],
+			exclude: /js\/.*\.css$/
+		},
+		{ 
+			test: /js\/.*\.css$/, 
+			loaders: [
+				'style',
+				'css?sourceMap&modules'
+			]
+		}
+	]);
 	config.plugins.push(new webpack.HotModuleReplacementPlugin());
 } else {
 	config.plugins = config.plugins.concat([
@@ -92,10 +103,21 @@ if (process.env.NODE_ENV !== 'production') {
 		new ExtractTextPlugin('[name].css')
 		]);
 	config.module.loaders = config.module.loaders.concat([
-		{ test: /\.css/, loader: ExtractTextPlugin.extract(
-			'style',
-			'css-loader?sourceMap&minimize'
-			)}
+		{ 
+			test: /\.css/, 
+			loader: ExtractTextPlugin.extract(
+				'style',
+				'css-loader?sourceMap&minimize'
+			),
+			exclude: /js\/.*\.css$/
+		},
+		{ 
+			test: /js\/.*\.css$/, 
+			loader: ExtractTextPlugin.extract(
+				'style',
+				'css?sourceMap&modules'
+			)
+		}
 		]);
 	config.devtool = 'source-map';
 	config.debug = false;

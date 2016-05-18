@@ -1,33 +1,24 @@
 import React from 'react';
 import Range from './Range';
-
-const styles = {
-	'height':"12px",
-	'marginTop':'5px',
-	'marginBottom':'20px'
-};
+import s from './styles.css';
 
 export default props => {
 	const second = {
-		'borderLeft': '1px solid',
-		'width':props.timeWidth / props.songTime,
-		'height':'8',
-		'float':'left',
-		'display':'block'
+		'width':props.timeWidth / props.songTime
     };
 
     const rows = [];
     for (var i = 0; i < props.songTime; i++) {
 		rows.push(
-			<div key={i} style={second}>
-				<span style={{'fontSize':'xx-small'}}>
+			<div key={i} className={s.second} style={second}>
+				<span className={s.secondLbl}>
 					{i}
 				</span>
 			</div>
       	);
     }
     return (
-		<div className="timeLine" style={styles}>
+		<div className={s.container}>
 			<Range timeWidth={props.timeWidth} />
 			{rows}
 		</div>

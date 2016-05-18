@@ -1,0 +1,14 @@
+.container {
+	position:absolute;
+	height: 100%;
+	background-color:#555;
+	background: linear-gradient(to right, #555 50%, silver 50%);
+	z-index: -1;
+	opacity: 0.5;	
+}
+
+.beat {
+	height: 100%;
+	background-color: black;
+	position: absolute;
+}

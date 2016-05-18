@@ -75,4 +75,29 @@ describe('utils.time library', () => {
 			divisionperbeat: 4
 		}, 14.7)).to.equal(39);
 	});
+	it('should return division size', () => {
+		expect(time.getDivisionSize({
+			divisionnumber: 200
+		}, 5000)).to.equal(25)
+	});
+	it('should return beat size', () => {
+		expect(time.getBeatSize({
+			divisionnumber: 200,
+			divisionperbeat: 4
+		}, 5000)).to.equal(100);
+	});
+	it('should return measure size', () => {
+		expect(time.getMeasureSize({
+			divisionnumber: 200,
+			divisionperbeat: 4,
+			beatpermeasure: 4
+		}, 5000)).to.equal(400);
+	});
+	it('should return measure number', () => {
+		expect(time.getMeasureNumber({
+			divisionnumber: 193,
+			divisionperbeat: 4,
+			beatpermeasure: 4
+		})).to.equal(13);
+	})
 })

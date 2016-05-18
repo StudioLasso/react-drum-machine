@@ -11,7 +11,7 @@ export default props => {
 	const handleStop = () => props.actions.stop();
 
 	return (
-		<div className="drumKitConsole" style={{'marginBottom':'10'}}>
+		<div style={{'marginBottom':'10'}}>
 			<div className="row">
 				<form className="form" role="form">
 					<div className="col-xs-1">

@@ -1,8 +1,10 @@
 import React from 'react';
+import s from './styles.css';
 
 export default props => {
 	return (
 		<input
+			className={s.range}
 			type="range"
 			value={props.elapsedTimeToValue}
 			onChange={props.handleChange}

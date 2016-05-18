@@ -21,7 +21,7 @@ class RangeContainer extends Component {
 			this.setState({
 				elapsedTime: time.getElapsedTime(this.props.player, webAudioTime)
 			});
-			setTimeout(() => requestAnimationFrame(refresh), 60);
+			setTimeout(() => requestAnimationFrame(refresh), 20);
 		};
 
 		requestAnimationFrame(refresh);

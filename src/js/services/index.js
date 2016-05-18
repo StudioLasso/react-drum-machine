@@ -48,7 +48,7 @@ export function fetchSound(url) {
  * @param  {AudioBufferSourceNode} buffer
  * @param  {Number} delay  delay in seconds
  */
-export function playSound(buffer, delay) {
+export function playSound(buffer, delay=0) {
 	const source = audioCtx.createBufferSource(); 	// creates a sound source
 	source.buffer = buffer;                  		// tell the source which sound to play
 	source.connect(audioCtx.destination);       	// connect the source to the context's destination (the speakers)
@@ -56,7 +56,7 @@ export function playSound(buffer, delay) {
 }
 
 export function getWebAudioTime() {
-	return audioCtx.currentTime;
+	return audioCtx ? audioCtx.currentTime : 0;
 }
 
 export function waitTimer() {

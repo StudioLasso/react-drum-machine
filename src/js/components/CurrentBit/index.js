@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import CurrentBeat from './CurrentBeat';
+import CurrentBit from './CurrentBit';
 import * as actions from '../../actions';
 import { getWebAudioTime } from '../../services';
 import * as time from '../../utils/time';
 
-class CurrentBeatContainer extends Component {
+class CurrentBitContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -28,11 +28,9 @@ class CurrentBeatContainer extends Component {
 	}
 
 	render() {
-		return <CurrentBeat 
+		return <CurrentBit 
+			song={this.props.song}
 			timeWidth={this.props.timeWidth}
-			divisionPerBeat={this.props.divisionPerBeat}
-			divisionNumber={this.props.divisionNumber}
-			beatPerMeasure={this.props.beatPerMeasure}
 			currentBeat={this.state.currentBeat} />;
 	}
 }
@@ -46,4 +44,4 @@ export default connect((state, props) => ({
 	song: state.song
 }), dispatch => ({
 	actions: bindActionCreators(actions, dispatch)
-}))(CurrentBeatContainer);
+}))(CurrentBitContainer);

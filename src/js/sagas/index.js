@@ -11,7 +11,7 @@ import {
 	stopTimer
 } from 'services';
 import * as actions from 'actions';
-import { getSong, getStartTime, getStatus, getPausedTime } from './selectors';
+import { getSong, getStartTime, getStatus, getPausedTime, getInstrument } from './selectors';
 import * as time from '../utils/time';
 
 let lastDiv=-1;
@@ -104,6 +104,10 @@ export function* play() {
 export function *pause() {
 	while (true) {
 		yield take('PAUSE');
+		const status = yield select(getStatus);
+		if (status !== 'play') {
+			continue;
+		}
 		const currentTime = yield call(getWebAudioTime);
 		const startTime = yield select(getStartTime);
 		yield put(actions.setPlayerStatus('pause'));
@@ -139,7 +143,7 @@ export function *seek() {
 	}
 }
 
-export function* watchControlPlayer() {
+export function *watchControlPlayer() {
 	yield take('SONG_LOADED');
 	yield [
 		fork(play),
@@ -149,10 +153,55 @@ export function* watchControlPlayer() {
 	];
 }
 
-export default function* root() {
+export function *changeBit() {
+	while (true) {
+		const { 
+			payload: {
+				bitIndex, 
+				instrumentIndex
+			}
+		} = yield take('CHANGE_BIT');
 
+		const i = yield select(getInstrument, instrumentIndex);
+		if (!i.bits[bitIndex]) {
+			yield call(playSound, i.buffer);
+		}
+		yield put(actions.bitChanged({
+			bitIndex,
+			instrumentIndex
+		}));
+	}
+}
+
+export function *copyPasteMeasure() {
+	while (true) {
+		const { payload: copyIndex } = yield take('COPY_MEASURE');
+		const song = yield select(getSong);
+		const startCopyIndex = copyIndex * song.beatpermeasure * song.divisionperbeat;
+		const endCopyIndex = startCopyIndex + song.beatpermeasure * song.divisionperbeat;
+		const copiedBits = song.instruments.map(i => {
+			return i.bits.slice(startCopyIndex, endCopyIndex);
+		});
+		const { payload: pasteIndex } = yield take('PASTE_MEASURE');
+		yield put(actions.measurePasted({
+			bits: copiedBits,
+			pasteIndex
+		}));
+	}
+}
+
+export function *watchEditInstruments() {
+	yield take('SONG_LOADED');
+	yield [
+		fork(changeBit),
+		fork(copyPasteMeasure)
+	];
+}
+
+export default function *root() {
 	yield [
 		fork(watchDrumkitInit),
-		fork(watchControlPlayer)
+		fork(watchControlPlayer),
+		fork(watchEditInstruments)
 	];
 }

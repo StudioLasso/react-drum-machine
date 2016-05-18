@@ -1,0 +1,13 @@
+.container {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.measure {
+	height: 24px;
+	display: inline-block;
+}
+
+.cell {
+	float: left;
+}

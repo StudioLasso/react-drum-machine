@@ -4,6 +4,6 @@ import ReactDom from 'react-dom';
 import DrumKit from 'app.js';
 
 ReactDom.render(
-  <DrumKit />,
-  document.getElementById('main')
+	<DrumKit />,
+	document.getElementById('main')
 );

@@ -20,12 +20,26 @@ export function getElapsedTime(playerState, time) {
 
 export function getCurrentBeat(playerState, songState, time) {
 	const elapsedTime = getElapsedTime(playerState, time);
-
 	return Math.floor(elapsedTime / 60 * songState.bpm);
 }
 
 export function getCurrentDivision(playerState, songState, time) {
 	const elapsedTime = getElapsedTime(playerState, time);
-
 	return Math.floor(elapsedTime / 60 * songState.bpm * songState.divisionperbeat);
+}
+
+export function getDivisionSize(songState, sizeMax) {
+	return sizeMax / songState.divisionnumber;
+}
+
+export function getBeatSize(songState, sizeMax) {
+	return getDivisionSize(songState, sizeMax) * songState.divisionperbeat;
+}
+
+export function getMeasureSize(songState, sizeMax) {
+	return getBeatSize(songState, sizeMax) * songState.beatpermeasure;
+}
+
+export function getMeasureNumber(songState) {
+	return Math.ceil(songState.divisionnumber / songState.divisionperbeat / songState.beatpermeasure);
 }

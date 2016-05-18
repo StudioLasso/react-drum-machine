@@ -1,0 +1,29 @@
+.bitOn {
+	border: 1px solid #CCC;
+	width: 80%;
+	height: 80%;
+	margin: auto;
+	background: silver;
+}
+
+.bitOff {
+	width: 50%;
+	height: 80%;
+	margin: auto;	
+}
+
+.bits {
+    height: 24px;
+    display: table;
+}
+
+.content {
+	display: table-cell;
+    vertical-align: middle;
+}
+
+.bitContent {
+	float: left;
+	border-right: 1px solid #CCC;
+	height: 100%;
+}
