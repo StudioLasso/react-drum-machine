@@ -37,9 +37,9 @@ ReactDom.render(
 
 1. Clone repository `git clone https://github.com/studiolasso/react-drum-machine.git`
 
-2. Install dependencies `cd react-drum-machine && npm i`
+2. Install dependencies `cd react-drum-machine && npm i && cd demo && npm i`
 
-3. Execute demo `cd demo && npm start`
+3. Execute demo `npm start`
 
 # License
 
