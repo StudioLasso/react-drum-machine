@@ -1,0 +1,18 @@
+.container {
+	height: 12px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	position: relative;
+}
+
+.second {
+	border-left: 1px solid;
+	height: 8px;
+	float: left;
+	display: block;
+}
+
+.secondLbl {
+	font-size: xx-small;
+}

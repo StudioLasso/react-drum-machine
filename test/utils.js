@@ -2,7 +2,7 @@ import chai, { assert, expect } from 'chai';
 import shallowDeepEqual from 'chai-shallow-deep-equal';
 import deepFreeze from 'deep-freeze';
 
-import * as time from '../src/js/utils/time';
+import * as time from '../src/utils/time';
 
 chai.use(shallowDeepEqual);
 
@@ -99,5 +99,5 @@ describe('utils.time library', () => {
 			divisionperbeat: 4,
 			beatpermeasure: 4
 		})).to.equal(13);
-	})
+	});
 })

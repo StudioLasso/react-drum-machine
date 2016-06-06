@@ -2,9 +2,9 @@ import chai, { assert, expect } from 'chai';
 import shallowDeepEqual from 'chai-shallow-deep-equal';
 import deepFreeze from 'deep-freeze';
 
-import song from '../src/js/reducers/song';
-import player from '../src/js/reducers/player';
-import * as actions from '../src/js/actions';
+import song from '../src/reducers/song';
+import player from '../src/reducers/player';
+import * as actions from '../src/actions';
 
 chai.use(shallowDeepEqual);
 

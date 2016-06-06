@@ -1,0 +1,21 @@
+.metronome {
+	position: relative; 
+	background: #222;
+	height: 100%;
+	width: 100%;
+}
+
+.point {
+	width: 10px;
+	height: 8px;
+	position: absolute;
+	background: #eee;
+	left: 0px;
+}
+
+.container {
+	height: 12px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	width: 80%;
+}

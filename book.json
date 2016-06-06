@@ -1,17 +1,17 @@
 {
   "gitbook": "2.5.2",
-  "title": "Drumkit",
+  "title": "react-drum-machine",
   "structure": {
     "summary": "docs/README.md"
   },
   "plugins": ["edit-link","github"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/StudioLasso/Drumkit/tree/master",
+      "base": "https://github.com/StudioLasso/react-drum-machine/tree/master",
       "label": "Edit This Page"
     },
     "github": {
-      "url": "https://github.com/StudioLasso/Drumkit/"
+      "url": "https://github.com/StudioLasso/react-drum-machine/"
     }
   }
 }
