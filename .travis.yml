@@ -9,7 +9,7 @@ node_js:
   - "5"
 before_script:
   - npm prune
-script: npm test && cd demo && npm i && PUBLIC_PATH=/react-drum-machine API_GET_DRUMKIT=https://raw.githubusercontent.com/StudioLasso/react-drum-machine/master/drumkit.json npm run build:demo
+script: npm test && cd demo && npm i && PUBLIC_PATH=/react-drum-machine API_GET_DRUMKIT=https://raw.githubusercontent.com/StudioLasso/react-drum-machine/master/drumkit.json npm run build
 after_success:
   - npm run semantic-release
   - bash ./deploy-gh-pages.sh
