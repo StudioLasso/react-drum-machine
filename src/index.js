@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import Drumkit from './components/DrumKit';
+import Drumkit from './components/Drumkit';
 import store from './store';
 import * as actions from './actions';
 import * as time from './utils/time';
