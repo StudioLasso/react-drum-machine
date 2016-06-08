@@ -25,7 +25,7 @@
     "demo": "cd demo && npm start",
     "build:demo": "cd demo && npm run build",
     "start": "parallelshell 'npm run build:watch' 'npm run demo'",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && semantic-release post"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
