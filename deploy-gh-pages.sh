@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "master" ]; then exit 0; fi
-cd dist
+cd demo/dist
 git init
 git config user.name "PaulMusso"
 git config user.email "paul.musso@orange.com"

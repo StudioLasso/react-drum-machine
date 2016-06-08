@@ -4,7 +4,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development node server.dev.js",
-    "serve": "node server.dev.js"
+    "serve": "node server.dev.js",
+    "build": "rimraf dist && NODE_ENV=production webpack --progress --colors -p"
   },
   "author": "",
   "license": "MIT",
@@ -25,6 +26,7 @@
     "html-webpack-plugin": "^2.16.1",
     "imports-loader": "^0.6.5",
     "proxy-middleware": "^0.15.0",
+    "rimraf": "^2.5.2",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
