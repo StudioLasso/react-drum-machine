@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import 'babel-polyfill';
 
-import DrumKit from 'Drumkit';
+import DrumMachine from 'react-drum-machine';
 
 import Console from './Console';
 import Metronome from './Metronome';
@@ -10,17 +10,17 @@ import Timeline from './Timeline';
 
 ReactDom.render(
 	<div>
-		<Console Drumkit={DrumKit} />
+		<Console Drumkit={DrumMachine} />
 		<div>
 			<div style={{display:'inline-block', float: 'left'}}>
-				<Metronome Drumkit={DrumKit} />
+				<Metronome Drumkit={DrumMachine} />
 			</div> 
 			<div style={{float: 'left'}}>
-				<Timeline Drumkit={DrumKit} />
+				<Timeline Drumkit={DrumMachine} />
 			</div>
 		</div>
 		<div style={{clear:'both'}}>			
-			<DrumKit />
+			<DrumMachine />
 		</div>
 	</div>,
 	document.getElementById('main')

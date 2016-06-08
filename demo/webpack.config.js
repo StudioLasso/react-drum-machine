@@ -33,7 +33,7 @@ const config = {
 	},
 	resolve: {
 		alias: {
-			Drumkit: process.env.NODE_ENV === 'development' ? '../../src' : '../../lib' 
+			'react-drum-machine': process.env.NODE_ENV === 'development' ? '../../src' : '../../lib' 
 		}
 	},
 	module: {
