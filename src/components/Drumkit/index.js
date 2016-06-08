@@ -5,6 +5,7 @@ import * as actions from '../../actions';
 import InstrumentBitsList from '../InstrumentBitsList';
 import InstrumentInfos from '../InstrumentInfos';
 import CurrentBit from '../CurrentBit';
+import AutoScroll from '../AutoScroll';
 
 const s = {
 	container: {
@@ -13,12 +14,9 @@ const s = {
 	},
 	instruments: {
 		width: '1000px',
-		overflowX: 'auto',
+		overflowX: 'hidden',
 		overflowY: 'hidden',
 		position: 'relative'
-	},
-
-	leftContent: {
 	}	
 };
 
@@ -41,10 +39,9 @@ class DrumKit extends React.Component {
  
 		return (
 			<div style={s.container}>
-				<div style={s.leftContent}>
-					<InstrumentInfos />
-				</div>
+				<InstrumentInfos />
 				<div style={s.instruments} id='rightPanel'>
+					<AutoScroll />
 					<div style={timeStyle}>
 						<CurrentBit timeWidth={timeWidth} />
 						<InstrumentBitsList timeWidth={timeWidth} />
