@@ -1,5 +1,5 @@
 require('firebase');
-const WorkerBlobUrl = require("./timerworker.js");
+import WorkerBlobUrl from './timerworker.js';
 
 let audioCtx,
 	timer,
@@ -69,6 +69,7 @@ export function initTimer() {
 	timer = new Worker(WorkerBlobUrl);
 	timer.onmessage = e => { 
 		if (e.data === 'tick' && tickResolve) {
+			console.log('tick');
 			tickResolve();
 			tickResolve = undefined;
 		}
@@ -77,6 +78,7 @@ export function initTimer() {
 
 export function startTimer() {
 	if (timer) {
+		console.log('startTimer');
 		timer.postMessage("start");
 	}
 }
