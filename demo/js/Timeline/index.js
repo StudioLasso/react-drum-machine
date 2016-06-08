@@ -11,7 +11,7 @@ export default class extends Component {
 	componentDidMount() {
 		this.props.Drumkit.subscribe(() => {
 			this.setState({
-				width: this.props.Drumkit.getState().player.width,
+				//width: this.props.Drumkit.getState().player.width,
 				time: this.props.Drumkit.getState().song.time
 			});
 		});

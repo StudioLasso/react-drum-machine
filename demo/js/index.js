@@ -8,16 +8,20 @@ import Console from './Console';
 import Metronome from './Metronome';
 import Timeline from './Timeline';
 
-window.DK = DrumKit;
-
 ReactDom.render(
 	<div>
-		<div style={{maxWidth: '100px'}}>
-			<Metronome Drumkit={DrumKit} />
-		</div>
 		<Console Drumkit={DrumKit} />
-		<Timeline Drumkit={DrumKit} />
-		<DrumKit />
+		<div>
+			<div style={{display:'inline-block', float: 'left'}}>
+				<Metronome Drumkit={DrumKit} />
+			</div> 
+			<div style={{float: 'left'}}>
+				<Timeline Drumkit={DrumKit} />
+			</div>
+		</div>
+		<div style={{clear:'both'}}>			
+			<DrumKit />
+		</div>
 	</div>,
 	document.getElementById('main')
 );

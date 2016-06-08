@@ -4,7 +4,7 @@ import s from './styles.css';
 
 export default props => {
 	const second = {
-		'width': props.width / props.time
+		'width': (100 / props.time)+'%'
     };
 
     const rows = [];
@@ -18,7 +18,7 @@ export default props => {
       	);
     }
     return (
-		<div className={s.container} style={{left: props.Drumkit.getBitsOffset()}}>
+		<div className={s.container}>
 			<Range Drumkit={props.Drumkit} />
 			{rows}
 		</div>

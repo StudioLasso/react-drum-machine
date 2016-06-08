@@ -23,6 +23,8 @@ export default class extends Component {
 	}
 
 	render() {
-		return <Metronome currentBeat={this.state.currentBeat} />;
+		return <Metronome 
+			currentBeat={this.state.currentBeat} 
+			leftOffset={this.props.Drumkit.getBitsOffset()} />;
 	}
 }
