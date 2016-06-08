@@ -4,6 +4,8 @@
 
 	/*fix for FF unable to apply focus style bug */
 	border: 1px solid white;
+
+	width: 80%;
 }
 .range[type=range]::-webkit-slider-runnable-track {
 	height: 5px;

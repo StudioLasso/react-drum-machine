@@ -5,7 +5,10 @@ export default class extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			drumkitState: this.props.Drumkit.getState()
+			drumkitState: this.props.Drumkit.getState(),
+			elapsedTime: 0,
+			currentBeat: 0,
+			currentDivision: 0
 		};
 	}
 	componentDidMount() {
@@ -21,7 +24,7 @@ export default class extends Component {
 				currentBeat: this.props.Drumkit.getCurrentBeat(),
 				currentDivision: this.props.Drumkit.getCurrentDivision()
 			});
-			setTimeout(() => requestAnimationFrame(refresh), 20);
+			setTimeout(() => requestAnimationFrame(refresh), 100);
 		};
 
 		requestAnimationFrame(refresh);

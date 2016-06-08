@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import 'babel-polyfill';
 
-import DrumKit from '../../lib';
+import DrumKit from 'Drumkit';
 
 import Console from './Console';
 import Metronome from './Metronome';

@@ -32,7 +32,7 @@ export default class InstrumentInfos extends Component {
 
 	render() {
 		const instruments = this.props.instruments.map((instrument,i) => (
-			<div className="instrumentName" key={i} style={{width:'64',height:'24','outline':'1px solid'}}>
+			<div className="instrumentName" key={i} style={{width:'64px',height:'24px','outline':'1px solid'}}>
 				<img src={instrument.imgurl} alt={instrument.name} height="24" width="24" />
 			</div>
 		));

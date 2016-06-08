@@ -6,7 +6,8 @@ export default class extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			elapsedTime: 0
+			elapsedTime: 0,
+			elapsedTimeToSize: 0
 		};
 	}
 

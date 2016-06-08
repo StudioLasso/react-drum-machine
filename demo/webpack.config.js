@@ -31,6 +31,11 @@ const config = {
 		filename: 'bundle.js',
 		publicPath: '/'
 	},
+	resolve: {
+		alias: {
+			Drumkit: process.env.NODE_ENV === 'development' ? '../../src' : '../../lib' 
+		}
+	},
 	module: {
 		loaders: [
 		{ test: /\.js$/, loader: 'babel', exclude: /node_modules/ },

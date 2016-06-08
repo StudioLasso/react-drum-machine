@@ -10,7 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 let createStoreWithMiddleware;
 
-if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {
+if (process.env.NODE_ENV === 'development') {
 	createStoreWithMiddleware = compose(
 		applyMiddleware(
 			logger,

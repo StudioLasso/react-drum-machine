@@ -29,7 +29,7 @@ export function getCurrentDivision(playerState, songState, time) {
 }
 
 export function getDivisionSize(songState, sizeMax) {
-	return sizeMax / songState.divisionnumber;
+	return songState.divisionnumber ? sizeMax / songState.divisionnumber : 0;
 }
 
 export function getBeatSize(songState, sizeMax) {

@@ -1,4 +1,7 @@
 {
+	plugins: [
+		"transform-inline-environment-variables"
+	],
 	"env": {
 		"development": {
 			"presets": ["react-hmre"]
