@@ -29,7 +29,7 @@ const config = {
 	output: {
 		path: path.resolve('./dist'),
 		filename: 'bundle.js',
-		publicPath: '/'
+		publicPath: process.env.PUBLIC_PATH || '/'
 	},
 	resolve: {
 		alias: {
