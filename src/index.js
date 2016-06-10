@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import 'babel-polyfill';
 
 import Drumkit from './components/Drumkit';
 import store from './store';
@@ -46,7 +47,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<Drumkit ref="drumkit" {...this.props} />
+				<Drumkit {...this.props} />
 			</Provider>
 		);
 	}
