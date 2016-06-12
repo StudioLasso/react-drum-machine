@@ -1,9 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
 import InstrumentBitsList from '../InstrumentBitsList';
-import InstrumentInfos from '../InstrumentInfos';
 import CurrentBit from '../CurrentBit';
 import AutoScroll from '../AutoScroll';
 
@@ -13,7 +13,6 @@ const s = {
 		position: 'relative'
 	},
 	instruments: {
-		width: '1000px',
 		overflowX: 'hidden',
 		overflowY: 'hidden',
 		position: 'relative'
@@ -27,25 +26,21 @@ class DrumKit extends React.Component {
 		this.props.dispatch(actions.initDrumkit({id: 0}));
 	}
 
-	static getBitsOffset() {
-		const el = document.getElementById('rightPanel');
-		return el && el.offsetLeft;
-	}  
+	getRootElement() {
+		return ReactDOM.findDOMNode(this);
+	}
 
 	render() {
 		const timeStyle = {
 			width: timeWidth
 		};
- 
-		return (
-			<div style={s.container}>
-				<InstrumentInfos />
-				<div style={s.instruments} id='rightPanel'>
-					<AutoScroll />
-					<div style={timeStyle}>
-						<CurrentBit timeWidth={timeWidth} />
-						<InstrumentBitsList timeWidth={timeWidth} />
-					</div>
+
+ 		return (
+			<div style={s.instruments}>
+				<AutoScroll getRootElement={this.getRootElement.bind(this)}  />
+				<div style={timeStyle}>
+					<CurrentBit timeWidth={timeWidth} />
+					<InstrumentBitsList timeWidth={timeWidth} />
 				</div>
 			</div>
 		);

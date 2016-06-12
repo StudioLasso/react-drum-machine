@@ -14,7 +14,7 @@ export default class extends Component {
 	componentDidMount() {
 		const refresh = () => {
 			this.setState({
-				elapsedTimeToSize: this.props.Drumkit.elapsedTimeToSize()
+				elapsedTimeToSize: this.props.DrumMachine.elapsedTimeToSize()
 			});
 			setTimeout(() => requestAnimationFrame(refresh), 20);
 		};
@@ -23,15 +23,15 @@ export default class extends Component {
 	}
 
 	handleChange(e) {
-		this.props.Drumkit.getActions().changeTime(
-			this.props.Drumkit.sizeToTime(
+		this.props.DrumMachine.getActions().changeTime(
+			this.props.DrumMachine.sizeToTime(
 				e.target.value));
 	}
 
 	render() {
 		return <Range 
 			elapsedTimeToSize={this.state.elapsedTimeToSize} 
-			width={this.props.Drumkit.getState().player.width} 
+			width={this.props.DrumMachine.getState().player.width} 
 			handleChange={this.handleChange.bind(this)} />;
 	}
 }

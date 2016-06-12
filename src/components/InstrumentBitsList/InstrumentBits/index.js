@@ -1,36 +1,46 @@
 import React, { Component } from 'react';
 
 const s = {
+	bit: {
+		height: '100%',
+		margin: '1px',
+		boxSizing: 'border-box'
+	},
+
 	bitOn: {
 		border: '1px solid #CCC',
-		width: '80%',
-		height: '80%',
-		margin: 'auto',
 		background: 'silver'
 	},
 
 	bitOff: {
-		width: '50%',
-		height: '80%',
-		margin: 'auto'	
 	},
 
 	bits: {
-	    height: '24px',
-	    display: 'table'
+	    height: '18px'
 	},
 
 	content: {
-		display: 'table-cell',
-	    verticalAlign: 'middle'
+		display: 'inline-block',
+		height: '100%'
 	},
 
 	bitContent: {
 		float: 'left',
 		borderRight: '1px solid #CCC',
-		height: '100%'
+		height: '100%',
+		boxSizing: 'border-box',
+		padding: '1px'
 	}
 }
+
+s.bitOn = {
+	...s.bit,
+	...s.bitOn
+};
+s.bitOff = {
+	...s.bit,
+	...s.bitOff
+};
 
 export default class InstrumentBits extends Component {
 

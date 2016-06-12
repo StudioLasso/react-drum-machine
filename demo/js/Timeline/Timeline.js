@@ -19,7 +19,7 @@ export default props => {
     }
     return (
 		<div className={s.container}>
-			<Range Drumkit={props.Drumkit} />
+			<Range DrumMachine={props.DrumMachine} />
 			{rows}
 		</div>
     );

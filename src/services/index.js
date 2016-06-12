@@ -69,7 +69,6 @@ export function initTimer() {
 	timer = new Worker(WorkerBlobUrl);
 	timer.onmessage = e => { 
 		if (e.data === 'tick' && tickResolve) {
-			console.log('tick');
 			tickResolve();
 			tickResolve = undefined;
 		}

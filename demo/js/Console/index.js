@@ -5,24 +5,24 @@ export default class extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			drumkitState: this.props.Drumkit.getState(),
+			drumkitState: this.props.DrumMachine.getState(),
 			elapsedTime: 0,
 			currentBeat: 0,
 			currentDivision: 0
 		};
 	}
 	componentDidMount() {
-		this.props.Drumkit.subscribe(() => {
+		this.props.DrumMachine.subscribe(() => {
 			this.setState({
-				drumkitState: this.props.Drumkit.getState(),
-				drumkitActions: this.props.Drumkit.getActions()
+				drumkitState: this.props.DrumMachine.getState(),
+				drumkitActions: this.props.DrumMachine.getActions()
 			});
 		});
 		const refresh = () => {
 			this.setState({
-				elapsedTime: this.props.Drumkit.getElapsedTime(),
-				currentBeat: this.props.Drumkit.getCurrentBeat(),
-				currentDivision: this.props.Drumkit.getCurrentDivision()
+				elapsedTime: this.props.DrumMachine.getElapsedTime(),
+				currentBeat: this.props.DrumMachine.getCurrentBeat(),
+				currentDivision: this.props.DrumMachine.getCurrentDivision()
 			});
 			setTimeout(() => requestAnimationFrame(refresh), 100);
 		};

@@ -6,7 +6,7 @@ import { getWebAudioTime } from '../../services';
 
 class AutoScroll extends React.Component {
 	componentDidMount() {
-		const el = document.getElementById('rightPanel');
+		const el = this.props.getRootElement();
 		const width = el.getBoundingClientRect().width;
 		const refresh = () => {
 			const elapsedTime = time.getElapsedTime(this.props.player, getWebAudioTime());

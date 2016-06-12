@@ -9,15 +9,14 @@ export default class extends Component {
 	}
 
 	componentDidMount() {
-		this.props.Drumkit.subscribe(() => {
+		this.props.DrumMachine.subscribe(() => {
 			this.setState({
-				//width: this.props.Drumkit.getState().player.width,
-				time: this.props.Drumkit.getState().song.time
+				time: this.props.DrumMachine.getState().song.time
 			});
 		});
 	}
 
 	render() {
-		return <Timeline {...this.state} Drumkit={this.props.Drumkit} />
+		return <Timeline {...this.state} DrumMachine={this.props.DrumMachine} />
 	}
 }

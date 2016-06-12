@@ -20,7 +20,7 @@
     "test:watch": "npm run test -- --watch",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover --report html _mocha -- --require test/.setup.js test/**/*.js --recursive",
     "serve:coverage": "./node_modules/node-static/bin/cli.js coverage",
-    "build": "rimraf lib && cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=production babel -d lib/ src",
+    "build": "rimraf lib && cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=production babel -d lib/ src --ignore=stories",
     "build:watch": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development babel --watch -d lib/ src",
     "demo": "cd demo && npm start",
     "build:demo": "cd demo && npm run build",

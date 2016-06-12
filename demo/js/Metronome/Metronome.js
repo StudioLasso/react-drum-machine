@@ -19,7 +19,7 @@ export default class Metronome extends Component {
 
 	render(){
 		return (
-			<div className={s.container} style={{width: this.props.leftOffset + 'px'}}>
+			<div className={s.container}>
 				<div className={s.metronome}>
 					<div className={s.point}></div>
 				</div>

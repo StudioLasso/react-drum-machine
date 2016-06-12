@@ -40,10 +40,6 @@ export default class App extends React.Component {
 		return time.sizeToTime(size, state.player.width, state.song.time);
 	}
 
-	static getBitsOffset() {
-		return Drumkit.getBitsOffset();
-	}
-
 	render() {
 		return (
 			<Provider store={store}>

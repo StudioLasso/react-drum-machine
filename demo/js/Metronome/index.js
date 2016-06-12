@@ -13,7 +13,7 @@ export default class extends Component {
 	componentDidMount() {
 		const refresh = () => {
 			this.setState({
-				currentBeat: this.props.Drumkit.getCurrentBeat()
+				currentBeat: this.props.DrumMachine.getCurrentBeat()
 			});
 			
 			setTimeout(() => requestAnimationFrame(refresh), 100);
@@ -24,7 +24,6 @@ export default class extends Component {
 
 	render() {
 		return <Metronome 
-			currentBeat={this.state.currentBeat} 
-			leftOffset={this.props.Drumkit.getBitsOffset()} />;
+			currentBeat={this.state.currentBeat} />;
 	}
 }
