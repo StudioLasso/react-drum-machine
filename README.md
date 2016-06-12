@@ -7,8 +7,6 @@
 
 # Getting started
 
-Ensure you have Node.js greater than version 4 (because of ES6)
-
 ## Installation
 
 ```bash
@@ -17,7 +15,7 @@ npm install react-drum-machine
 
 ## How to use it ?
 
-See example below
+Here is a simple react app :
 
 ```javascript
 import React from 'react';
@@ -32,6 +30,8 @@ ReactDom.render(
 	document.getElementById('main')
 );
 ```
+
+Ensure you have an element with id `main` in your html file
 
 # Run demo
 
