@@ -59,7 +59,7 @@ export default class InstrumentBits extends Component {
 
 		s.bits = {
 			...s.bits,
-			width: this.props.timeWidth
+			width: this.props.songSize
 		};
 		s.bitContent = {
 			...s.bitContent,

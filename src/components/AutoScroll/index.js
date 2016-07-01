@@ -10,13 +10,20 @@ class AutoScroll extends React.Component {
 		const width = el.getBoundingClientRect().width;
 		const refresh = () => {
 			const elapsedTime = time.getElapsedTime(this.props.player, getWebAudioTime());
-			const size = time.timeToSize(elapsedTime, this.props.player.width, this.props.song.time);
+			const size = time.timeToSize(elapsedTime, this.props.player, this.props.song);
 			el.scrollLeft = size > width / 2 ? size - width / 2 : 0;
 			
-			setTimeout(() => window.requestAnimationFrame(refresh), 20);
+			this.nextRefresh = setTimeout(() => window.requestAnimationFrame(refresh), 20);
 		};
 		window.requestAnimationFrame(refresh);
 	}
+
+	componentWillUnmount() {
+		if (this.nextRefresh) {
+			clearTimeout(this.nextRefresh);
+		}
+	}
+	
 	render() {
 		return null;
 	}

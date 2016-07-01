@@ -20,23 +20,32 @@ class CurrentBitContainer extends Component {
 			const webAudioTime = getWebAudioTime();
 			this.setState({
 				currentBeat: time.getCurrentBeat(this.props.player, this.props.song, webAudioTime)
-			});
-			setTimeout(() => requestAnimationFrame(refresh), 100);
+			});				
+			this.nextRefresh = setTimeout(() => requestAnimationFrame(refresh), 100);
 		};
 
 		requestAnimationFrame(refresh);
 	}
 
+	componentWillUnmount() {
+		if (this.nextRefresh) {
+			clearTimeout(this.nextRefresh);
+		}
+	}
+
 	render() {
 		return <CurrentBit 
 			song={this.props.song}
-			timeWidth={this.props.timeWidth}
-			currentBeat={this.state.currentBeat} />;
+			beatSize={this.props.beatSize}
+			songSize={this.props.songSize}
+			currentBeat={this.state.currentBeat}
+			beatPerMeasure={this.props.beatPerMeasure} />;
 	}
 }
 
 export default connect((state, props) => ({
-	timeWidth: props.timeWidth,
+	beatSize: state.player.divisionSize * state.song.divisionperbeat,
+	songSize: time.getSongSize(state.player, state.song),
 	divisionPerBeat: state.song.divisionperbeat,
 	divisionNumber: state.song.divisionnumber,
 	beatPerMeasure: state.song.beatpermeasure,

@@ -1,22 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Range from './Range';
+import s from './styles.css';
 
-import Timeline from './Timeline';
+export default props => {
+	const second = {
+		'width': (100 / props.drumState.song.time)+'%'
+    };
 
-export default class extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
-
-	componentDidMount() {
-		this.props.DrumMachine.subscribe(() => {
-			this.setState({
-				time: this.props.DrumMachine.getState().song.time
-			});
-		});
-	}
-
-	render() {
-		return <Timeline {...this.state} DrumMachine={this.props.DrumMachine} />
-	}
+    const rows = [];
+    for (var i = 0; i < props.drumState.song.time; i++) {
+		rows.push(
+			<div key={i} className={s.second} style={second}>
+				<span className={s.secondLbl}>
+					{i}
+				</span>
+			</div>
+      	);
+    }
+    return (
+		<div className={s.container}>
+			<Range {...props} />
+			{rows}
+		</div>
+    );
 }

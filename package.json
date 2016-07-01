@@ -22,6 +22,7 @@
     "serve:coverage": "./node_modules/node-static/bin/cli.js coverage",
     "build": "rimraf lib && cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=production babel -d lib/ src --ignore=stories",
     "build:watch": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development babel --watch -d lib/ src",
+    "update:lib": "npm run build && git add ./lib && git commit -m 'chore: update lib files'",
     "demo": "cd demo && npm start",
     "build:demo": "cd demo && npm run build",
     "start": "parallelshell 'npm run build:watch' 'npm run demo'",
@@ -74,7 +75,8 @@
       "path": "./node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "commit-msg": "validate-commit-msg"
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm run test && npm run update:lib",
     }
   }
 }

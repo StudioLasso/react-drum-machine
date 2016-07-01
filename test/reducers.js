@@ -115,6 +115,13 @@ describe('player reducer', () => {
 
 		expect(r.currentbeat).to.equal(5)	
 	});
+	it('shoud change division size', () => {
+		const action = actions.setDivisionSize(12)
+		deepFreeze(action)
+		const r = player(undefined, action)
+
+		expect(r.divisionSize).to.equal(12)	
+	});
 });
 
 describe('song reducer', () => {

@@ -13,13 +13,19 @@ export default class extends Component {
 	componentDidMount() {
 		const refresh = () => {
 			this.setState({
-				currentBeat: this.props.DrumMachine.getCurrentBeat()
+				currentBeat: this.props.drumTime.getCurrentBeat()
 			});
 			
-			setTimeout(() => requestAnimationFrame(refresh), 100);
+			this.nextRefresh = setTimeout(() => requestAnimationFrame(refresh), 100);
 		};
 
 		requestAnimationFrame(refresh);
+	}
+
+	componentWillUnmount() {
+		if (this.nextRefresh) {
+			clearTimeout(this.nextRefresh);
+		}
 	}
 
 	render() {

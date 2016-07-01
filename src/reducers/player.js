@@ -6,7 +6,7 @@ const initialState = {
   startTime: undefined,
   status: 'stop',
   pausedTime: undefined,
-  width: 6200
+  divisionSize: 20
 };
 
 export default function player(state= initialState, {type, payload} = {}) {
@@ -37,6 +37,11 @@ export default function player(state= initialState, {type, payload} = {}) {
 		return {
 			...state,
 			currentbeat: payload
+		}
+	case 'SET_DIVISIONSIZE':
+		return {
+			...state,
+			divisionSize: payload
 		}
 	default:
 		return state;

@@ -6,7 +6,6 @@ export default class extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			elapsedTime: 0,
 			elapsedTimeToSize: 0
 		};
 	}
@@ -14,24 +13,30 @@ export default class extends Component {
 	componentDidMount() {
 		const refresh = () => {
 			this.setState({
-				elapsedTimeToSize: this.props.DrumMachine.elapsedTimeToSize()
+				elapsedTimeToSize: this.props.drumTime.elapsedTimeToSize()
 			});
-			setTimeout(() => requestAnimationFrame(refresh), 20);
+			this.nextRefresh = setTimeout(() => requestAnimationFrame(refresh), 20);
 		};
 
 		requestAnimationFrame(refresh);
 	}
 
+	componentWillUnmount() {
+		if (this.nextRefresh) {
+			clearTimeout(this.nextRefresh);
+		}
+	}
+
 	handleChange(e) {
-		this.props.DrumMachine.getActions().changeTime(
-			this.props.DrumMachine.sizeToTime(
+		this.props.drumActions.changeTime(
+			this.props.drumTime.sizeToTime(
 				e.target.value));
 	}
 
 	render() {
 		return <Range 
 			elapsedTimeToSize={this.state.elapsedTimeToSize} 
-			width={this.props.DrumMachine.getState().player.width} 
+			size={this.props.drumTime ? this.props.drumTime.getSongSize() : 1} 
 			handleChange={this.handleChange.bind(this)} />;
 	}
 }

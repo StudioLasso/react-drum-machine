@@ -19,8 +19,6 @@ const s = {
 	}	
 };
 
-const timeWidth = 6200;
-
 class DrumKit extends React.Component {
 	componentDidMount() {
 		this.props.dispatch(actions.initDrumkit({id: 0}));
@@ -31,16 +29,12 @@ class DrumKit extends React.Component {
 	}
 
 	render() {
-		const timeStyle = {
-			width: timeWidth
-		};
-
  		return (
 			<div style={s.instruments}>
 				<AutoScroll getRootElement={this.getRootElement.bind(this)}  />
-				<div style={timeStyle}>
-					<CurrentBit timeWidth={timeWidth} />
-					<InstrumentBitsList timeWidth={timeWidth} />
+				<div>
+					<CurrentBit />
+					<InstrumentBitsList />
 				</div>
 			</div>
 		);

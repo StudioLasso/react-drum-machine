@@ -10,7 +10,7 @@ export default props => {
 					key={i}
 					instrumentIndex={i}
 					beats={ins.bits}
-					timeWidth={props.timeWidth}
+					songSize={props.songSize}
 					divisionSize={props.divisionSize}
 					changeBit={props.changeBit} />
 			))}

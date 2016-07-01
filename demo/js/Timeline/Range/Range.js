@@ -8,7 +8,7 @@ export default props => {
 			type="range"
 			value={props.elapsedTimeToSize}
 			onChange={props.handleChange}
-			max={props.width}
+			max={props.size}
 			min="0"
 			step="1">
 		</input>

@@ -1,14 +1,14 @@
 import React from 'react';
 
 export default props => {
-	const changeTime = e => props.drumkitActions.changeTime(e.target.value);
-	const changeBpm = e => props.drumkitActions.changeBpm(e.target.value);
-	const changeBeatpermeasure = e => props.drumkitActions.changeBeatPerMeasure(e.target.value);
-	const dpbClicked = e => props.drumkitActions.changeDpb(e.target.getAttribute('value'));
-	const changeElapsedTime = e => props.drumkitActions.changeElapsedTime(e.target.value);
-	const handlePlay = () => props.drumkitActions.play(0);
-	const handlePause = () => props.drumkitActions.pause();
-	const handleStop = () => props.drumkitActions.stop();
+	const changeTime = e => props.drumActions.changeTime(e.target.value);
+	const changeBpm = e => props.drumActions.changeBpm(e.target.value);
+	const changeBeatpermeasure = e => props.drumActions.changeBeatPerMeasure(e.target.value);
+	const dpbClicked = e => props.drumActions.changeDpb(e.target.getAttribute('value'));
+	const changeElapsedTime = e => props.drumActions.changeElapsedTime(e.target.value);
+	const handlePlay = () => props.drumActions.play(0);
+	const handlePause = () => props.drumActions.pause();
+	const handleStop = () => props.drumActions.stop();
 
 	return (
 		<div style={{'marginBottom':'10px'}}>
@@ -22,7 +22,7 @@ export default props => {
 							step="1"
 							min="0"
 							id="time"
-							value={props.drumkitState.song.time}
+							value={props.drumState.song.time}
 							onChange={changeTime}
 							aria-describedby="basic-addon3"/>
 					</div>
@@ -34,7 +34,7 @@ export default props => {
 							step="1"
 							min="0"
 							id="bpm"
-							value={props.drumkitState.song.bpm}
+							value={props.drumState.song.bpm}
 							onChange={changeBpm}
 							aria-describedby="basic-addon3"/>
 					</div>
@@ -47,7 +47,7 @@ export default props => {
 								data-toggle="dropdown"
 								aria-haspopup="true"
 								aria-expanded="false">
-								{props.drumkitState.song.divisionperbeat}
+								{props.drumState.song.divisionperbeat}
 								<span className="caret"></span>
 							</button>
 							<ul className="dropdown-menu">
@@ -70,7 +70,7 @@ export default props => {
 							step="1"
 							min="0"
 							id="divisionnumber"
-							value={props.drumkitState.song.beatpermeasure}
+							value={props.drumState.song.beatpermeasure}
 							onChange={changeBeatpermeasure}
 							aria-describedby="basic-addon3"/>
 					</div>
@@ -83,7 +83,7 @@ export default props => {
 							step="1"
 							min="0"
 							id="divisionnumber"
-							value={props.drumkitState.song.divisionnumber}
+							value={props.drumState.song.divisionnumber}
 							aria-describedby="basic-addon3"/>
 						</div>
 					<div className="col-xs-1">
@@ -124,17 +124,17 @@ export default props => {
 			</div>
 			<div className="row">
 				<a href="#"
-					className={`btn btn-sm btn-default ${!props.drumkitState.song.loaded ? 'disabled' : ''}`}
+					className={`btn btn-sm btn-default ${!props.drumState.song.loaded ? 'disabled' : ''}`}
 					onClick={handlePlay}>
 					<span className="glyphicon glyphicon-play"></span>
 				</a>
 				<a href="#"
-					className={`btn btn-sm btn-default ${!props.drumkitState.song.loaded ? 'disabled' : ''}`}
+					className={`btn btn-sm btn-default ${!props.drumState.song.loaded ? 'disabled' : ''}`}
 					onClick={handleStop}>
 					<span className="glyphicon glyphicon-stop"></span>
 				</a>
 				<a href="#"
-					className={`btn btn-sm btn-default ${!props.drumkitState.song.loaded ? 'disabled' : ''}`}
+					className={`btn btn-sm btn-default ${!props.drumState.song.loaded ? 'disabled' : ''}`}
 					onClick={handlePause}>
 					<span className="glyphicon glyphicon-pause"></span>
 				</a>

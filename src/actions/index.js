@@ -24,3 +24,4 @@ export const pasteMeasure = createAction('PASTE_MEASURE');
 export const measurePasted = createAction('MEASURE_PASTED');
 export const clearMeasure = createAction('CLEAR_MEASURE');
 export const changeCurrentBeat = createAction('CHANGE_CURRENTBEAT');
+export const setDivisionSize = createAction('SET_DIVISIONSIZE');

@@ -4,45 +4,97 @@ import { bindActionCreators } from 'redux'
 import 'babel-polyfill';
 
 import Drumkit from './components/Drumkit';
-import store from './store';
+import createStore from './store';
 import * as actions from './actions';
 import * as time from './utils/time';
 import { getWebAudioTime } from './services';
 
 export default class App extends React.Component {
-	static getActions() {
-		return bindActionCreators(actions, store.dispatch);
+	static propTypes = {
+		onChange: React.PropTypes.func,
+		onLoaded: React.PropTypes.func,
+		divisionSize: React.PropTypes.number
+	};
+	static defaultProps = {
+		divisionSize: 20,
+		onChange: () => true,
+		onLoaded: () => true
+	};
+
+	constructor(props) {
+		super(props);
+
+		this.store = createStore();
+
+		this.store.dispatch(actions.setDivisionSize(this.props.divisionSize));
+		this.store.subscribe(() => {
+			props.onChange(this.store.getState());
+		});
 	}
-	static getState() {
-		return store.getState();
+
+	componentDidMount() {
+		this.props.onLoaded(
+			this.getState(),
+			this.getActions(),
+			this.getInfoAPI());
 	}
-	static subscribe(cb) {
-		return store.subscribe(cb);
+
+	static getInitialState() {
+		return createStore().getState();
 	}
-	static getElapsedTime() {
-		return time.getElapsedTime(store.getState().player, getWebAudioTime());
+
+	static getInitialActions() {
+		return actions;
 	}
-	static getCurrentBeat() {
-		const state = store.getState();
+
+	getInfoAPI() {
+		return {
+			getElapsedTime: this.getElapsedTime.bind(this),
+			getCurrentBeat: this.getCurrentBeat.bind(this),
+			getCurrentDivision: this.getCurrentDivision.bind(this),
+			elapsedTimeToSize: this.elapsedTimeToSize.bind(this),
+			sizeToTime: this.sizeToTime.bind(this),
+			getSongSize: this.getSongSize.bind(this)
+		}
+	}
+
+	getActions() {
+		return bindActionCreators(actions, this.store.dispatch);
+	}
+	getState() {
+		return this.store.getState();
+	}
+	subscribe(cb) {
+		return this.store.subscribe(cb);
+	}
+	getElapsedTime() {
+		return time.getElapsedTime(this.store.getState().player, getWebAudioTime());
+	}
+	getCurrentBeat() {
+		const state = this.store.getState();
 		return time.getCurrentBeat(state.player, state.song, getWebAudioTime());
 	}
-	static getCurrentDivision() {
-		const state = store.getState();
+	getCurrentDivision() {
+		const state = this.store.getState();
 		return time.getCurrentDivision(state.player, state.song, getWebAudioTime());
 	}
-	static elapsedTimeToSize() {
-		const elapsedTime = time.getElapsedTime(store.getState().player, getWebAudioTime());
-		const state = store.getState();
-		return time.timeToSize(elapsedTime, state.player.width, state.song.time);
+	elapsedTimeToSize() {
+		const elapsedTime = time.getElapsedTime(this.store.getState().player, getWebAudioTime());
+		const state = this.store.getState();
+		return time.timeToSize(elapsedTime, state.player, state.song);
 	}
-	static sizeToTime(size) {
-		const state = store.getState();
-		return time.sizeToTime(size, state.player.width, state.song.time);
+	sizeToTime(size) {
+		const state = this.store.getState();
+		return time.sizeToTime(size, state.player, state.song);
+	}
+	getSongSize() {
+		const state = this.store.getState();
+		return time.getSongSize(state.player, state.song);
 	}
 
 	render() {
 		return (
-			<Provider store={store}>
+			<Provider store={this.store}>
 				<Drumkit {...this.props} />
 			</Provider>
 		);
