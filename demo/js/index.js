@@ -20,14 +20,12 @@ class App extends React.Component {
 	}
 
 	onChange(state) {
-		console.log('hey changed', arguments);
 		this.setState({
 			drumState: state
 		});
 	}
 
 	onLoaded(state, actions, time) {
-		console.log('hey loaded', arguments);
 		this.setState({
 			drumActions: actions,
 			drumTime: time
