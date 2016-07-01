@@ -76,7 +76,7 @@
     },
     "ghooks": {
       "commit-msg": "validate-commit-msg",
-      "pre-push": "npm run test && npm run update:lib",
+      "pre-push": "npm run test && npm run update:lib"
     }
   }
 }
