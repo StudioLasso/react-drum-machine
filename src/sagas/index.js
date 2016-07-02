@@ -17,7 +17,7 @@ import * as time from '../utils/time';
 let lastDiv=-1;
 
 export function* loadSound(instrument) {
-	const buffer = yield call(fetchSound, instrument.soundurl);
+	const buffer = yield call(fetchSound, instrument.sound, instrument.bearer);
 	yield put(actions.soundLoaded({buffer, instrument}));
 }
 
@@ -71,15 +71,18 @@ export function* runScheduler() {
 	}
 }
 
-export function* watchDrumkitInit() {
-	const { payload: { id } } = yield take('INIT_DRUMKIT');
-	yield call(loadAudioContext);
-	const songs = yield call(fetchSongs);
-	yield put(actions.initSong({ song: songs[id] }));
+export function* watchInitSong() {
+	const { payload: song } = yield take('LOAD_SONG');
+	yield put(actions.initSong({ song }));
 	yield call(loadSounds);
 	yield call(initTimer);
 	yield fork(runScheduler);
-	yield put(actions.songLoaded());
+	yield put(actions.songLoaded());	
+}
+
+export function* watchDrumkitInit() {
+	yield take('INIT_DRUMKIT');
+	yield call(loadAudioContext);
 }
 
 export function* play() {
@@ -201,6 +204,7 @@ export function *watchEditInstruments() {
 export default function *root() {
 	yield [
 		fork(watchDrumkitInit),
+		fork(watchInitSong),
 		fork(watchControlPlayer),
 		fork(watchEditInstruments)
 	];

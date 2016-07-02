@@ -1,10 +1,11 @@
-require('firebase');
+//require('firebase');
 import WorkerBlobUrl from './timerworker.js';
 
 let audioCtx,
 	timer,
 	tickResolve;
 
+/*
 export function fetchSongs() {
 	return new Promise((resolve, reject) => {
 		const myDataRef = new Firebase('https://shining-heat-7214.firebaseio.com/songs');
@@ -15,6 +16,7 @@ export function fetchSongs() {
 		});
 	})
 }
+*/
 
 export function loadAudioContext() {
 	if( ! audioCtx ) {
@@ -24,15 +26,24 @@ export function loadAudioContext() {
 	}
 }
 
-export function fetchSound(url) {
-	const accesstoken = 'JfnDpAnZcQ8AAAAAAAABYbt6Zvq6-U10DeFgzcZEbz7XYZrTv9ugPuuRl0ai9BFR';
+export function fetchSound(url, bearer) {
+	const accesstoken = '';
+	let config = {
+		method: 'get'
+	};
 
-	return fetch(url, {
-		method: 'get',
-		headers: {
-			'Authorization': `Bearer ${accesstoken}`
-		}
-	})	
+	if (bearer) {
+		config = {
+			...config,
+			...{
+				headers: {
+					Authorization: `Bearer ${bearer}`
+				}
+			}
+		};
+	}
+
+	return fetch(url, config)	
 		.then(r=> r.arrayBuffer())
 		.then(buffer => {
 			return new Promise(resolve => {

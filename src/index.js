@@ -13,12 +13,14 @@ export default class App extends React.Component {
 	static propTypes = {
 		onChange: React.PropTypes.func,
 		onLoaded: React.PropTypes.func,
-		divisionSize: React.PropTypes.number
+		divisionSize: React.PropTypes.number,
+		song: React.PropTypes.object
 	};
 	static defaultProps = {
-		divisionSize: 20,
 		onChange: () => true,
-		onLoaded: () => true
+		onLoaded: () => true,
+		divisionSize: 20,
+		song: null
 	};
 
 	constructor(props) {
@@ -33,6 +35,12 @@ export default class App extends React.Component {
 	}
 
 	componentDidMount() {
+		this.store.dispatch(actions.initDrumkit());
+
+		if (this.props.song) {
+			this.store.dispatch(actions.loadSong(this.props.song));
+		}
+
 		this.props.onLoaded(
 			this.getState(),
 			this.getActions(),

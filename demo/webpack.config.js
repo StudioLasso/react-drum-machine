@@ -43,6 +43,7 @@ const config = {
 		{ test: /\.css$/, loaders: ['style', 'css?sourceMap'], exclude: /js(\/|\\).*\.css$/},
 		{ test: /\.png$/, loader: 'file?name=img/[name].[ext]' },
 		{ test: /\.mp3$/, loader: 'file?name=sounds/[name].[ext]' },
+		{ test: /\.json$/, loader: 'json'},
 		{ test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url?limit=100000&mimetype=application/font-woff&name=fonts/[name].[ext]' },
 		{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=100000&mimetype=application/octet-stream&name=fonts/[name].[ext]' },
 		{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: 'file?name=fonts/[name].[ext]' },

@@ -1,3 +1,5 @@
+import { divisionToTime } from '../utils/time';
+
 const initialState = {
 	instruments: [],
 	bpm: 0,
@@ -14,15 +16,18 @@ export default function song(state= initialState, {type, payload} = {}) {
 		const { 
 			song: { 
 				bpm, 
-				time, 
 				beatpermeasure, 
 				divisionperbeat, 
 				instruments }
 			} = payload,
-			divisionnumber = bpm * time / 60 * divisionperbeat;
+			divisionnumber =  Math.max.apply(Math, instruments.map(i=>i.bits.length));
 
 		// Deep copy array of instruments
 		const songInstruments = JSON.parse(JSON.stringify(instruments));
+		const time = divisionToTime({
+			divisionperbeat,
+			bpm
+		}, divisionnumber);
 
 		songInstruments.forEach(i => {
 			i.bits = [...Array(divisionnumber).keys()].map(d => i.bits[d] || 0);
@@ -30,18 +35,18 @@ export default function song(state= initialState, {type, payload} = {}) {
 
 		return {
 			bpm,
-			time,
 			beatpermeasure,
 			divisionperbeat,
 			instruments: songInstruments,
-			divisionnumber
+			divisionnumber,
+			time
 		}
 	case 'SOUND_LOADED':
 		const { buffer, instrument } = payload;
 		return {
 			...state,
 			instruments: state.instruments.map(i => {
-				if (i.id === instrument.id) {
+				if (i.title === instrument.title) {
 					return {
 						...i,
 						buffer

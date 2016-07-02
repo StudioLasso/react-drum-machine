@@ -5,6 +5,9 @@ import DivisionCopier from './DivisionCopier';
 export default props => {
 	return (
 		<div>
+			{props.instruments.length === 0 && 
+				<div>no song loaded</div>
+			}
 			{props.instruments.map((ins, i) => (
 				<InstrumentBits 
 					key={i}

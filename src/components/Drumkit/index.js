@@ -20,10 +20,6 @@ const s = {
 };
 
 class DrumKit extends React.Component {
-	componentDidMount() {
-		this.props.dispatch(actions.initDrumkit({id: 0}));
-	}
-
 	getRootElement() {
 		return ReactDOM.findDOMNode(this);
 	}

@@ -49,6 +49,7 @@
     "isparta": "^4.0.0",
     "istanbul": "^0.4.3",
     "jsdom": "^9.0.0",
+    "json-loader": "^0.5.4",
     "mocha": "^2.4.5",
     "node-static": "^0.7.7",
     "object-assign": "^4.1.0",
