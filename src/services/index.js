@@ -1,22 +1,8 @@
-//require('firebase');
 import WorkerBlobUrl from './timerworker.js';
 
 let audioCtx,
 	timer,
 	tickResolve;
-
-/*
-export function fetchSongs() {
-	return new Promise((resolve, reject) => {
-		const myDataRef = new Firebase('https://shining-heat-7214.firebaseio.com/songs');
-		myDataRef.on("value", snap => {
-			resolve(snap.val());
-		}, err => {
-			reject(err);
-		});
-	})
-}
-*/
 
 export function loadAudioContext() {
 	if( ! audioCtx ) {

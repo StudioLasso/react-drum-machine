@@ -8,7 +8,7 @@ import Metronome from './Metronome';
 import InstrumentList from './InstrumentList';
 import Timeline from './Timeline';
 
-const example1 = require('../../songs/musclemuseum.json');
+const song = require('../../songs/musclemuseum.json');
 
 class App extends React.Component {
 	constructor(props) {
@@ -53,7 +53,7 @@ class App extends React.Component {
 							drumActions={this.state.drumActions}
 							drumTime={this.state.drumTime} />
 						<DrumMachine 
-							song={example1}
+							song={song}
 							onLoaded={this.onLoaded.bind(this)}
 							onChange={this.onChange.bind(this)} 
 							/>

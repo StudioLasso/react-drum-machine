@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import 'babel-polyfill';
 
+import 'pubsub-js';
+
 import Drumkit from './components/Drumkit';
 import createStore from './store';
 import * as actions from './actions';
@@ -14,13 +16,15 @@ export default class App extends React.Component {
 		onChange: React.PropTypes.func,
 		onLoaded: React.PropTypes.func,
 		divisionSize: React.PropTypes.number,
-		song: React.PropTypes.object
+		song: React.PropTypes.object,
+		id: React.PropTypes.string
 	};
 	static defaultProps = {
 		onChange: () => true,
 		onLoaded: () => true,
 		divisionSize: 20,
-		song: null
+		song: null,
+		id: null
 	};
 
 	constructor(props) {
@@ -45,6 +49,24 @@ export default class App extends React.Component {
 			this.getState(),
 			this.getActions(),
 			this.getInfoAPI());
+
+		const dispatchAction = (m,d) => {
+			if (d.action && typeof actions[d.action] === 'function') {
+				this.store.dispatch(actions[d.action](d.args));
+			} 
+		};
+
+		PubSub.subscribe('drum.action', dispatchAction);
+		if (this.props.id) {
+			PubSub.subscribe(`${this.props.id}.action`, dispatchAction);			
+		}
+	}
+
+	componentWillUnmount() {
+		PubSub.unsubscribe('drum.action');
+		if (this.props.id) {
+			PubSub.unsubscribe(`${this.props.id}.action`);			
+		}
 	}
 
 	static getInitialState() {

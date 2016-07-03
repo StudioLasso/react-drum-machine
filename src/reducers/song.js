@@ -40,7 +40,8 @@ export default function song(state= initialState, {type, payload} = {}) {
 			beatpermeasure,
 			divisionperbeat,
 			instruments: songInstruments,
-			divisionnumber
+			divisionnumber,
+			time
 		}
 	case 'SOUND_LOADED':
 		const { buffer, instrument } = payload;
