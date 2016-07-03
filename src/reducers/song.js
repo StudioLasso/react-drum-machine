@@ -14,7 +14,8 @@ export default function song(state= initialState, {type, payload} = {}) {
 	switch (type) {
 	case 'INIT_SONG':
 		const { 
-			song: { 
+			song: {
+				title,
 				bpm, 
 				beatpermeasure, 
 				divisionperbeat, 
@@ -34,12 +35,12 @@ export default function song(state= initialState, {type, payload} = {}) {
 		});
 
 		return {
+			title,
 			bpm,
 			beatpermeasure,
 			divisionperbeat,
 			instruments: songInstruments,
-			divisionnumber,
-			time
+			divisionnumber
 		}
 	case 'SOUND_LOADED':
 		const { buffer, instrument } = payload;

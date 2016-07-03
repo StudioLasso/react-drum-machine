@@ -115,35 +115,35 @@ describe('player reducer', () => {
 });
 
 describe('song reducer', () => {
-	xit('should init general properties of song', () => {
+	it('should init general properties of song', () => {
 		const action = actions.initSong({ song: song1});
 		deepFreeze(action);
 		const r = song(undefined, action);
 
 		const e = {
+			title: 'Test',
 			bpm: song1.bpm,
-			time: song1.time,
 			beatpermeasure: song1.beatpermeasure,
 			divisionperbeat: song1.divisionperbeat
-		}
+		};
 
-		e.divisionnumber = e.bpm * e.time / 60 * e.divisionperbeat;
+		e.divisionnumber = Math.max.apply(Math, song1.instruments.map(i=>i.bits.length));
 
 		expect(r).to.shallowDeepEqual(e);
 	});
-	xit('should init bits for all instruments', () => {
+	it('should init bits for all instruments', () => {
 		const action = actions.initSong({ song: song2});
 		deepFreeze(action);
 		const r = song(undefined, action);
 
 		const e = {
+			title: 'Test',
 			bpm: song2.bpm,
-			time: song2.time,
 			divisionperbeat: song2.divisionperbeat,
 			instruments: song2.instruments
 		};
 
-		e.divisionnumber = e.bpm * e.time / 60 * e.divisionperbeat;
+		e.divisionnumber = Math.max.apply(Math, song2.instruments.map(i=>i.bits.length));
 		e.instruments = JSON.parse(JSON.stringify(e.instruments));
 		e.instruments.forEach(i => {
 			i.bits = [...Array(e.divisionnumber).keys()].map(d => i.bits[d] || 0);
