@@ -64,16 +64,16 @@ export default class App extends React.Component {
 			} 
 		};
 
-		PubSub.subscribe('drum.action', dispatchAction);
+		PubSub.subscribe('drum', dispatchAction);
 		if (this.props.id) {
-			PubSub.subscribe(`${this.props.id}.action`, dispatchAction);			
+			PubSub.subscribe(`${this.props.id}`, dispatchAction);			
 		}
 	}
 
 	componentWillUnmount() {
-		PubSub.unsubscribe('drum.action');
+		PubSub.unsubscribe('drum');
 		if (this.props.id) {
-			PubSub.unsubscribe(`${this.props.id}.action`);			
+			PubSub.unsubscribe(`${this.props.id}`);			
 		}
 	}
 
