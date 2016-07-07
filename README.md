@@ -15,11 +15,57 @@ npm install react-drum-machine
 
 ## How to use it ?
 
-Here is a simple react app :
+### NPM
+
+With [npm](https://npmjs.com):
+
+```
+npm install --save react-drum-machine
+```
+
+Then, you can use a module bundler like [webpack](webpack.github.io) or [browserify](http://browserify.org/) to import package
+
+```js
+// using an ES6 transpiler, like babel
+import ReactDrumMachine from 'react-drum-machiner'
+
+// not using an ES6 transpiler
+var ReactDrumMachine = require('react-drum-machine');
+```
+
+### UMD
+
+The UMD build is also available on npmcdn:
+```html
+<script src="https://npmcdn.com/react-drum-machine/lib/react-drum-machine.min.js"></script>
+```
+You can find the library on window.ReactDrumMachine.
+
+Also you have to import React, ReactDOM and perhaps babel-polyfill from CDNs.
+```html
+<head>
+...
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.9.1/polyfill.js"></script>
+<script src="https://fb.me/react-15.2.0.js"></script>
+<script src="https://fb.me/react-dom-15.2.0.js"></script>
+<script src="https://npmcdn.com/react-drum-machine/lib/react-drum-machine.min.js"></script>
+...
+</head>
+```
+
+To use [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax, you can use [Babel](https://babeljs.io/)
+
+## Test it now !
+
+Play with drum machine easily with this [JSBin](https://jsbin.com/herafiw/edit?html,js,output)
+
+## Let's code
+
+Here is a simple react app using ES6 module and syntax ([Babel](https://babeljs.io/), [webpack](webpack.github.io) or [browserify](http://browserify.org/) can help you)
 
 ```javascript
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
 import DrumMachine from 'react-drum-machine';
 
@@ -53,7 +99,7 @@ const song = {
   ]
 }
 
-ReactDom.render(
+ReactDOM.render(
 	<div>
 		<button onClick={() => PubSub.publish('drum.action',{action:'play'})}>Play</button>
 		<button onClick={() => PubSub.publish('drum.action',{action:'stop'})}>Stop</button>
