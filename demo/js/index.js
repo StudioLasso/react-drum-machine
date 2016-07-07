@@ -33,9 +33,21 @@ class App extends React.Component {
 		});
 	}
 
+	importGist() {
+
+	}
+
 	render() {
 		return (
 			<div>
+				<form className="form-horizontal">
+					<div className="form-group">
+						<div className="col-sm-6">
+							<input type="text" ref="gistUrl" className="form-control" defaultValue="https://gist.github.com/popul/0828e0d14ace8dda3673aa6d31d0984d" />						
+						</div>		
+						<button onClick={this.importGist} className="btn btn-default col-sm-2">import</button>
+					</div>
+				</form>
 				<Console 
 					drumState={this.state.drumState}
 				 	drumActions={this.state.drumActions}

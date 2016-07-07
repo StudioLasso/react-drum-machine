@@ -20,7 +20,8 @@
     "test:watch": "npm run test -- --watch",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover --report html _mocha -- --require test/.setup.js test/**/*.js --recursive",
     "serve:coverage": "./node_modules/node-static/bin/cli.js coverage",
-    "build": "rimraf lib && cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=production babel -d lib/ src --ignore=stories",
+    "build:web": "BABEL_DISABLE_CACHE=1 NODE_ENV=production webpack",
+    "build": "rimraf lib && cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=production babel -d lib/ src --ignore=stories && npm run build:web",
     "build:watch": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development babel --watch -d lib/ src",
     "update:lib": "npm run build && git add ./lib",
     "demo": "cd demo && npm start",
@@ -33,6 +34,8 @@
     "@kadira/react-storybook-addon-info": "^3.0.9",
     "@kadira/storybook": "^1.36.0",
     "babel-cli": "^6.10.1",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
@@ -61,7 +64,6 @@
     "validate-commit-msg": "^2.6.1"
   },
   "dependencies": {
-    "babel-loader": "^6.2.4",
     "pubsub-js": "^1.5.3",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
