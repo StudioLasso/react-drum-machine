@@ -3,6 +3,7 @@ language: node_js
 cache:
   directories:
     - node_modules
+    - demo/node_modules
 notifications:
   on_failure: change
 node_js:
