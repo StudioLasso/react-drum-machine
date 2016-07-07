@@ -16,8 +16,18 @@ class App extends React.Component {
 
 		this.state = {
 			drumState: DrumMachine.getInitialState(),
-			drumActions: DrumMachine.getInitialActions()
+			drumActions: DrumMachine.getInitialActions(),
+			url: 'https://gist.githubusercontent.com/popul/66eb6d54c83fcfcf36e4f2570643f230/raw/020c0d264821c5e87e028d004978829d227b87fe/musclemuseum.json',
+			song: null
 		}
+
+		this.loadSong(this.state.url);
+	}
+
+	loadSong(url) {
+		fetch(url)
+			.then(r => r.json())
+			.then(song => this.setState({song}));
 	}
 
 	onChange(state) {
@@ -33,8 +43,12 @@ class App extends React.Component {
 		});
 	}
 
-	importGist() {
-
+	importGist(e) {
+		e.preventDefault();
+		this.setState({
+			url: this.refs.gistUrl.value
+		});
+		this.loadSong(this.refs.gistUrl.value);
 	}
 
 	render() {
@@ -43,9 +57,17 @@ class App extends React.Component {
 				<form className="form-horizontal">
 					<div className="form-group">
 						<div className="col-sm-6">
-							<input type="text" ref="gistUrl" className="form-control" defaultValue="https://gist.github.com/popul/0828e0d14ace8dda3673aa6d31d0984d" />						
+							<input 
+								type="text" 
+								ref="gistUrl" 
+								className="form-control" 
+								defaultValue={this.state.url} />						
 						</div>		
-						<button onClick={this.importGist} className="btn btn-default col-sm-2">import</button>
+						<button 
+							onClick={this.importGist.bind(this)} 
+							className="btn btn-default col-sm-2">
+							import
+						</button>
 					</div>
 				</form>
 				<Console 
@@ -64,11 +86,11 @@ class App extends React.Component {
 							drumState={this.state.drumState}
 							drumActions={this.state.drumActions}
 							drumTime={this.state.drumTime} />
+						
 						<DrumMachine 
-							song={song}
-							onLoaded={this.onLoaded.bind(this)}
-							onChange={this.onChange.bind(this)} 
-							/>
+								song={this.state.song}
+								onLoaded={this.onLoaded.bind(this)}
+								onChange={this.onChange.bind(this)} />
 					</div>
 				</div>
 			</div>

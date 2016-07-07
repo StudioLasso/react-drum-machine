@@ -38,6 +38,14 @@ export default class App extends React.Component {
 		});
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.song !== this.props.song) {
+			if (nextProps.song) {
+				this.store.dispatch(actions.loadSong(nextProps.song));
+			}
+		}
+	}
+
 	componentDidMount() {
 		this.store.dispatch(actions.initDrumkit());
 

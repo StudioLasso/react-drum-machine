@@ -72,12 +72,14 @@ export function* runScheduler() {
 }
 
 export function* watchInitSong() {
-	const { payload: song } = yield take('LOAD_SONG');
-	yield put(actions.initSong({ song }));
-	yield call(loadSounds);
-	yield call(initTimer);
-	yield fork(runScheduler);
-	yield put(actions.songLoaded());	
+	while (true) {
+		const { payload: song } = yield take('LOAD_SONG');
+		yield put(actions.initSong({ song }));
+		yield call(loadSounds);
+		yield call(initTimer);
+		yield fork(runScheduler);
+		yield put(actions.songLoaded());		
+	}
 }
 
 export function* watchDrumkitInit() {
