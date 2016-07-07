@@ -57,7 +57,7 @@ To use [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax, yo
 
 ## Test it now !
 
-Play with drum machine easily with this [JSBin](https://jsbin.com/herafiw/edit?html,js,output)
+Play with drum machine easily with this [JSBin](https://jsbin.com/herafiw)
 
 ## Let's code
 
