@@ -94,8 +94,8 @@ const song = {
 
 ReactDOM.render(
 	<div>
-		<button onClick={() => PubSub.publish('drum.action',{action:'play'})}>Play</button>
-		<button onClick={() => PubSub.publish('drum.action',{action:'stop'})}>Stop</button>
+		<button onClick={() => PubSub.publish('drum',{action:'play'})}>Play</button>
+		<button onClick={() => PubSub.publish('drum',{action:'stop'})}>Stop</button>
 		<DrumMachine song={song} />
 	</div>,
 	document.getElementById('main')
@@ -111,6 +111,93 @@ Ensure you have an element with id `main` in your html file
 2. Install dependencies `cd react-drum-machine && npm i && cd demo && npm i`
 
 3. Execute demo `npm start`
+
+# API
+
+## `<ReactDrumMachine />`
+Drum machine component. Display and play songs
+
+### Props
+
+#### `song`
+An object representing the song. [Here](https://github.com/StudioLasso/react-drum-machine/blob/master/songs/musclemuseum.json) is an example.
+
+Song structure :
+
+```js
+{
+	"title": <String>, // song title
+	"beatpermeasure": <Number>, // beats per measure
+	"bpm": <Number>,
+	"divisionperbeat": <Number>, // divisions per beat
+	"instruments": [
+	{
+		"title": <String>, // instrument name
+		"image": <String>, // image url, optional
+		"sound": <String>, // sound url
+		"bearer": <String> // token to get sound, optional,
+		"bits": <[<Number>]> // array of bits (0 or 1)
+	}]
+}
+```
+
+After component is mounted, song can be changed.
+
+#### `divisionSize`
+Size in pixel of a division. Default is `20` pixels.
+
+#### `id`
+Drum machine can be controlled with publish/subscribe mechanism. 
+
+If you have multiple instances of drum machine, you can define an id for each one and target a specific instance when you publish an action. Here is an example :
+
+```
+<ReactDrumMachine id="dm1" />
+<ReactDrumMachine id="dm2" />
+
+...
+
+PubSub.publish('dm1', {action:'play'});
+PubSub.publish('dm2', {action:'stop'});
+```
+
+#### `onLoaded`
+Callback triggered when `<ReactDrumMachine />` is mounted. It passes 3 arguments :
+- state: actual state of the component. Read [reducers](https://github.com/StudioLasso/react-drum-machine/tree/master/src/reducers) code to have more details on structure 
+- actions: [all actions](https://github.com/StudioLasso/react-drum-machine/blob/master/src/actions/index.js). Useful to interact with drum machine.
+- infoAPI: a set of methods to get informations about elapsed time, current beat, song size, etc ...
+  - `getElapsedTime()` : returns elapsed time in seconds
+  - `getCurrentBeat()` : returns current beat
+  - `getCurrentDivision()` : returns current division
+  - `elapsedTimeToSize()` : returns convertion of elapsed time to pixels 
+  - `sizeToTime(<Number>)` : returns convertion of size in argument into seconds
+  - `getSongSize()` : returns size of song in pixels
+
+#### `onChange`
+Callback triggered when state changes. It passes state in argument.
+
+## `PubSub`
+publish/subscribe object to trigger drum machine [actions](https://github.com/StudioLasso/react-drum-machine/blob/master/src/actions/index.js). Here is some examples:
+
+```js
+// trigger action play
+PubSub.publish('drum',{action:'play'});
+
+// trigger action stop
+PubSub.publish('drum',{action:'stop'});
+```
+
+First argument of `PubSub.publish()` helps to target drum machine instances. `<ReactDrumMachine />` have `'drum'` as default id. It can specified using `id` props (ex: `<ReactDrumMachine id="dm1" />`)
+
+Second argument of `PubSub.publish()` take a object like this :
+```js
+{
+	action: <string> // action method name
+	args: <object> // action payload 
+}
+```
+
+Read [reducers](https://github.com/StudioLasso/react-drum-machine/tree/master/src/reducers) code to have details on payload sturctures
 
 # License
 
