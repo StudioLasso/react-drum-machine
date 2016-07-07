@@ -8,8 +8,6 @@ import Metronome from './Metronome';
 import InstrumentList from './InstrumentList';
 import Timeline from './Timeline';
 
-const song = require('../../songs/musclemuseum.json');
-
 class App extends React.Component {
 	constructor(props) {
 		super(props);
