@@ -5,17 +5,15 @@
 [![devDependency Status](https://david-dm.org/studiolasso/react-drum-machine/dev-status.svg)](https://david-dm.org/studiolasso/react-drum-machine#info=devDependencies)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 
-# Getting started
+Drum machine made with :heart: and :muscle:. 
 
-## Installation
+Can be used in ReactJS applications.
 
-```bash
-npm install react-drum-machine
-```
+Supports [browsers with web audio](http://caniuse.com/#search=web%20audio)
 
-## How to use it ?
+# How to use it ?
 
-### NPM
+## NPM
 
 With [npm](https://npmjs.com):
 
@@ -27,13 +25,13 @@ Then, you can use a module bundler like [webpack](webpack.github.io) or [browser
 
 ```js
 // using an ES6 transpiler, like babel
-import ReactDrumMachine from 'react-drum-machiner'
+import ReactDrumMachine from 'react-drum-machine'
 
 // not using an ES6 transpiler
 var ReactDrumMachine = require('react-drum-machine');
 ```
 
-### UMD
+## UMD
 
 The UMD build is also available on npmcdn:
 ```html
@@ -55,11 +53,11 @@ Also you have to import React, ReactDOM and perhaps babel-polyfill from CDNs.
 
 To use [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) syntax, you can use [Babel](https://babeljs.io/)
 
-## Test it now !
+# Test it now !
 
 Play with drum machine easily with this [JSBin](https://jsbin.com/herafiw)
 
-## Let's code
+# Let's code
 
 Here is a simple react app using ES6 module and syntax ([Babel](https://babeljs.io/), [webpack](webpack.github.io) or [browserify](http://browserify.org/) can help you)
 
