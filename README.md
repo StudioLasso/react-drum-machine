@@ -28,9 +28,9 @@ var ReactDrumMachine = require('react-drum-machine');
 
 ## UMD
 
-The UMD build is also available on npmcdn:
+The UMD build is also available on unpkg:
 ```html
-<script src="https://npmcdn.com/react-drum-machine/lib/react-drum-machine.min.js"></script>
+<script src="https://unpkg.com/react-drum-machine/lib/react-drum-machine.min.js"></script>
 ```
 You can find the library on window.ReactDrumMachine.
 
@@ -41,7 +41,7 @@ Also you have to import React, ReactDOM and perhaps babel-polyfill from CDNs.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.9.1/polyfill.js"></script>
 <script src="https://fb.me/react-15.2.0.js"></script>
 <script src="https://fb.me/react-dom-15.2.0.js"></script>
-<script src="https://npmcdn.com/react-drum-machine/lib/react-drum-machine.min.js"></script>
+<script src="https://unpkg.com/react-drum-machine/lib/react-drum-machine.min.js"></script>
 ...
 </head>
 ```
