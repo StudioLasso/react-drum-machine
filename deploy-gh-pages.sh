@@ -2,7 +2,7 @@
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "master" ]; then exit 0; fi
 cd demo/dist
 git init
-git config user.name "PaulMusso"
+git config user.name "popul"
 git config user.email "paul@musso.io"
 git add .
 git commit -m "Deploy to GitHub Pages"
