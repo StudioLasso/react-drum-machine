@@ -17,8 +17,8 @@ module.exports = {
 		'babel-polyfill': 'babelPolyfill'
     },
 	module: {
-		loaders: [
-			{ test: /\.js$/, loader: 'babel', exclude: /node_modules/ }
+		rules: [
+			{ test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }
 		]
 	},
 	plugins: [

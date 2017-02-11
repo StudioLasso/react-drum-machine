@@ -18,8 +18,8 @@ const config = {
 		'./assets/sounds/bass-musclemuseum.mp3',
 		'./assets/sounds/tom1.mp3',
  		'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
- 		'script!jquery',
-		'script!bootstrap/dist/js/bootstrap.js',
+ 		'script-loader!jquery',
+		'script-loader!bootstrap/dist/js/bootstrap.js',
 		'bootstrap/dist/css/bootstrap.css',
 		'react',
 		'react-dom',
@@ -37,17 +37,16 @@ const config = {
 		}
 	},
 	module: {
-		loaders: [
-		{ test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
-		{ test: /js(\/|\\).*\.css$/, loaders: ['style', 'css?sourceMap&modules']},
-		{ test: /\.css$/, loaders: ['style', 'css?sourceMap'], exclude: /js(\/|\\).*\.css$/},
-		{ test: /\.png$/, loader: 'file?name=img/[name].[ext]' },
-		{ test: /\.mp3$/, loader: 'file?name=sounds/[name].[ext]' },
-		{ test: /\.json$/, loader: 'json'},
-		{ test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url?limit=100000&mimetype=application/font-woff&name=fonts/[name].[ext]' },
-		{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=100000&mimetype=application/octet-stream&name=fonts/[name].[ext]' },
-		{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: 'file?name=fonts/[name].[ext]' },
-		{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=100000&mimetype=image/svg+xml&name=fonts/[name].[ext]' }
+		rules: [
+		{ test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+		{ test: /js(\/|\\).*\.css$/, use: ['style-loader', 'css-loader?sourceMap&modules']},
+		{ test: /\.css$/, use: ['style-loader', 'css-loader?sourceMap'], exclude: /js(\/|\\).*\.css$/},
+		{ test: /\.png$/, loader: 'file-loader?name=img/[name].[ext]' },
+		{ test: /\.mp3$/, loader: 'file-loader?name=sounds/[name].[ext]' },
+		{ test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url-loader?limit=100000&mimetype=application/font-woff&name=fonts/[name].[ext]' },
+		{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url-loader?limit=100000&mimetype=application/octet-stream&name=fonts/[name].[ext]' },
+		{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,    loader: 'file-loader?name=fonts/[name].[ext]' },
+		{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url-loader?limit=100000&mimetype=image/svg+xml&name=fonts/[name].[ext]' }
 		]
 	},
 	plugins: [
@@ -62,7 +61,6 @@ const config = {
 		}),
 		new webpack.HotModuleReplacementPlugin()
 	],
-	progress: true,
 	devtool: 'source-map'
 };
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import ReactDrumMachine from '.';
 
-import example1 from '!json!../songs/example1.json';
-import musclemuseum from '!json!../songs/musclemuseum';
+import example1 from '../songs/example1.json';
+import musclemuseum from '../songs/musclemuseum.json';
 
 storiesOf('basic', module)
 	.addDecorator(story => (

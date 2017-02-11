@@ -53,7 +53,6 @@
     "isparta": "^4.0.0",
     "istanbul": "^0.4.5",
     "jsdom": "^9.10.0",
-    "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "node-static": "^0.7.9",
     "object-assign": "^4.1.1",
@@ -62,7 +61,8 @@
     "react-addons-test-utils": "^15.4.2",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2",
-    "validate-commit-msg": "^2.11.1"
+    "validate-commit-msg": "^2.11.1",
+    "webpack": "^2.2.1"
   },
   "dependencies": {
     "pubsub-js": "^1.5.4",
