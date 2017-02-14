@@ -112,6 +112,22 @@ export default function song(state= initialState, {type, payload} = {}) {
 				return newInstrument;
 			})
 		};
+	case 'CHANGE_BPM':
+		return {
+			...state,
+			bpm: payload
+		};
+	case 'CHANGE_BEATPERMEASURE':
+		return {
+			...state,
+			beatpermeasure: payload
+		};
+	case 'CHANGE_DPB':
+		return {
+			...state,
+			divisionperbeat: payload
+		};
+
 	default:
 		return state;
 	}
