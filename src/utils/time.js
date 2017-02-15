@@ -18,9 +18,8 @@ export function getElapsedTime(playerState, time) {
 	return playerState.pausedTime || ((time - playerState.startTime) || 0);
 }
 
-export function getCurrentBeat(playerState, songState, time) {	
+export function getCurrentBeat(playerState, songState, time) {
 	const elapsedTime = getElapsedTime(playerState, time);
-	console.log(elapsedTime)
 	return Math.floor(elapsedTime / 60 * songState.bpm);
 }
 
